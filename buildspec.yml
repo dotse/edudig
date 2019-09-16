@@ -5,10 +5,9 @@ phases:
     commands:
       - echo pre_build steps...
       - aws --version
-#      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
   install:
     runtime-versions:
-      python: 3.7
       docker: 18
   build:
     commands:
@@ -19,4 +18,4 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-#      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:latest
