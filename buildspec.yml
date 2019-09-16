@@ -7,8 +7,6 @@ phases:
       - aws --version
 #      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
   build:
-    runtime-versions:
-      docker: 18
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
