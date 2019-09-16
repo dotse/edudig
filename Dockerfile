@@ -18,4 +18,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/ .
 
-CMD FLASK_APP=dig_parser.py flask run
+CMD FLASK_APP=dig_parser.py flask run -h 0.0.0.0
