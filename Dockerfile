@@ -1,7 +1,9 @@
 FROM alpine:3.10
 
+WORKDIR /app
+
 RUN echo "**** install Python ****" && \
-    apk add --no-cache python3 && \
+    apk add --no-cache python3 bind-tools && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
     \
     echo "**** install pip ****" && \
@@ -10,7 +12,8 @@ RUN echo "**** install Python ****" && \
     pip3 install --no-cache --upgrade pip setuptools wheel && \
     if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi
 
-COPY requirements.txt ./
+
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/ .
