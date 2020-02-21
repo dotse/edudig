@@ -1,6 +1,8 @@
-from parser import basic_info
+from parser import basic_info, opt_section
 
 
 def parse(dig_output: str) -> dict:
     answer = dig_output.split(sep="\n\n")
-    return basic_info.parse(answer[0])
+    # bob = basic_info.parse(answer[0])
+    alice = opt_section.parse(answer[1])
+    return alice
