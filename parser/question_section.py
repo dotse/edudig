@@ -14,6 +14,7 @@ def parse(question: str):
 
     section["parts"].append(_domain_name(parts[0]))
     section["parts"].append(_class(parts[1]))
+    section["parts"].append(_type(parts[2]))
 
     return section
 
@@ -45,3 +46,20 @@ def _class(value: str):
 
     return part
 
+
+def _type(value: str):
+    part = {
+        "text": value.upper(),
+        "desc": f"This is the data type that is queried: {value.upper()}\n"
+    }
+
+    types = {
+        "A": "IPv4 address record, commonly used to map hostnames to an address",
+    }
+
+    try:
+        part["desc"] += types[value.upper()]
+    except KeyError:
+        part["desc"] += "Could not find type description."
+
+    return part
