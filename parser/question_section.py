@@ -55,6 +55,21 @@ def _type(value: str):
 
     types = {
         "A": "IPv4 address record, commonly used to map hostnames to an address",
+
+        "AAAA": "IPv6 address record, commonly used to map hostnames to an address",
+
+        "DNSKEY": "DNS Key record, it is used in DNSSEC to sign data",
+
+        "NS": "Name server record, used to delegate a zone to use the given authoritative name servers",
+
+        "RRSIG": "DNSSEC signature, signature for a DNSSEC-secured record set.",
+
+        "SOA": "Start of authority record, Specifies authoritative information about a DNS zone, "
+               "including the primary name server, the email of the domain administrator, the domain serial number, "
+               "and several timers relating to refreshing the zone.",
+
+        "TXT": "Text record, Originally for arbitrary human-readable text in a DNS record, however, "
+               "this record more often carries machine-readable data,"
     }
 
     try:
