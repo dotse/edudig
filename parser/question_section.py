@@ -9,4 +9,7 @@ def parse(question: str):
         "parts": []
     }
 
+    # Split on newline and get second line, then go through every part (word) in that line
+    parts = question.splitlines()[1].split()
+
     return section
