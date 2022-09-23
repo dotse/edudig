@@ -6,6 +6,27 @@ package routes
 import "github.com/revel/revel"
 
 
+type tApp struct {}
+var App tApp
+
+
+func (_ tApp) Dig(
+		zone string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "zone", zone)
+	return revel.MainRouter.Reverse("App.Dig", args).URL
+}
+
+func (_ tApp) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.Index", args).URL
+}
+
+
 type tStatic struct {}
 var Static tStatic
 
@@ -95,27 +116,6 @@ func (_ tTestRunner) List(
 	args := make(map[string]string)
 	
 	return revel.MainRouter.Reverse("TestRunner.List", args).URL
-}
-
-
-type tApp struct {}
-var App tApp
-
-
-func (_ tApp) Dig(
-		zone string,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "zone", zone)
-	return revel.MainRouter.Reverse("App.Dig", args).URL
-}
-
-func (_ tApp) Index(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("App.Index", args).URL
 }
 
 
