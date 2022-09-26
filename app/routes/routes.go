@@ -10,6 +10,15 @@ type tApp struct {}
 var App tApp
 
 
+func (_ tApp) JDig(
+		zone string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "zone", zone)
+	return revel.MainRouter.Reverse("App.JDig", args).URL
+}
+
 func (_ tApp) Dig(
 		zone string,
 		) string {
