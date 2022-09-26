@@ -1,0 +1,27 @@
+{{set . "title" "JDig"}}
+{{template "header.html" .}}
+
+<header class="jumbotron" style="background-color:#9d9d9d">
+    <div class="container">
+        <div class="row">
+            <h1>{{ .Zone }}</h1>
+            <p>{{ .response.Answer }}</p>
+            <p>{{ .rdata }}</p>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="span6">
+            {{template "flash.html" .}}
+        </div>
+    </div>
+</div>
+
+<form action="/App/JDig" method="GET">
+    <input type="text" name="zone"  /><br/>
+    <input type="submit" value="Enter Zone!"  />
+</form>
+
+{{template "footer.html" .}}
