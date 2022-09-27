@@ -9,7 +9,7 @@
       <p>{{ .rdata }}</p>
     </div>
   </div>
-</header>
+  </header>
 
 <div class="container">
   <div class="row">
@@ -18,15 +18,10 @@
     </div>
   </div>
 </div>
-
+<div class="nes-field">
 <form action="/App/Dig" method="GET">
   <input type="text" name="zone"  /><br/>
   <input type="submit" value="Enter Dig Zone!"  />
 </form>
-<br>
-<h1> Jonas Dig </h1>
-<form action="/App/JDig" method="GET">
-  <input type="text" name="zone"  /><br/>
-  <input type="submit" value="Enter JDig Zone!"  />
-</form>
+</div>
 {{template "footer.html" .}}

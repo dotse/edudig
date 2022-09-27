@@ -9,7 +9,6 @@ module:testrunner
 
 GET     /                                       App.Index
 GET     /App/Dig                                    App.Dig
-GET     /App/JDig                                    App.JDig
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
