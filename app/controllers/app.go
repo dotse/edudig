@@ -19,7 +19,6 @@ var (
 )
 
 func (c App) Dig(zone string) revel.Result {
-	Zone := zone
 	qname = zone
 	port = 53
 	nameserver = "8.8.8.8"
@@ -34,7 +33,8 @@ func (c App) Dig(zone string) revel.Result {
 	if err != nil {
 		panic(err)
 	}
-	return c.Render(Zone, response, rtt, nameserver, port)
+	msgSize := response.Len()
+	return c.Render(zone, response, rtt, nameserver, msgSize)
 
 }
 

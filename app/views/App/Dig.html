@@ -4,17 +4,25 @@
 <header class="jumbotron" style="background-color:#9d9d9d">
     <div class="container">
         <div class="row">
-            <h1>{{ .Zone }}</h1>
+            <h1>{{ .zone }}</h1>
             <p><b>Full Response:</b> {{ .response }}</p>
             <p><b>MsgHdr:</b> {{ .response.MsgHdr}}</p>
             <p><b>MsgHdr.RecursionDesired:</b> {{ .response.MsgHdr.RecursionDesired}}</p>
-            <p><b>Question:</b> {{ .response.Question }}</p>
-            <p><b>Answer:</b> {{ .response.Answer }}</p>
-            <p><b>Authority:</b> {{ .response.Ns }}</p>
-            <p><b>Additional:</b>{{ .response.Extra }}</p>
-            <p><b>RTT</b> {{ .rtt }}</p>
-            <p><b>Nameserver</b> {{ .nameserver }}</p>
-            <p><b>Port:</b> {{ .port }}</p>
+            <p><b>;; QUESTION SECTION:</b></p>
+            <p>{{ .response.Question }}</p>
+
+            <p><b>;; ANSWER SECTION:</b></p>
+            <p>{{ .response.Answer }}</p>
+
+            <p><b>Authority:</b></p>
+            <p>{{ .response.Ns }}</p>
+
+            <p><b>Additional:</b></p>
+            <p>{{ .response.Extra }}</p>
+            <p><b>;; Query time:</b> {{ .rtt }}</p>
+            <p><b>;; SERVER:</b> {{ .nameserver }}#{{ .port }}({{ .nameserver }})</p>
+            <p><b>;; WHEN:</b> {{ .MyDateTime }}</p>
+            <p><b>;; MSG SIZE rcvd:</b> {{ .msgSize }}</p>
         </div>
     </div>
 </header>
