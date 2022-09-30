@@ -1,13 +1,25 @@
 {{set . "title" "EduDig"}}
+{{ append . "moreStyles" "edudig.css" }}
 {{template "header.html" .}}
 
-<header class="jumbotron" style="background-color:#9d9d9d">
+<header class="jumbotron" style="background-color:#f3f0f0">
+    <style>
+    </style>
     <div class="container">
         <div class="row">
             <h1>{{ .zone }}</h1>
             <p><b>Full Response:</b> {{ .response }}</p>
             <p><b>MsgHdr:</b> {{ .response.MsgHdr}}</p>
-            <p><b>MsgHdr.RecursionDesired:</b> {{ .response.MsgHdr.RecursionDesired}}</p>
+            <p><b>MsgHdr.Id:</b> {{ .response.MsgHdr.Id}}</p>
+            <p id="msgHdr{{ .response.MsgHdr.Response }}"><b>MsgHdr.Response:</b> {{ .response.MsgHdr.Response}}</p>
+            <p><b>MsgHdr.Opcode:</b> {{ .response.MsgHdr.Opcode}}</p>
+            <p id="msgHdr{{ .response.MsgHdr.Authoritative }}"><b>MsgHdr.Authoritative:</b> {{ .response.MsgHdr.Authoritative}}</p>
+            <p id="msgHdr{{ .response.MsgHdr.RecursionDesired }}"><b>MsgHdr.RecursionDesired:</b> {{ .response.MsgHdr.RecursionDesired}}</p>
+            <p id="msgHdr{{ .response.MsgHdr.RecursionAvailable }}"><b>MsgHdr.RecursionAvailable:</b> {{ .response.MsgHdr.RecursionAvailable}}</p>
+            <p id="msgHdr{{ .response.MsgHdr.Zero }}"><b>MsgHdr.Zero:</b> {{ .response.MsgHdr.Zero}}</p>
+            <p id="msgHdr{{ .response.MsgHdr.AuthenticatedData }}"><b>MsgHdr.AuthenticatedData:</b> {{ .response.MsgHdr.AuthenticatedData}}</p>
+            <p id="msgHdr{{ .response.MsgHdr.CheckingDisabled }}"><b>MsgHdr.CheckingDisabled:</b> {{ .response.MsgHdr.CheckingDisabled}}</p>
+            <p><b>MsgHdr.Rcode:</b> {{ .response.MsgHdr.Rcode}}</p>
             <p><b>;; QUESTION SECTION:</b></p>
             <p>{{ .response.Question }}</p>
 

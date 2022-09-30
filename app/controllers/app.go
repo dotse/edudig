@@ -62,6 +62,7 @@ func (c App) Index() revel.Result {
 func createMessage(rd bool) *dns.Msg {
 	message := new(dns.Msg)
 	message.RecursionDesired = rd
+	message.Id = 666
 	return message
 }
 
