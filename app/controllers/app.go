@@ -18,23 +18,41 @@ var (
 	nameserver string // Where we are looking
 )
 
-func (c App) Dig(zone string) revel.Result {
+func (c App) Dig(zone string, transport string, qtype uint16) revel.Result {
 	qname = zone
 	port = 53
-	nameserver = "8.8.8.8"
+	//nameserver = "8.8.8.8"
+
+	nameserver = "10.30.7.4"
 	rd = true
 
 	// build message by sections
-	message := createMessage(rd)
-	updateQuestion(message, qname)
+	//message := createMessage(rd)
+	message := new(dns.Msg)
+	message.RecursionDesired = rd
+	message.Id = dns.Id()
 
-	dnsClient := clientSetup()
-	response, rtt, err := dnsClient.Exchange(message, nameserver+":"+strconv.Itoa(port))
+	//updateQuestion(message, qname)
+	message.Question = make([]dns.Question, 1)
+	message.Question[0] = dns.Question{
+		Name:   dns.Fqdn(qname),
+		Qtype:  qtype,
+		Qclass: dns.ClassINET,
+	}
+
+	//dnsClient := clientSetup()
+	client := new(dns.Client)
+	client.Net = transport
+	client.DialTimeout = 1 * time.Second
+	client.ReadTimeout = 1 * time.Second
+	client.WriteTimeout = 1 * time.Second
+	response, rtt, err := client.Exchange(message, nameserver+":"+strconv.Itoa(port))
 	if err != nil {
 		panic(err)
 	}
+
 	msgSize := response.Len()
-	return c.Render(zone, response, rtt, nameserver, msgSize)
+	return c.Render(zone, response, rtt, nameserver, msgSize, transport)
 
 }
 
@@ -59,27 +77,25 @@ func (c App) Index() revel.Result {
 	return c.Render(Zone, response, rdata)
 }
 
-func createMessage(rd bool) *dns.Msg {
-	message := new(dns.Msg)
-	message.RecursionDesired = rd
-	message.Id = 666
-	return message
-}
-
-func updateQuestion(message *dns.Msg, qname string) {
-	message.Question = make([]dns.Question, 1)
-	message.Question[0] = dns.Question{
-		Name:   dns.Fqdn(qname),
-		Qtype:  dns.TypeA,
-		Qclass: dns.ClassINET,
+func init() {
+	revel.TemplateFuncs["optCodeToString"] = func(opcode int) string {
+		return dns.OpcodeToString[opcode]
 	}
-}
 
-func clientSetup() *dns.Client {
-	c := new(dns.Client)
-	c.Net = "tcp"
-	c.DialTimeout = 1 * time.Second
-	c.ReadTimeout = 1 * time.Second
-	c.WriteTimeout = 1 * time.Second
-	return c
+	revel.TemplateFuncs["rCodeToString"] = func(rcode int) string {
+		return dns.RcodeToString[rcode]
+	}
+
+	revel.TemplateFuncs["qclassToString"] = func(qclass uint16) string {
+		return dns.ClassToString[qclass]
+	}
+
+	revel.TemplateFuncs["qtypeToString"] = func(qtype uint16) string {
+		return dns.TypeToString[qtype]
+	}
+
+	revel.TemplateFuncs["getTime"] = func() string {
+		now := time.Now()
+		return now.Format(time.UnixDate)
+	}
 }

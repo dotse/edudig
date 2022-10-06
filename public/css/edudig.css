@@ -1,6 +1,7 @@
 #msgHdrtrue {
     color: #000000;
+    font-weight: bold;
 }
 #msgHdrfalse {
-    color: #afacac;
+    color: #e7e3e3;
 }

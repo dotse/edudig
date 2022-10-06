@@ -2,39 +2,68 @@
 {{ append . "moreStyles" "edudig.css" }}
 {{template "header.html" .}}
 
-<header class="jumbotron" style="background-color:#f3f0f0">
-    <style>
-    </style>
+<header class="jumbotron" style="background-color:#d2cfcf">
     <div class="container">
         <div class="row">
-            <h1>{{ .zone }}</h1>
-            <p><b>Full Response:</b> {{ .response }}</p>
-            <p><b>MsgHdr:</b> {{ .response.MsgHdr}}</p>
-            <p><b>MsgHdr.Id:</b> {{ .response.MsgHdr.Id}}</p>
-            <p id="msgHdr{{ .response.MsgHdr.Response }}"><b>MsgHdr.Response:</b> {{ .response.MsgHdr.Response}}</p>
-            <p><b>MsgHdr.Opcode:</b> {{ .response.MsgHdr.Opcode}}</p>
-            <p id="msgHdr{{ .response.MsgHdr.Authoritative }}"><b>MsgHdr.Authoritative:</b> {{ .response.MsgHdr.Authoritative}}</p>
-            <p id="msgHdr{{ .response.MsgHdr.RecursionDesired }}"><b>MsgHdr.RecursionDesired:</b> {{ .response.MsgHdr.RecursionDesired}}</p>
-            <p id="msgHdr{{ .response.MsgHdr.RecursionAvailable }}"><b>MsgHdr.RecursionAvailable:</b> {{ .response.MsgHdr.RecursionAvailable}}</p>
-            <p id="msgHdr{{ .response.MsgHdr.Zero }}"><b>MsgHdr.Zero:</b> {{ .response.MsgHdr.Zero}}</p>
-            <p id="msgHdr{{ .response.MsgHdr.AuthenticatedData }}"><b>MsgHdr.AuthenticatedData:</b> {{ .response.MsgHdr.AuthenticatedData}}</p>
-            <p id="msgHdr{{ .response.MsgHdr.CheckingDisabled }}"><b>MsgHdr.CheckingDisabled:</b> {{ .response.MsgHdr.CheckingDisabled}}</p>
-            <p><b>MsgHdr.Rcode:</b> {{ .response.MsgHdr.Rcode}}</p>
-            <p><b>;; QUESTION SECTION:</b></p>
-            <p>{{ .response.Question }}</p>
-
-            <p><b>;; ANSWER SECTION:</b></p>
-            <p>{{ .response.Answer }}</p>
-
-            <p><b>Authority:</b></p>
-            <p>{{ .response.Ns }}</p>
-
-            <p><b>Additional:</b></p>
-            <p>{{ .response.Extra }}</p>
-            <p><b>;; Query time:</b> {{ .rtt }}</p>
-            <p><b>;; SERVER:</b> {{ .nameserver }}#{{ .port }}({{ .nameserver }})</p>
-            <p><b>;; WHEN:</b> {{ .MyDateTime }}</p>
-            <p><b>;; MSG SIZE rcvd:</b> {{ .msgSize }}</p>
+            <p>; <<>> Digish 0.0.1 <<>> {{ .zone }} </p>
+            <p>;; global options: +cmd</p>
+            <p>;; Got answer:</p>
+            <p>;; ->>HEADER<<-
+                opcode: {{ optCodeToString .response.MsgHdr.Opcode }},
+                status: {{ rCodeToString .response.MsgHdr.Rcode }},
+                id: {{ .response.MsgHdr.Id }}
+            </p>
+            <p>;; flags:
+                <span id="msgHdr{{ .response.MsgHdr.Response }}"> qr</span>
+                <span id="msgHdr{{.response.MsgHdr.Authoritative }}">aa</span>
+                <span id="msgHdr{{.response.MsgHdr.Truncated }}">tc</span>
+                <span id="msgHdr{{.response.MsgHdr.RecursionDesired }}">rd</span>
+                <span id="msgHdr{{.response.MsgHdr.RecursionAvailable }}">ra</span>
+                <span id="msgHdr{{.response.MsgHdr.Zero }}">z</span>
+                <span id="msgHdr{{.response.MsgHdr.AuthenticatedData }}">ad</span>
+                <span id="msgHdr{{.response.MsgHdr.CheckingDisabled }}">cd</span>
+                ;
+                QUERY: {{ len .response.Question}},
+                ANSWER: {{ len .response.Answer}},
+                AUTHORITY: {{ len .response.Ns}},
+                ADDITIONAL: {{ len .response.Extra}}
+            <br>
+            <p>;; OPT PSEUDOSECTION:</p>
+            <p>; EDNS: version: 0, flags:; udp: 1232 </p>
+            {{ if .response.Question }}
+                <br>
+                <p>;; QUESTION SECTION;</p>
+                {{ range .response.Question }}
+                <p>;{{ .Name }}     {{ qtypeToString .Qtype }}    {{ qclassToString .Qclass }}</p>
+                {{ end }}
+            {{ end }}
+            <p></p>
+            {{ if .response.Answer }}
+                <br>
+                <p>;; ANSWER SECTION:</p>
+                {{ range .response.Answer }}
+                    <p>{{ . }}</p>
+                {{ end }}
+            {{ end }}
+            {{ if .response.Ns }}
+                <br>
+                <p>;; AUTHORITY SECTION:</p>
+                {{ range .response.Ns }}
+                    <p>{{ . }}</p>
+                {{ end }}
+            {{ end }}
+            {{ if .response.Extra }}
+                <br>
+                <p>;; ADDITIONAL SECTION:</p>
+                {{ range .response.Extra }}
+                    <p>{{ . }}</p>
+                {{ end }}
+            {{ end }}
+            <br>
+            <p>;; Query time: {{ .rtt }}</p>
+            <p>;; SERVER: {{ .nameserver }}#{{ .port }}({{ .nameserver }}) ({{ .transport }})</p>
+            <p>;; WHEN: {{ getTime }}</p>
+            <p>;; MSG SIZE rcvd: {{ .msgSize }}</p>
         </div>
     </div>
 </header>
@@ -49,7 +78,22 @@
 
 <form action="/App/Dig" method="GET">
     <input type="text" name="zone" /><br/>
-    <input type="submit" value="Enter Zone!" />
+    <input type="submit" value="Enter Zone" />
+
+    <label for="transport">UDP|TCP</label>
+    <select name="transport">
+        <option value="udp">UDP</option>
+        <option value="tcp">TCP</option>
+    </select>
+
+    <label for="qtype">Query Type</label>
+    <select name="qtype">
+        <option value=1>A</option>
+        <option value=2>NS</option>
+        <option value=6>SOA</option>
+        <option value=15>MX</option>
+        <option value=48>DNSKEY</option>
+    </select>
 </form>
 
 <div class="container">
