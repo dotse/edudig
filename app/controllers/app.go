@@ -21,18 +21,13 @@ var (
 func (c App) Dig(zone string, transport string, qtype uint16) revel.Result {
 	qname = zone
 	port = 53
-	//nameserver = "8.8.8.8"
-
-	nameserver = "10.30.7.4"
+	nameserver = "8.8.8.8"
 	rd = true
 
-	// build message by sections
-	//message := createMessage(rd)
 	message := new(dns.Msg)
 	message.RecursionDesired = rd
 	message.Id = dns.Id()
 
-	//updateQuestion(message, qname)
 	message.Question = make([]dns.Question, 1)
 	message.Question[0] = dns.Question{
 		Name:   dns.Fqdn(qname),
@@ -40,7 +35,6 @@ func (c App) Dig(zone string, transport string, qtype uint16) revel.Result {
 		Qclass: dns.ClassINET,
 	}
 
-	//dnsClient := clientSetup()
 	client := new(dns.Client)
 	client.Net = transport
 	client.DialTimeout = 1 * time.Second
@@ -77,7 +71,7 @@ func (c App) Index() revel.Result {
 	return c.Render(Zone, response, rdata)
 }
 
-func init() {
+func InitTemplateFunctions() {
 	revel.TemplateFuncs["optCodeToString"] = func(opcode int) string {
 		return dns.OpcodeToString[opcode]
 	}
