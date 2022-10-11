@@ -1,9 +1,9 @@
 package app
 
 import (
-	"github.com/revel/revel"
+	"github.com/dotse/edudig/app/controllers"
 	_ "github.com/revel/modules"
-
+	"github.com/revel/revel"
 )
 
 var (
@@ -32,6 +32,7 @@ func init() {
 		revel.ActionInvoker,           // Invoke the action.
 	}
 
+	revel.OnAppStart(controllers.InitTemplateFunctions)
 	// Register startup functions with OnAppStart
 	// revel.DevMode and revel.RunMode only work inside of OnAppStart. See Example Startup Script
 	// ( order dependent )
