@@ -3,70 +3,101 @@
 {{template "header.html" .}}
 
 <header class="jumbotron" style="background-color:#d2cfcf">
-    <div class="container">
-        <div class="row">
-            <p>; <<>> Digish 0.0.1 <<>> {{ .zone }} </p>
-            <p>;; global options: +cmd</p>
-            <p>;; Got answer:</p>
-            <p>;; ->>HEADER<<-
-                opcode: {{ optCodeToString .response.MsgHdr.Opcode }},
-                status: {{ rCodeToString .response.MsgHdr.Rcode }},
-                id: {{ .response.MsgHdr.Id }}
-            </p>
-            <p>;; flags:
-                <span id="msgHdr{{ .response.MsgHdr.Response }}"> qr</span>
-                <span id="msgHdr{{.response.MsgHdr.Authoritative }}">aa</span>
-                <span id="msgHdr{{.response.MsgHdr.Truncated }}">tc</span>
-                <span id="msgHdr{{.response.MsgHdr.RecursionDesired }}">rd</span>
-                <span id="msgHdr{{.response.MsgHdr.RecursionAvailable }}">ra</span>
-                <span id="msgHdr{{.response.MsgHdr.Zero }}">z</span>
-                <span id="msgHdr{{.response.MsgHdr.AuthenticatedData }}">ad</span>
-                <span id="msgHdr{{.response.MsgHdr.CheckingDisabled }}">cd</span>
-                ;
-                QUERY: {{ len .response.Question}},
-                ANSWER: {{ len .response.Answer}},
-                AUTHORITY: {{ len .response.Ns}},
-                ADDITIONAL: {{ len .response.Extra}}
-            <br>
-            <p>;; OPT PSEUDOSECTION:</p>
-            <p>; EDNS: version: 0, flags:; udp: 1232 </p>
-            {{ if .response.Question }}
+    <h1>EduDig</h1>
+    <form action="/App/Dig" method="GET">
+        <input type="text" name="zone" />
+
+        <label for="transport">UDP|TCP</label>
+        <select name="transport">
+            <option value="udp">UDP</option>
+            <option value="tcp">TCP</option>
+        </select>
+
+        <label for="qtype">Query Type</label>
+        <select name="qtype">
+            <option value=1>A</option>
+            <option value=2>NS</option>
+            <option value=6>SOA</option>
+            <option value=15>MX</option>
+            <option value=48>DNSKEY</option>
+        </select>
+        </label>
+
+        <input type="submit" value="digish" />
+    </form>
+    </header>
+
+<div class="grid-container">
+    <div class="grid-item-digish">
+        <div class="container">
+            <div class="row">
+                <p>; <<>> Digish 0.0.1 <<>> {{ .zone }} </p>
+                <p>;; global options: +cmd</p>
+                <p>;; Got answer:</p>
+                <p>;; ->>HEADER<<-
+                    opcode: {{ optCodeToString .response.MsgHdr.Opcode }},
+                    status: {{ rCodeToString .response.MsgHdr.Rcode }},
+                    id: {{ .response.MsgHdr.Id }}
+                </p>
+                <p>;; flags:
+                    <button onclick="flagQR()" id="msgHdr{{ .response.MsgHdr.Response }}"> qr</button>
+                    <button onclick="flagAA()" id="msgHdr{{.response.MsgHdr.Authoritative }}">aa</button>
+                    <button onclick="flagTC()" id="msgHdr{{.response.MsgHdr.Truncated }}">tc</button>
+                    <button onclick="flagRD()" id="msgHdr{{.response.MsgHdr.RecursionDesired }}">rd</button>
+                    <button onclick="flagRA()" id="msgHdr{{.response.MsgHdr.RecursionAvailable }}">ra</button>
+                    <button onclick="flagZ()" id="msgHdr{{.response.MsgHdr.Zero }}">z</button>
+                    <button onclick="flagAD()" id="msgHdr{{.response.MsgHdr.AuthenticatedData }}">ad</button>
+                    <button onclick="flagCD()" id="msgHdr{{.response.MsgHdr.CheckingDisabled }}">cd</button>
+                    ;
+                    QUERY: {{ len .response.Question}},
+                    ANSWER: {{ len .response.Answer}},
+                    AUTHORITY: {{ len .response.Ns}},
+                    ADDITIONAL: {{ len .response.Extra}}
+                    <br>
+                <p>;; OPT PSEUDOSECTION:</p>
+                <p>; EDNS: version: 0, flags:; udp: 1232 </p>
+                {{ if .response.Question }}
                 <br>
                 <p>;; QUESTION SECTION;</p>
                 {{ range .response.Question }}
                 <p>;{{ .Name }}     {{ qtypeToString .Qtype }}    {{ qclassToString .Qclass }}</p>
                 {{ end }}
-            {{ end }}
-            <p></p>
-            {{ if .response.Answer }}
+                {{ end }}
+                <p></p>
+                {{ if .response.Answer }}
                 <br>
                 <p>;; ANSWER SECTION:</p>
                 {{ range .response.Answer }}
-                    <p>{{ . }}</p>
+                <p>{{ . }}</p>
                 {{ end }}
-            {{ end }}
-            {{ if .response.Ns }}
+                {{ end }}
+                {{ if .response.Ns }}
                 <br>
                 <p>;; AUTHORITY SECTION:</p>
                 {{ range .response.Ns }}
-                    <p>{{ . }}</p>
+                <p>{{ . }}</p>
                 {{ end }}
-            {{ end }}
-            {{ if .response.Extra }}
+                {{ end }}
+                {{ if .response.Extra }}
                 <br>
                 <p>;; ADDITIONAL SECTION:</p>
                 {{ range .response.Extra }}
-                    <p>{{ . }}</p>
+                <p>{{ . }}</p>
                 {{ end }}
-            {{ end }}
-            <br>
-            <p>;; Query time: {{ .rtt }}</p>
-            <p>;; SERVER: {{ .nameserver }}#{{ .port }}({{ .nameserver }}) ({{ .transport }})</p>
-            <p>;; WHEN: {{ getTime }}</p>
-            <p>;; MSG SIZE rcvd: {{ .msgSize }}</p>
+                {{ end }}
+                <br>
+                <p>;; Query time: {{ .rtt }}</p>
+                <p>;; SERVER: {{ .nameserver }}#{{ .port }}({{ .nameserver }}) ({{ .transport }})</p>
+                <p>;; WHEN: {{ getTime }}</p>
+                <p>;; MSG SIZE rcvd: {{ .msgSize }}</p>
+            </div>
         </div>
     </div>
-</header>
+    <div class="grid-item-info">
+        <h1>Info Section</h1>
+        <p>Click on the links on the digish output to get some info.</p>
+    </div>
+</div>
 
 <div class="container">
     <div class="row">
@@ -76,28 +107,10 @@
     </div>
 </div>
 
-<form action="/App/Dig" method="GET">
-    <input type="text" name="zone" /><br/>
-    <input type="submit" value="Enter Zone" />
 
-    <label for="transport">UDP|TCP</label>
-    <select name="transport">
-        <option value="udp">UDP</option>
-        <option value="tcp">TCP</option>
-    </select>
-
-    <label for="qtype">Query Type</label>
-    <select name="qtype">
-        <option value=1>A</option>
-        <option value=2>NS</option>
-        <option value=6>SOA</option>
-        <option value=15>MX</option>
-        <option value=48>DNSKEY</option>
-    </select>
-</form>
 
 <div class="container">
-    <a href="/"> home </a>
+    <a href="/"> homish </a>
 </div>
 
 {{template "footer.html" .}}
