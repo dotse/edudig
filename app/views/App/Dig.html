@@ -40,14 +40,15 @@
                     id: {{ .response.MsgHdr.Id }}
                 </p>
                 <p>;; flags:
-                    <button onclick="flagQR()" id="msgHdr{{ .response.MsgHdr.Response }}"> qr</button>
-                    <button onclick="flagAA()" id="msgHdr{{.response.MsgHdr.Authoritative }}">aa</button>
-                    <button onclick="flagTC()" id="msgHdr{{.response.MsgHdr.Truncated }}">tc</button>
-                    <button onclick="flagRD()" id="msgHdr{{.response.MsgHdr.RecursionDesired }}">rd</button>
-                    <button onclick="flagRA()" id="msgHdr{{.response.MsgHdr.RecursionAvailable }}">ra</button>
-                    <button onclick="flagZ()" id="msgHdr{{.response.MsgHdr.Zero }}">z</button>
-                    <button onclick="flagAD()" id="msgHdr{{.response.MsgHdr.AuthenticatedData }}">ad</button>
-                    <button onclick="flagCD()" id="msgHdr{{.response.MsgHdr.CheckingDisabled }}">cd</button>
+<!--                    <button onclick="flagQR()" id="msgHdr{{ .response.MsgHdr.Response }}"> qr</button>-->
+                    <button onclick="setFlag('QR flag')" id="msgHdr{{ .response.MsgHdr.Response }}"> qr</button>
+                    <button onclick="setFlag('AA flag')" id="msgHdr{{.response.MsgHdr.Authoritative }}">aa</button>
+                    <button onclick="setFlag('TC flag')" id="msgHdr{{.response.MsgHdr.Truncated }}">tc</button>
+                    <button onclick="setFlag('RD flag')" id="msgHdr{{.response.MsgHdr.RecursionDesired }}">rd</button>
+                    <button onclick="setFlag('RA flag')" id="msgHdr{{.response.MsgHdr.RecursionAvailable }}">ra</button>
+                    <button onclick="setFlag('Z flag')" id="msgHdr{{.response.MsgHdr.Zero }}">z</button>
+                    <button onclick="setFlag('AD flag')" id="msgHdr{{.response.MsgHdr.AuthenticatedData }}">ad</button>
+                    <button onclick="setFlag('CD flag')" id="msgHdr{{.response.MsgHdr.CheckingDisabled }}">cd</button>
                     ;
                     QUERY: {{ len .response.Question}},
                     ANSWER: {{ len .response.Answer}},
