@@ -5,3 +5,34 @@
 #msgHdrfalse {
     color: #e7e3e3;
 }
+
+.container {
+    align: center;
+}
+.grid-container {
+    display:grid;
+    grid-template-columns: 50% auto;
+}
+
+.grid-item-digish {
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+
+.grid-item-info {
+    grid-column-start: 2;
+}
+
+button {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #069;
+/*    text-decoration: underline;*/
+    cursor: pointer;
+}
+
+button:hover
