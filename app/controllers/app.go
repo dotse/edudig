@@ -18,10 +18,9 @@ var (
 	nameserver string // Where we are looking
 )
 
-func (c App) Dig(zone string, transport string, qtype uint16) revel.Result {
+func (c App) Dig(zone string, transport string, qtype uint16, nameserver string) revel.Result {
 	qname = zone
 	port = 53
-	nameserver = "8.8.8.8"
 	rd = true
 
 	message := new(dns.Msg)
@@ -50,6 +49,34 @@ func (c App) Dig(zone string, transport string, qtype uint16) revel.Result {
 
 }
 
+func (c App) Info() revel.Result {
+	return c.Render()
+}
+
+func (c App) QRflag() revel.Result {
+	return c.Render()
+}
+func (c App) AAflag() revel.Result {
+	return c.Render()
+}
+func (c App) TCflag() revel.Result {
+	return c.Render()
+}
+func (c App) RDflag() revel.Result {
+	return c.Render()
+}
+func (c App) RAflag() revel.Result {
+	return c.Render()
+}
+func (c App) Zflag() revel.Result {
+	return c.Render()
+}
+func (c App) ADflag() revel.Result {
+	return c.Render()
+}
+func (c App) CDflag() revel.Result {
+	return c.Render()
+}
 func (c App) Index() revel.Result {
 	// Get a static SOA for pagefault.se
 	Zone := "pagefault.se"

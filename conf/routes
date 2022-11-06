@@ -9,9 +9,19 @@ module:testrunner
 
 GET     /                                       App.Index
 GET     /App/Dig                                    App.Dig
+GET     /App/Info                                   App.Info
+GET     /App/QRflag                                  App.QRflag
+GET     /App/AAflag                                  App.AAflag
+GET     /App/TCflag                                  App.TCflag
+GET     /App/RDflag                                  App.RDflag
+GET     /App/RAflag                                  App.RAflag
+GET     /App/Zflag                                   App.Zflag
+GET     /App/ADflag                                  App.ADflag
+GET     /App/CDflag                                  App.CDflag
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
+
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/*filepath                       Static.Serve("public")
