@@ -1,0 +1,29 @@
+<div class="main">
+  <h1>EduDig</h1>
+<form action="/App/Dig" method="GET">
+  <label for="zone">
+  <input type="text" name="zone" id="zone" />
+  </label>
+
+  <label for="transport">UDP|TCP</label>
+  <select id="transport">
+    <option value="udp">UDP</option>
+    <option value="tcp">TCP</option>
+  </select>
+
+  <label for="qtype">Query Type</label>
+  <select name="qtype" id="qtype">
+    <option value=1>A</option>
+    <option value=2>NS</option>
+    <option value=6>SOA</option>
+    <option value=15>MX</option>
+    <option value=48>DNSKEY</option>
+  </select>
+
+  <label for="nameserver">
+    <input type="text" name="nameserver" value="8.8.8.8"/>
+  </label>
+
+  <input type="submit" value="digish" />
+</form>
+</div>

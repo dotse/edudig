@@ -6,12 +6,22 @@
     color: #e7e3e3;
 }
 
+.main {
+    width: 80%;
+    background-color: lightgray;
+
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+
 .container {
-    align: center;
 }
 .grid-container {
     display:grid;
-    grid-template-columns: 50% auto;
+    column-gap: 3px;
+    grid-template-columns: 70% 30%;
+    overflow-wrap: break-word;
 }
 
 .grid-item-digish {
@@ -24,7 +34,8 @@
 }
 
 button {
-    background: none!important;
+   /* background: none!important;*/
+    background-color: lightgray;
     border: none;
     padding: 0!important;
     /*optional*/
@@ -33,6 +44,14 @@ button {
     color: #069;
 /*    text-decoration: underline;*/
     cursor: pointer;
+    transition-duration: 0.4s;
 }
 
-button:hover
+button:hover{
+    background-color: gainsboro;
+}
+
+iframe {
+    border-style: none;
+    background-color: gainsboro;
+}
