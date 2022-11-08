@@ -1,32 +1,8 @@
 {{set . "title" "EduDig"}}
 {{ append . "moreStyles" "edudig.css" }}
 {{template "header.html" .}}
-
-<header class="jumbotron" style="background-color:#d2cfcf">
-    <h1>EduDig</h1>
-    <form action="/App/Dig" method="GET">
-        <input type="text" name="zone" />
-
-        <label for="transport">UDP|TCP</label>
-        <select name="transport">
-            <option value="udp">UDP</option>
-            <option value="tcp">TCP</option>
-        </select>
-
-        <label for="qtype">Query Type</label>
-        <select name="qtype">
-            <option value=1>A</option>
-            <option value=2>NS</option>
-            <option value=6>SOA</option>
-            <option value=15>MX</option>
-            <option value=48>DNSKEY</option>
-        </select>
-        </label>
-
-        <input type="submit" value="digish" />
-    </form>
-    </header>
-
+{{template "App/digish.html" .}}
+<div class="main">
 <div class="grid-container">
     <div class="grid-item-digish">
         <div class="container">
@@ -40,15 +16,14 @@
                     id: {{ .response.MsgHdr.Id }}
                 </p>
                 <p>;; flags:
-<!--                    <button onclick="flagQR()" id="msgHdr{{ .response.MsgHdr.Response }}"> qr</button>-->
-                    <button onclick="setFlag('QR flag')" id="msgHdr{{ .response.MsgHdr.Response }}"> qr</button>
-                    <button onclick="setFlag('AA flag')" id="msgHdr{{.response.MsgHdr.Authoritative }}">aa</button>
-                    <button onclick="setFlag('TC flag')" id="msgHdr{{.response.MsgHdr.Truncated }}">tc</button>
-                    <button onclick="setFlag('RD flag')" id="msgHdr{{.response.MsgHdr.RecursionDesired }}">rd</button>
-                    <button onclick="setFlag('RA flag')" id="msgHdr{{.response.MsgHdr.RecursionAvailable }}">ra</button>
-                    <button onclick="setFlag('Z flag')" id="msgHdr{{.response.MsgHdr.Zero }}">z</button>
-                    <button onclick="setFlag('AD flag')" id="msgHdr{{.response.MsgHdr.AuthenticatedData }}">ad</button>
-                    <button onclick="setFlag('CD flag')" id="msgHdr{{.response.MsgHdr.CheckingDisabled }}">cd</button>
+                    <button onclick="newSrcFlag('QRflag')" id="msgHdr{{ .response.MsgHdr.Response }}">qr</button>
+                    <button onclick="newSrcFlag('AAflag')" id="msgHdr{{.response.MsgHdr.Authoritative }}">aa</button>
+                    <button onclick="newSrcFlag('TCflag')" id="msgHdr{{.response.MsgHdr.Truncated }}">tc</button>
+                    <button onclick="newSrcFlag('RDflag')" id="msgHdr{{.response.MsgHdr.RecursionDesired }}">rd</button>
+                    <button onclick="newSrcFlag('RAflag')" id="msgHdr{{.response.MsgHdr.RecursionAvailable }}">ra</button>
+                    <button onclick="newSrcFlag('Zflag')" id="msgHdr{{.response.MsgHdr.Zero }}">z</button>
+                    <button onclick="newSrcFlag('ADflag')" id="msgHdr{{.response.MsgHdr.AuthenticatedData }}">ad</button>
+                    <button onclick="newSrcFlag('CDflag')" id="msgHdr{{.response.MsgHdr.CheckingDisabled }}">cd</button>
                     ;
                     QUERY: {{ len .response.Question}},
                     ANSWER: {{ len .response.Answer}},
@@ -95,11 +70,13 @@
         </div>
     </div>
     <div class="grid-item-info">
-        <h1>Info Section</h1>
-        <p>Click on the links on the digish output to get some info.</p>
+        <div class="contaier">
+            <h1>Info Section</h1>
+            <p>Click on the links in the digish output to get ya some info.</p>
+            <iframe src="Info"  id="MyFrame"></iframe>
+        </div>
     </div>
 </div>
-
 <div class="container">
     <div class="row">
         <div class="span6">
@@ -107,7 +84,7 @@
         </div>
     </div>
 </div>
-
+</div>
 
 
 <div class="container">

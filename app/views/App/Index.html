@@ -1,33 +1,7 @@
 {{set . "title" "EduDig"}}
+{{ append . "moreStyles" "edudig.css" }}
 {{template "header.html" .}}
-
-<header class="jumbotron" style="background-color:#d2cfcf">
-  <div class="container">
-    <div class="row">
-      <h1>Welcome to EduDig</h1>
-      <form action="/App/Dig" method="GET">
-        <input type="text" name="zone" />
-
-        <label for="transport">UDP|TCP</label>
-        <select name="transport">
-          <option value="udp">UDP</option>
-          <option value="tcp">TCP</option>
-        </select>
-
-        <label for="qtype">Query Type</label>
-        <select name="qtype">
-          <option value=1>A</option>
-          <option value=2>NS</option>
-          <option value=6>SOA</option>
-          <option value=15>MX</option>
-          <option value=48>DNSKEY</option>
-        </select>
-
-        <input type="submit" value="digish" />
-      </form>
-    </div>
-  </div>
-</header>
+{{template "App/digish.html" .}}
 
 <div class="container">
   <div class="row">
