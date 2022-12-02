@@ -9,7 +9,11 @@ module:testrunner
 
 GET     /                                       App.Index
 GET     /App/Dig                                    App.Dig
+GET     /App/Opcode                                     App.Opcode
+GET     /App/Status                                     App.Status
+GET     /App/Id                                     App.Id
 GET     /App/Info                                   App.Info
+GET     /App/Flags                                   App.Flags
 GET     /App/QRflag                                  App.QRflag
 GET     /App/AAflag                                  App.AAflag
 GET     /App/TCflag                                  App.TCflag
@@ -18,6 +22,18 @@ GET     /App/RAflag                                  App.RAflag
 GET     /App/Zflag                                   App.Zflag
 GET     /App/ADflag                                  App.ADflag
 GET     /App/CDflag                                  App.CDflag
+GET     /App/QDCount                                  App.QDCount
+GET     /App/ANCount                                  App.ANCount
+GET     /App/NSCount                                  App.NSCount
+GET     /App/ARCount                                  App.ARCount
+GET     /App/QuestionSection                          App.QuestionSection
+GET     /App/AnswerSection                            App.AnswerSection
+GET     /App/AuthoritySection                         App.AuthoritySection
+GET     /App/AdditionalSection                        App.AdditionalSection
+GET     /App/QueryTime                                App.QueryTime
+GET     /App/Server                                   App.Server
+GET     /App/When                                     App.When
+GET     /App/MsgSize                                  App.MsgSize
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

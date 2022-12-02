@@ -11,30 +11,30 @@
                 <p>;; global options: +cmd</p>
                 <p>;; Got answer:</p>
                 <p>;; ->>HEADER<<-
-                    opcode: {{ optCodeToString .response.MsgHdr.Opcode }},
-                    status: {{ rCodeToString .response.MsgHdr.Rcode }},
-                    id: {{ .response.MsgHdr.Id }}
+                    <button onclick="newInfo('Opcode')" class="txt"> opcode: {{ optCodeToString .response.MsgHdr.Opcode }}</button>,
+                    <button onclick="newInfo('Status')" class="txt"> status: {{ rCodeToString .response.MsgHdr.Rcode }}</button>,
+                    <button onclick="newInfo('Id')" class="txt">id: {{ .response.MsgHdr.Id }}</button>
                 </p>
-                <p>;; flags:
-                    <button onclick="newSrcFlag('QRflag')" id="msgHdr{{ .response.MsgHdr.Response }}">qr</button>
-                    <button onclick="newSrcFlag('AAflag')" id="msgHdr{{.response.MsgHdr.Authoritative }}">aa</button>
-                    <button onclick="newSrcFlag('TCflag')" id="msgHdr{{.response.MsgHdr.Truncated }}">tc</button>
-                    <button onclick="newSrcFlag('RDflag')" id="msgHdr{{.response.MsgHdr.RecursionDesired }}">rd</button>
-                    <button onclick="newSrcFlag('RAflag')" id="msgHdr{{.response.MsgHdr.RecursionAvailable }}">ra</button>
-                    <button onclick="newSrcFlag('Zflag')" id="msgHdr{{.response.MsgHdr.Zero }}">z</button>
-                    <button onclick="newSrcFlag('ADflag')" id="msgHdr{{.response.MsgHdr.AuthenticatedData }}">ad</button>
-                    <button onclick="newSrcFlag('CDflag')" id="msgHdr{{.response.MsgHdr.CheckingDisabled }}">cd</button>
+                    ;; <button onclick="newInfo('Flags')" class="txt">flags:</button>
+                    <button onclick="newInfo('QRflag')" id="msgHdr{{ .response.MsgHdr.Response }}">qr</button>
+                    <button onclick="newInfo('AAflag')" id="msgHdr{{.response.MsgHdr.Authoritative }}">aa</button>
+                    <button onclick="newInfo('TCflag')" id="msgHdr{{.response.MsgHdr.Truncated }}">tc</button>
+                    <button onclick="newInfo('RDflag')" id="msgHdr{{.response.MsgHdr.RecursionDesired }}">rd</button>
+                    <button onclick="newInfo('RAflag')" id="msgHdr{{.response.MsgHdr.RecursionAvailable }}">ra</button>
+                    <button onclick="newInfo('Zflag')" id="msgHdr{{.response.MsgHdr.Zero }}">z</button>
+                    <button onclick="newInfo('ADflag')" id="msgHdr{{.response.MsgHdr.AuthenticatedData }}">ad</button>
+                    <button onclick="newInfo('CDflag')" id="msgHdr{{.response.MsgHdr.CheckingDisabled }}">cd</button>
                     ;
-                    QUERY: {{ len .response.Question}},
-                    ANSWER: {{ len .response.Answer}},
-                    AUTHORITY: {{ len .response.Ns}},
-                    ADDITIONAL: {{ len .response.Extra}}
+                <button onclick="newInfo('QDCount')" class="txt">QUERY: {{ len .response.Question}},</button>
+                <button onclick="newInfo('ANCount')" class="txt">ANSWER: {{ len .response.Answer}},</button>
+                    <button onclick="newInfo('NSCount')" class="txt">AUTHORITY: {{ len .response.Ns}},</button>
+                    <button onclick="newInfo('ARCount')" class="txt">ADDITIONAL: {{ len .response.Extra}}</button>
                     <br>
                 <p>;; OPT PSEUDOSECTION:</p>
                 <p>; EDNS: version: 0, flags:; udp: 1232 </p>
                 {{ if .response.Question }}
                 <br>
-                <p>;; QUESTION SECTION;</p>
+                <p>;; <button onclick="newInfo('QuestionSection')" class="txt">QUESTION SECTION;</button></p>
                 {{ range .response.Question }}
                 <p>;{{ .Name }}     {{ qtypeToString .Qtype }}    {{ qclassToString .Qclass }}</p>
                 {{ end }}
@@ -42,39 +42,37 @@
                 <p></p>
                 {{ if .response.Answer }}
                 <br>
-                <p>;; ANSWER SECTION:</p>
+                <p>;; <button onclick="newInfo('AnswerSection')" class="txt">ANSWER SECTION:</button></p>
                 {{ range .response.Answer }}
                 <p>{{ . }}</p>
                 {{ end }}
                 {{ end }}
                 {{ if .response.Ns }}
                 <br>
-                <p>;; AUTHORITY SECTION:</p>
+                <p>;; <button onclick="newInfo('AuthoritySection')" class="txt">AUTHORITY SECTION:</button></p>
                 {{ range .response.Ns }}
                 <p>{{ . }}</p>
                 {{ end }}
                 {{ end }}
                 {{ if .response.Extra }}
                 <br>
-                <p>;; ADDITIONAL SECTION:</p>
+                <p>;; <button onclick="newInfo('AdditionalSection')" class="txt">ADDITIONAL SECTION:</button></p>
                 {{ range .response.Extra }}
                 <p>{{ . }}</p>
                 {{ end }}
                 {{ end }}
                 <br>
-                <p>;; Query time: {{ .rtt }}</p>
-                <p>;; SERVER: {{ .nameserver }}#{{ .port }}({{ .nameserver }}) ({{ .transport }})</p>
-                <p>;; WHEN: {{ getTime }}</p>
-                <p>;; MSG SIZE rcvd: {{ .msgSize }}</p>
+                <p>;; <button onclick="newInfo('QueryTime')" class="txt">Query time: {{ .rtt }}</button></p>
+                <p>;;<button onclick="newInfo('Server')" class="txt"> SERVER: {{ .nameserver }}#{{ .port }}({{ .nameserver }}) ({{ .transport }})</button></p>
+                <p>;; <button onclick="newInfo('When')" class="txt">WHEN: {{ getTime }}</button></p>
+                <p>;; <button onclick="newInfo('MsgSize')" class="txt">MSG SIZE rcvd: {{ .msgSize }}</button></p>
             </div>
         </div>
     </div>
     <div class="grid-item-info">
-        <div class="contaier">
-            <h1>Info Section</h1>
+            <h1><button onclick="newInfo('Info')">Info Section</button></h1>
             <p>Click on the links in the digish output to get ya some info.</p>
-            <iframe src="Info"  id="MyFrame"></iframe>
-        </div>
+            <iframe src="Info"  id="InfoBox"></iframe>
     </div>
 </div>
 <div class="container">
