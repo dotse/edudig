@@ -41,14 +41,16 @@ button {
     /*optional*/
     font-family: arial, sans-serif;
     /*input has OS specific font-family*/
-    color: #069;
+    color: rgb(51,51,51);
 /*    text-decoration: underline;*/
     cursor: pointer;
     transition-duration: 0.4s;
 }
 
 button:hover{
-    background-color: gainsboro;
+    background-color: darkorange;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    border-radius: 4px;
 }
 
 iframe {

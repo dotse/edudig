@@ -49,10 +49,21 @@ func (c App) Dig(zone string, transport string, qtype uint16, nameserver string)
 
 }
 
+func (c App) Opcode() revel.Result {
+	return c.Render()
+}
+func (c App) Status() revel.Result {
+	return c.Render()
+}
+func (c App) Id() revel.Result {
+	return c.Render()
+}
 func (c App) Info() revel.Result {
 	return c.Render()
 }
-
+func (c App) Flags() revel.Result {
+	return c.Render()
+}
 func (c App) QRflag() revel.Result {
 	return c.Render()
 }
@@ -77,6 +88,43 @@ func (c App) ADflag() revel.Result {
 func (c App) CDflag() revel.Result {
 	return c.Render()
 }
+func (c App) QDCount() revel.Result {
+	return c.Render()
+}
+func (c App) ANCount() revel.Result {
+	return c.Render()
+}
+func (c App) NSCount() revel.Result {
+	return c.Render()
+}
+func (c App) ARCount() revel.Result {
+	return c.Render()
+}
+func (c App) QuestionSection() revel.Result {
+	return c.Render()
+}
+func (c App) AnswerSection() revel.Result {
+	return c.Render()
+}
+func (c App) AuthoritySection() revel.Result {
+	return c.Render()
+}
+func (c App) AdditionalSection() revel.Result {
+	return c.Render()
+}
+func (c App) QueryTime() revel.Result {
+	return c.Render()
+}
+func (c App) Server() revel.Result {
+	return c.Render()
+}
+func (c App) When() revel.Result {
+	return c.Render()
+}
+func (c App) MsgSize() revel.Result {
+	return c.Render()
+}
+
 func (c App) Index() revel.Result {
 	// Get a static SOA for pagefault.se
 	Zone := "pagefault.se"
