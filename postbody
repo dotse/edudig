@@ -1,0 +1,8 @@
+{
+	"Zone":"bob.se",
+	"Nameserver": "1.1.1.1",
+	"Transport":  "udp",
+	"Qtype":      "NS",
+	"Port":       "53",
+	"Recursion": true 
+}
