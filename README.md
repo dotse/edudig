@@ -16,6 +16,7 @@ go run cmd/main.go
 ### Send a json body post to localhost:8053/digish 
 
 I recommend testing HTTPie then you can use the following command
+https://httpie.io/
 
 
 http post localhost:8053/digish < postbody
