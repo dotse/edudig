@@ -1,0 +1,19 @@
+.digInput {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+}
+
+h1 {
+  color: #FF8C00;
+  font-family: "Monda", Courier, monospace;
+  font-size: 5rem;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-family: "Courier New", Courier, monospace;
+  color: blue;
+}/*# sourceMappingURL=main.css.map */

@@ -3,10 +3,11 @@ package apiserver
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/miekg/dns"
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/miekg/dns"
 )
 
 var TypeToInt = map[string]uint16{
@@ -118,6 +119,12 @@ type DugOut struct {
 var Queries []Query
 
 func digish(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("access-control-allow-origin", "http://localhost:3000")
+	w.Header().Set("access-control-allow-methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("access-control-allow-headers", "Accept, Accept-Language, Content-Type, YourOwnHeader")
+	if r.Method == "OPTIONS" {
+		return
+	}
 	var query Query
 	var dugOut DugOut
 
@@ -163,4 +170,5 @@ func digish(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("Encoding error, %v", err)
 	}
+
 }
