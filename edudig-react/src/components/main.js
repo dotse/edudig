@@ -74,7 +74,7 @@ const StyledSubmit = styled.input`
 
 export const Main = () => {
     const [zone, setZone] = useState("");
-    const [protocol, setProtocol] = useState("UDP");
+    const [protocol, setProtocol] = useState("udp");
     const [queryType, setQueryType] = useState("A");
     const [server, setServer] = useState("8.8.8.8");
     const [responseData, setResponseData] = useState("");
@@ -101,10 +101,10 @@ export const Main = () => {
         // })
         const reqData = {"Zone":`${zone}`, "Nameserver":`${server}`,"Transport":`${protocol}`, "Qtype":`${queryType}`, "Port":`${port}`,"Recursion": `${recursion}`}
         axios.post("http://localhost:8053/digish", reqData ,{
-            headers: {
-                "Content-Type": "application/json",
-                'Access-Control-Allow-Origin': 'http://localhost:3000'
-            }
+            //headers: {
+              //  "Content-Type": "application/json",
+                //'Access-Control-Allow-Origin': 'http://localhost:3000'
+            //}
         })
         .then(response => {
             console.log(response.data);

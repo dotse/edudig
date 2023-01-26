@@ -119,9 +119,9 @@ type DugOut struct {
 var Queries []Query
 
 func digish(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("access-control-allow-origin", "http://localhost:3000")
+	w.Header().Set("access-control-allow-origin", "*")
 	w.Header().Set("access-control-allow-methods", "POST, GET, OPTIONS, PUT, DELETE")
-	w.Header().Set("access-control-allow-headers", "Accept, Accept-Language, Content-Type, YourOwnHeader")
+	w.Header().Set("access-control-allow-headers", "Accept, content-type, referer ")
 	if r.Method == "OPTIONS" {
 		return
 	}
