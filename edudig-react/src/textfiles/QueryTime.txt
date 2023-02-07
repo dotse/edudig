@@ -1,0 +1,1 @@
+﻿Query Time:Time elapsed to receive a response to a query. whether this message is a query (0), or a response (1)

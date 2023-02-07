@@ -6,8 +6,6 @@
     align-self: center;
 }
 
-
-
 h1 {
     color: #FF8C00;
     font-family: 'Monda', Courier, monospace;
@@ -18,5 +16,48 @@ h1 {
 
 h2 {
     font-family: 'Courier New', Courier, monospace;
-    color: blue;
+    color: #070D0C;
+    margin: 0;
+    margin-left: 8px;
 }
+
+h4{
+    margin: 8px;
+}
+
+.copyBtn {
+    background-image: url(../images/CopySymbol.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    width: 25px;
+    &:hover {
+        background-image: url(../images/CopySymbolhover.png);
+    }
+}
+
+.flag {
+    color: #949494;
+}
+.flagtrue {
+    color: #FDFFFE;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.noPadding{
+    padding-left: 0;
+    padding-top: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.flexGrid {
+    display: flex;
+    flex-direction: row;
+    width: 40wv;
+}
+

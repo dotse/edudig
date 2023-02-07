@@ -1,0 +1,1 @@
+﻿Authority Section:RRs that point toward an authoritative name server.

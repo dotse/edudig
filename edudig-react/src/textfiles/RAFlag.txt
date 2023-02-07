@@ -1,0 +1,1 @@
+﻿RA: Recursion AvailableThis be is set or cleared in a response, and denotes whether recursive query support is available in the name server.

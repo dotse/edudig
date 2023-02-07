@@ -1,0 +1,1 @@
+﻿Question Section:The question section is used to carry the "question" in most queries, i.e., the parameters that define what is being asked.  The section contains QDCOUNT (usually 1) entries.

@@ -1,0 +1,1 @@
+﻿AD: Authenticated DataIndicates that the response has been validated.
