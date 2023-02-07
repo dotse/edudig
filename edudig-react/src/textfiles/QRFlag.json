@@ -1,0 +1,1 @@
+﻿{  "Title": "QR",  "Paragraphs": [    "A one bit field that specifies whether this message is a query (0), or a response (1)."    ]}

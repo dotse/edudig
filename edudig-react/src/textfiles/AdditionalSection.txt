@@ -1,1 +1,0 @@
-﻿AdditionalSection:RRs which relate to the query, but are not strictly answers for the question.

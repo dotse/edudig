@@ -1,1 +1,0 @@
-﻿OPCODE:A four bit field that specifies kind of query in this message.  This value is set by the originator of a query and copied into the response.The values are:0               a standard query (QUERY)1               an inverse query (IQUERY)2               a server status request (STATUS)3-15         reserved for future use
