@@ -5,13 +5,12 @@ import axios from "axios";
 import { EduDig } from "./eduDig";
 import { Answer } from "./answer";
 import styled from "styled-components";
-import CopySymbol from "../images/CopySymbol.svg"
 
 const StyledInput = styled.input`
     width: 77vw;
     max-width: 320px;
     padding: 8px;
-    margin 8px;
+    margin: 8px;
     border: none;
     border-bottom-color: grey;
     border-bottom-width: 1.5px;
@@ -29,7 +28,7 @@ const StyledInputNumber = styled.input`
     width: 77vw;
     max-width: 320px;
     padding: 8px;
-    margin 8px;
+    margin: 8px;
     border: none;
     border-bottom-color: grey;
     border-bottom-width: 1.5px;
@@ -81,8 +80,8 @@ const StyledSubmit = styled.input`
     max-width: 340px; 
     cursor: pointer;
     font-family: 'Monda', Courier, monospace;
-    font-weight: blod;
-    font-size: 1 rem;
+    font-weight: bold;
+    font-size: 1rem;
     &:hover {
         background-color: #FFCD8F; 
     }
@@ -121,13 +120,12 @@ export const Main = () => {
     const [queryType, setQueryType] = useState("A");
     const [server, setServer] = useState("8.8.8.8");
     const [responseData, setResponseData] = useState("");
-    const [errorResponse, setErrorResponse] = useState("")
     const [content, setContent] = useState(<EduDig />);
     const [port, setPort] = useState("53");
     const [recursion, setRecursion] = useState(true)
 
     useEffect ( () => {
-        if (responseData != "" ){
+        if (responseData !== "" ){
             setContent(<Answer data={responseData} />)
         }
     },[responseData]);
@@ -136,11 +134,13 @@ export const Main = () => {
         console.log("zone:"+zone,"recursion:"+recursion,protocol,queryType,port,server);
         const reqData = {"Zone":`${zone}`, "Nameserver":`${server}`,"Transport":`${protocol}`, "Qtype":`${queryType}`, "Port":`${port}`,"Recursion": `${recursion}`}
         axios.post("http://localhost:8053/digish", reqData)
+        //axios.post("http://edudig.se:8053/digish", reqData)
         .then(response => {
             setResponseData(response.data)
         })
         .catch(error => {
-            setErrorResponse(error)
+            console.error(error)
+            //setErrorResponse(error)
         })
     }
 

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
-import infoText from "../textfiles/Info.txt"
-import OPCodeText from "../textfiles/OPCode.txt"
-import QDCountText from "../textfiles/QDCount.txt"
+import infoText from "../textfiles/Info.json"
+import OPCodeText from "../textfiles/OPCode.json"
 
 const StyledAnswerWrapper = styled.div`
     display:flex;
