@@ -16,6 +16,7 @@ RUN npm ci
 COPY . /app
 
 ENV CI=true
+#ENV CI=false
 ENV PORT=3000
 
 CMD [ "npm", "start" ]

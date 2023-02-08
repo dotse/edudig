@@ -118,7 +118,7 @@ export const Answer = (props) => {
     const digishRespResp = digishResp.Response
     const [text, setText] = useState();
     let questionTransport = "";
-    if (digishQuestion.Transport != "udp"){
+    if (digishQuestion.Transport !== "udp"){
         questionTransport = "+tcp"
     }
     const queryTypeList = [[0,"None"],
@@ -245,7 +245,7 @@ export const Answer = (props) => {
     const mapFunction = ((list,value,text,hover,file) => {
         const map = new Map(list);
         const key = map.get(value);
-        if(hover != undefined){
+        if(hover !== undefined){
             return <StyledTerminalPHover tabIndex="0" key={uuidv4()} onClick={() => setFile(file)}>{text} {key}</StyledTerminalPHover>
         }
         return(<StyledTerminalP key={uuidv4()} className="queryTypeClass">{text} {key}</StyledTerminalP>)
@@ -255,7 +255,7 @@ export const Answer = (props) => {
         const list = [jsonFile]
         setText(list.map((jsonFile, i) => {
             let items = <></>
-            if(jsonFile.ListItems != undefined){
+            if(jsonFile.ListItems !== undefined){
                 items = jsonFile.ListItems.map((listItem, i) => {
                     return (
                         <div key={uuidv4()}>
@@ -265,7 +265,7 @@ export const Answer = (props) => {
                 })
             };
             let paragraphs = <></>
-            if(jsonFile.Paragraphs != undefined){
+            if(jsonFile.Paragraphs !== undefined){
                 paragraphs = jsonFile.Paragraphs.map((paragraph, i) => {
                     return(
                         <div key={uuidv4()}>
