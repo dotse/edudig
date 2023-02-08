@@ -248,7 +248,7 @@ export const Answer = (props) => {
         const map = new Map(list);
         const key = map.get(value);
         if(hover != undefined){
-            return <StyledTerminalPHover key={uuidv4()} onClick={() => setFile(file)}>{text} {key}</StyledTerminalPHover>
+            return <StyledTerminalPHover tabIndex="0" key={uuidv4()} onClick={() => setFile(file)}>{text} {key}</StyledTerminalPHover>
         }
         return(<StyledTerminalP key={uuidv4()} className="queryTypeClass">{text} {key}</StyledTerminalP>)
     })
@@ -302,7 +302,7 @@ export const Answer = (props) => {
     let digishAnswerLen = "0";
     let digishAnswers = "";
     if (digishRespResp.Answer != null){
-        digishAnswerSection = (<StyledTerminalPHover onClick={() => setFile(AnswerSection)} >
+        digishAnswerSection = (<StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} >
             ;; ANSWER SECTION:</StyledTerminalPHover>);
         digishAnswerLen = digishRespResp.Answer.length;
         digishAnswers = digishRespResp.Answer.map((Answer,i) => {
@@ -372,19 +372,19 @@ export const Answer = (props) => {
                             <StyledTerminalP>{digishHeader}</StyledTerminalP>
                             {opCode}
                             {rCode}
-                            <StyledTerminalPHover onClick={() => setFile(ID)}>id: {digishRespResp.Id}</StyledTerminalPHover>
+                            <StyledTerminalPHover tabIndex="0" onClick={() => setFile(ID)}>id: {digishRespResp.Id}</StyledTerminalPHover>
                         </div>
                         
                         <div className="flexRow">
-                            <StyledTerminalPHover onClick={() => setFile(Flags)} >
+                            <StyledTerminalPHover tabIndex="0" onClick={() => setFile(Flags)} >
                                 ;; flags:
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover 
+                            <StyledTerminalPHover tabIndex="0" 
                                 onClick={() => setFile(QRFlag)} 
                                 className={`flag${digishRespResp.Response ? true : ''}`}>
                                     qr
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover 
+                            <StyledTerminalPHover tabIndex="0" 
                                 onClick={() => setFile(AAFlag)} 
                                 className={`flag${digishRespResp.Authoritative ? true : ''}`}>
                                     aa
@@ -399,37 +399,37 @@ export const Answer = (props) => {
                                 className={`flag${digishRespResp.RecursionDesired ? true : ''}`}>
                                     rd
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover 
+                            <StyledTerminalPHover tabIndex="0" 
                                 onClick={() => setFile(RAFlag)} 
                                 className={`flag${digishRespResp.RecursionAvailable ? true : ''}`}>
                                     ra
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover 
+                            <StyledTerminalPHover tabIndex="0" 
                                 onClick={() => setFile(ZFlag)} 
                                 className="flag">
                                     z
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover 
+                            <StyledTerminalPHover tabIndex="0" 
                                 onClick={() => setFile(ADFlag)} 
                                 className={`flag${digishRespResp.AuthenticatedData ? true : ''}`}>
                                     ad
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover 
+                            <StyledTerminalPHover tabIndex="0" 
                                 onClick={() => setFile(CDFlag)} 
                                 className={`flag${digishRespResp.CheckingDisabled ? true : ''}`}>
                                     cd
                             </StyledTerminalPHover>
                             <p className="noPadding">;</p>
-                            <StyledTerminalPHover onClick={() => setFile(QDCount)} >
+                            <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QDCount)} >
                                 QUERY:{digishQuestionLen},
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover onClick={() => setFile(ANCOUNT)} >
+                            <StyledTerminalPHover tabIndex="0" onClick={() => setFile(ANCOUNT)} >
                                 ANSWER:{digishAnswerLen},
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover onClick={() => setFile(NSCount)} >
+                            <StyledTerminalPHover tabIndex="0" onClick={() => setFile(NSCount)} >
                                 AUTHORITY:{digishNsLen},
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover onClick={() => setFile(ARCOUNT)} >
+                            <StyledTerminalPHover tabIndex="0" onClick={() => setFile(ARCOUNT)} >
                                 ADDITIONAL:{digishExtraLen}
                             </StyledTerminalPHover>
                         </div>
@@ -437,7 +437,7 @@ export const Answer = (props) => {
                     <StyledTerminalSection>
                         <StyledTerminalP>;; OPT PSEUDOSECTION:</StyledTerminalP>
                         <StyledTerminalP>; EDNS: version: 0, flags:; udp: 1232 </StyledTerminalP>
-                        <StyledTerminalPHover onClick={() => setFile(QuestionSection)} >
+                        <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QuestionSection)} >
                             ;; QUESTION SECTION:
                         </StyledTerminalPHover>
                         {digishQuestions}
@@ -447,16 +447,16 @@ export const Answer = (props) => {
                         {digishAnswers}
                     </StyledTerminalSection>
                     <StyledTerminalSection>
-                        <StyledTerminalPHover onClick={() => setFile(QueryTime)}>
+                        <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QueryTime)}>
                             ;; Query time: {queryTime} msec
                         </StyledTerminalPHover>
-                        <StyledTerminalPHover onClick={() => setFile(Server)} >
+                        <StyledTerminalPHover tabIndex="0" onClick={() => setFile(Server)} >
                             ;; SERVER: {digishResp.Nameserver}#port({digishResp.Nameserver})
                         </StyledTerminalPHover>
-                        <StyledTerminalPHover onClick={() => setFile(When)} >
+                        <StyledTerminalPHover tabIndex="0" onClick={() => setFile(When)} >
                             ;; WHEN: {time}
                         </StyledTerminalPHover>
-                        <StyledTerminalPHover onClick={() => setFile(MSGSize)} >
+                        <StyledTerminalPHover tabIndex="0" onClick={() => setFile(MSGSize)} >
                             ;; MSG SIZE rcvd: {digishResp['Message Size']}
                         </StyledTerminalPHover>
                     </StyledTerminalSection>
