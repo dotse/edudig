@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/miekg/dns"
@@ -104,7 +105,7 @@ type Query struct {
 	Qname      string `json:"Qname"`
 	Qtype      string `json:"Qtype"`
 	Port       string `json:"Port"`
-	Recursion  bool   `json:"Recursion"`
+	Recursion  string `json:"Recursion"`
 }
 
 type DugOut struct {
@@ -136,7 +137,10 @@ func digish(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(query.Zone)
 	message := new(dns.Msg)
-	message.RecursionDesired = query.Recursion
+	message.RecursionDesired, err = strconv.ParseBool(query.Recursion)
+	if err != nil {
+		message.RecursionDesired = true
+	}
 	message.Id = dns.Id()
 
 	message.Question = make([]dns.Question, 1)
