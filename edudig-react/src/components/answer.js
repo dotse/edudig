@@ -2,12 +2,10 @@ import { useEffect, useState } from "react"
 import styled from "styled-components"
 import { v4 as uuidv4 } from 'uuid';
 import AAFlag from "../textfiles/AAFlag.json"
-import AdditionalSection from "../textfiles/AdditionalSection.json"
 import ADFlag from "../textfiles/ADFlag.json"
 import ANCOUNT from "../textfiles/ANCOUNT.json"
 import AnswerSection from "../textfiles/AnswerSection.json"
 import ARCOUNT from "../textfiles/ARCOUNT.json"
-import AuthoritySection from "../textfiles/AuthoritySection.json"
 import CDFlag from "../textfiles/CDFlag.json"
 import Flags from "../textfiles/Flags.json"
 import ID from "../textfiles/ID.json"
@@ -376,7 +374,8 @@ export const Answer = (props) => {
                         </div>
                         
                         <div className="flexRow">
-                            <StyledTerminalPHover tabIndex="0" onClick={() => setFile(Flags)} >
+                            <StyledTerminalPHover tabIndex="0" 
+                                onClick={() => setFile(Flags)}>
                                 ;; flags:
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0" 
