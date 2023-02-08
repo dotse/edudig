@@ -13,16 +13,25 @@ h1 {
     margin-bottom: 10px;
 }
 
-
 h2 {
     font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5rem;
     color: #070D0C;
-    margin: 0;
-    margin-left: 8px;
+    margin-left: 12px;
+    margin-bottom: 0px;
+    margin-top: 24px;
+}
+
+h3{
+    font-size: 1.2 rem;
+    margin-bottom: 0px;
+    margin-left: 12px;
 }
 
 h4{
-    margin: 8px;
+    margin-left: 12px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .copyBtn {
@@ -46,6 +55,7 @@ h4{
 .flexRow {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .noPadding{
@@ -58,6 +68,40 @@ h4{
 .flexGrid {
     display: flex;
     flex-direction: row;
-    width: 40wv;
+    width: 40vw;
+
 }
 
+.flexRight {
+    display: flex;
+    flex-direction: row;
+    width: inherit;
+    background-color: blueviolet;
+}
+
+.queryTypeClass {
+   flex: 1 1 0;
+   padding: 0px;
+}
+
+table{
+    border-spacing: 0px;
+}
+tr {
+    width: 50vw;
+}
+
+td{
+    width: 8vw;
+}
+
+.firstCell {
+    width: 12vw;
+}
+
+.answerSection {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;;
+}
