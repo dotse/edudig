@@ -108,10 +108,11 @@ export const Main = () => {
     const [recursion, setRecursion] = useState(true)
 
     useEffect ( () => {
-        if (responseData !== "" ){
+        if (responseData.length > 0 ){
             setContent(<Answer data={responseData} />)
         }
     },[responseData]);
+
     const handelSubmit = (e) => {
         e.preventDefault();
         const reqData = {"Zone":`${zone}`, "Nameserver":`${server}`,"Transport":`${protocol}`, "Qtype":`${queryType}`, "Port":`${port}`,"Recursion": `${recursion}`}

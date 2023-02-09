@@ -32,7 +32,7 @@ const StyledAnswerWrapper = styled.div`
     width: 100vw;
     @media screen and (min-width: 1024px){
         flex-direction: row;
-    }  
+    }
 `
 const StyledTerminal = styled.div`
     background-color: #070D0C;
@@ -93,7 +93,7 @@ const StyledTipBox = styled.div`
     padding: 16px;
     text-align: left;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
 `
 const StyledTerminalLine = styled.div`
     background-color: #070D0C;
@@ -113,9 +113,9 @@ const StyledInfoP = styled.p`
 `
 
 export const Answer = (props) => {
-    const digishQuestion = props.data[0]
-    const digishResp = props.data[1]
-    const digishRespResp = digishResp.Response
+    const digishQuestion = props.data[0];
+    const digishResp = props.data[1];
+    let digishRespResp = digishResp.Response;
     const [text, setText] = useState();
     let questionTransport = "";
     if (digishQuestion.Transport !== "udp"){
@@ -240,13 +240,13 @@ export const Answer = (props) => {
       const minute = d.getMinutes();
       const second = d.getSeconds();
       const year = d.getFullYear()
-      const time =`${day} ${month} ${date} ${hour}:${minute}:${second} CET ${year}`  
+      const time =`${day} ${month} ${date} ${hour}:${minute}:${second} CET ${year}`
 
     const mapFunction = ((list,value,text,hover,file) => {
         const map = new Map(list);
         const key = map.get(value);
         if(hover !== undefined){
-            return <StyledTerminalPHover tabIndex="0" key={uuidv4()} onClick={() => setFile(file)}>{text} {key}</StyledTerminalPHover>
+            return <StyledTerminalPHover tabIndex="0" key={uuidv4()} onClick={() => setFile(file)}>{text}: {key},</StyledTerminalPHover>
         }
         return(<StyledTerminalP key={uuidv4()} className="queryTypeClass">{text} {key}</StyledTerminalP>)
     })
@@ -287,19 +287,19 @@ export const Answer = (props) => {
     useEffect (() => {
         setFile(Info)
     },[])
-    
+
     const digish = `; <<>> DiGiSH <<>>  ${digishResp.Zone}`;
     const opCode = mapFunction(opCodeList,digishRespResp.Opcode, "opcode", "hover", OPCode);
     const digishHeader = `;; ->>HEADER<<-`;
     const rCode = mapFunction(rCodeList,digishRespResp.Rcode, "status", "hover", Status);
     let digishQuestionLen = "0";
-    if (digishRespResp.Question != null) {
+    if (digishRespResp.Question !== null) {
         digishQuestionLen = digishRespResp.Question.length
     };
     let digishAnswerSection ="";
     let digishAnswerLen = "0";
     let digishAnswers = "";
-    if (digishRespResp.Answer != null){
+    if (digishRespResp.Answer !== null){
         digishAnswerSection = (<StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} >
             ;; ANSWER SECTION:</StyledTerminalPHover>);
         digishAnswerLen = digishRespResp.Answer.length;
@@ -329,14 +329,16 @@ export const Answer = (props) => {
             </table>)
         })
     }
+
     let digishNsLen = "0";
-    if(digishRespResp.ns != null){
-        digishNsLen = digishRespResp.ns.length
-    }
+    if(digishRespResp.Ns){
+        digishNsLen = digishRespResp.Ns.length
+    } 
+
     let digishExtraLen = "0";
-    if(digishRespResp.Extra != null){
+    if(digishRespResp.Extra){
         digishExtraLen = digishRespResp.Extra.length
-    }
+    } 
 
     let digishQuestions = digishRespResp.Question.map((Question, i) => {
         i = +1;
@@ -372,49 +374,50 @@ export const Answer = (props) => {
                             {rCode}
                             <StyledTerminalPHover tabIndex="0" onClick={() => setFile(ID)}>id: {digishRespResp.Id}</StyledTerminalPHover>
                         </div>
-                        
+
                         <div className="flexRow">
-                            <StyledTerminalPHover tabIndex="0" 
+
+                            <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(Flags)}>
                                 ;; flags:
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover tabIndex="0" 
-                                onClick={() => setFile(QRFlag)} 
+                            <StyledTerminalPHover tabIndex="0"
+                                onClick={() => setFile(QRFlag)}
                                 className={`flag${digishRespResp.Response ? true : ''}`}>
                                     qr
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover tabIndex="0" 
-                                onClick={() => setFile(AAFlag)} 
+                            <StyledTerminalPHover tabIndex="0"
+                                onClick={() => setFile(AAFlag)}
                                 className={`flag${digishRespResp.Authoritative ? true : ''}`}>
                                     aa
                             </StyledTerminalPHover>
                             <StyledTerminalPHover
-                                onClick={() => setFile(TCFlag)}  
+                                onClick={() => setFile(TCFlag)}
                                 className={`flag${digishRespResp.Truncated ? true : ''}`}>
                                     tc
                                 </StyledTerminalPHover>
                             <StyledTerminalPHover
-                                onClick={() => setFile(RDFlag)}  
+                                onClick={() => setFile(RDFlag)}
                                 className={`flag${digishRespResp.RecursionDesired ? true : ''}`}>
                                     rd
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover tabIndex="0" 
-                                onClick={() => setFile(RAFlag)} 
+                            <StyledTerminalPHover tabIndex="0"
+                                onClick={() => setFile(RAFlag)}
                                 className={`flag${digishRespResp.RecursionAvailable ? true : ''}`}>
                                     ra
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover tabIndex="0" 
-                                onClick={() => setFile(ZFlag)} 
+                            <StyledTerminalPHover tabIndex="0"
+                                onClick={() => setFile(ZFlag)}
                                 className="flag">
                                     z
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover tabIndex="0" 
-                                onClick={() => setFile(ADFlag)} 
+                            <StyledTerminalPHover tabIndex="0"
+                                onClick={() => setFile(ADFlag)}
                                 className={`flag${digishRespResp.AuthenticatedData ? true : ''}`}>
                                     ad
                             </StyledTerminalPHover>
-                            <StyledTerminalPHover tabIndex="0" 
-                                onClick={() => setFile(CDFlag)} 
+                            <StyledTerminalPHover tabIndex="0"
+                                onClick={() => setFile(CDFlag)}
                                 className={`flag${digishRespResp.CheckingDisabled ? true : ''}`}>
                                     cd
                             </StyledTerminalPHover>
@@ -467,10 +470,10 @@ export const Answer = (props) => {
                         <h3>Tip!</h3>
                         <h4>Copy and paste this line into your terminal</h4>
                         <StyledTerminalLine className="terminal">
-                            <p>dig @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.QueryType} {digishQuestion.Zone} {questionTransport}</p>
-                            <div className="copyBtn" onClick={() => 
+                            <p>dig @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.Qtype} {digishQuestion.Zone} {questionTransport}</p>
+                            <div className="copyBtn" onClick={() =>
                                 {navigator.clipboard.writeText(`dig @${digishQuestion.Nameserver} -p ${digishQuestion.Port} ${digishQuestion.QueryType} ${digishQuestion.Zone} ${questionTransport}`)}
-                                }>             
+                                }>
                             </div>
                         </StyledTerminalLine>
                     </StyledTipBox>
