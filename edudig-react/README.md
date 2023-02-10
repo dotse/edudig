@@ -10,3 +10,4 @@ In the project directory, you can run:
 ### `npm install`
 then
 ### `npm start`
+the project will run locally on http://localhost:3000/
