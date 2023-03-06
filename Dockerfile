@@ -1,17 +1,43 @@
-FROM golang:1.17.8-alpine AS build
 
-RUN apk add --update git curl bash
+# syntax=docker/dockerfile:1.4
+FROM --platform=$BUILDPLATFORM golang:1.18-alpine AS builder
 
-WORKDIR /app
 
-COPY go.mod go.sum ./
-RUN go mod download && go mod verify
-RUN go install github.com/revel/cmd/revel@latest
-
+WORKDIR /code
 
 ENV CGO_ENABLED 0
+ENV GOPATH /go
+ENV GOCACHE /go-build
+
+COPY go.mod go.sum ./
+RUN --mount=type=cache,target=/go/pkg/mod/cache \
+    go mod download
 
 ADD . .
 
-EXPOSE 9000
-ENTRYPOINT revel run
+RUN --mount=type=cache,target=/go/pkg/mod/cache \
+    --mount=type=cache,target=/go-build \
+    go build -o bin/backend cmd/main.go
+
+CMD ["/code/bin/backend"]
+
+FROM builder as dev-envs
+
+RUN <<EOF
+apk update
+apk add git
+EOF
+
+RUN <<EOF
+addgroup -S docker
+adduser -S --shell /bin/bash --ingroup docker vscode
+EOF
+
+# install Docker tools (cli, buildx, compose)
+COPY --from=gloursdocker/docker / /
+
+CMD ["go", "run", "cmd/main.go"]
+
+FROM scratch
+COPY --from=builder /code/bin/backend /usr/local/bin/backend
+CMD ["/usr/local/bin/backend"]

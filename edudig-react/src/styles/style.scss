@@ -1,0 +1,5 @@
+@import './main.scss';
+
+@media screen and (min-width: 1024px) {
+    @import './desktop.scss';
+};

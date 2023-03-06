@@ -1,0 +1,1 @@
+﻿{  "Title": "CD: Checking Disabled",  "Paragraphs": [    "The CD bit exists in order to allow a security-aware resolver to disable signature validation in a security-aware name server's processing of a particular query. The name server side MUST copy the setting of the CD bit from a query to the corresponding response."  ]}

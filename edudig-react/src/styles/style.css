@@ -1,0 +1,120 @@
+.digInput {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+}
+
+h1 {
+  color: #FF8C00;
+  font-family: "Monda", Courier, monospace;
+  font-size: 5rem;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.5rem;
+  color: #070D0C;
+  margin-left: 12px;
+  margin-bottom: 0px;
+  margin-top: 24px;
+}
+
+h3 {
+  font-size: 1.2 rem;
+  margin-bottom: 0px;
+  margin-left: 12px;
+}
+
+h4 {
+  margin-left: 12px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.copyBtn {
+  background-image: url(../images/CopySymbol.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  width: 25px;
+}
+.copyBtn:hover {
+  background-image: url(../images/CopySymbolhover.png);
+}
+
+.flag {
+  color: #949494;
+}
+
+.flagtrue {
+  color: #FDFFFE;
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.noPadding {
+  padding-left: 0;
+  padding-top: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.flexGrid {
+  display: flex;
+  flex-direction: row;
+  width: 40vw;
+}
+
+.flexRight {
+  display: flex;
+  flex-direction: row;
+  width: inherit;
+  background-color: blueviolet;
+}
+
+.queryTypeClass {
+  flex: 1 1 0;
+  padding: 0px;
+}
+
+table {
+  border-spacing: 0px;
+}
+
+tr {
+  width: 50vw;
+}
+
+td {
+  width: 8vw;
+}
+
+.firstCell {
+  width: 12vw;
+}
+
+.answerSection {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+@media screen and (min-width: 1024px) {
+  .digInput {
+    width: 100vw;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .answerSection {
+    margin-bottom: 0px;
+  }
+}/*# sourceMappingURL=style.css.map */
