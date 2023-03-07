@@ -1,20 +1,85 @@
 .digInput {
   margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-self: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
+.labelDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  text-align: left;
+  background-color: #070D0C;
+  border-radius: 5px;
+  height: 55px;
+  margin-right: 16px;
+}
+
+label {
+  font-family: 'Monda', Courier, monospace;
+  position: absolute;
+  color: grey;
+  font-size: 1.2rem;
+  margin-left: 8px;
+  margin-top: 14px;
+}
+
+.active {
+  margin-top: 4px;
+  font-size: 0.85rem;
+}
+
+.active:hover {
+  color: #FF8C00;
+}
+
+input:focus ~ label, select:focus ~ label {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #FF8C00;
+}
+
+input:hover ~ label {
+  color: #FF8C00;
+}
+
+.selectBorder:hover ~ label {
+  color: #FF8C00;
+}
+
+.selectBorder:focus ~ label {
+  color: #FF8C00;
 }
 
 h1 {
   color: #FF8C00;
-  font-family: "Monda", Courier, monospace;
+  font-family: 'Monda', Courier, monospace;
   font-size: 5rem;
   margin-bottom: 10px;
 }
 
 h2 {
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 1.5rem;
   color: #070D0C;
   margin-left: 12px;
@@ -41,6 +106,7 @@ h4 {
   cursor: pointer;
   width: 25px;
 }
+
 .copyBtn:hover {
   background-image: url(../images/CopySymbolhover.png);
 }
@@ -54,9 +120,15 @@ h4 {
 }
 
 .flexRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .noPadding {
@@ -67,20 +139,32 @@ h4 {
 }
 
 .flexGrid {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   width: 40vw;
 }
 
 .flexRight {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   width: inherit;
   background-color: blueviolet;
 }
 
 .queryTypeClass {
-  flex: 1 1 0;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 0px;
+          flex: 1 1 0;
   padding: 0px;
 }
 
@@ -102,19 +186,31 @@ td {
 
 .answerSection {
   width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-bottom: 12px;
 }
 
 @media screen and (min-width: 1024px) {
   .digInput {
     width: 100vw;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   .answerSection {
     margin-bottom: 0px;
   }
-}/*# sourceMappingURL=style.css.map */
+}
+/*# sourceMappingURL=style.css.map */
