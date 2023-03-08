@@ -6,36 +6,103 @@
     align-self: center;
 }
 
-.labelDiv {
+.wrapInput {
     display: flex;
     flex-direction: column;
     align-items: left;
     justify-content: left;
     text-align: left;
-    background-color: #070D0C;
     border-radius: 5px;
     height: 55px;
     margin-right: 16px;
 }
-label {
-    font-family: 'Monda', Courier, monospace;
+
+.labelStyle {
+    color: grey;
+    margin-top: -5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.labelDiv {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 5px;
+    height: 55px;
+    margin-right: 16px;
+}
+.is {
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    color: grey;
+    font-size: 1rem;
+    margin-left: 8px;
+    margin-top: 28px;
+}
+
+.isactive {
+    font-family: Arial, Helvetica, sans-serif;
     position: absolute;
     color: grey;
     font-size: 1.2rem;
-    margin-left: 8px;
-    margin-top: 14px;
-}
-
-.active {
-    margin-top: 4px;
+    margin-left: 0px;
+    margin-top: 0px;
     font-size: 0.85rem;
     &:hover {
         color: #FF8C00;
     }
 }
 
+.labelDiv2 {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    border-radius: 5px;
+    height: 55px;
+    margin-right: 16px;
+}
+
+label {
+    font-family: Arial, Helvetica, sans-serif;
+    color: grey;
+    font-size: 1.2rem;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+  }
+  
+
+// label {
+//     font-family: Arial, Helvetica, sans-serif;
+//     position: absolute;
+//     color: grey;
+//     font-size: 1.2rem;
+//     margin-left: 8px;
+//     margin-top: 14px;
+// }
+
+// .active {
+//     margin-top: 0px;
+//     font-size: 0.85rem;
+//     &:hover {
+//         color: #FF8C00;
+//     }
+// }
+
 input:focus ~ label, select:focus ~ label {
-    margin-top: 4px;
+    margin-left: 0px;
+    margin-top: 0px;
     font-size:0.85rem;
     color:#FF8C00;
   }
