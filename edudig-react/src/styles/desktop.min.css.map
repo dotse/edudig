@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,AAAC,CACF,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,MAAM,CAM1B,AARD,AAGI,KAHC,CAGD,SAAS,AAAA,CACL,cAAc,CAAE,GAAG,CACnB,WAAW,CAAE,MAAM,CACnB,eAAe,CAAE,MAAM,CAC1B,AAEL,AAAA,cAAc,AAAC,CACX,aAAa,CAAE,GAAG,CACrB",
+    "sources": [
+        "desktop.scss"
+    ],
+    "names": [],
+    "file": "desktop.min.css"
+}

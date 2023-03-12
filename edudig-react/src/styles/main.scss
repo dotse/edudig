@@ -1,9 +1,28 @@
-.digInput {
-    margin-top: 10px;
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+.main {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    align-self: center;
+    justify-content: center;
+    min-height: 100vh;
+    max-width: 1200px;
+    
+    .digInput {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-self: center;
+    }
+
+    .contentWrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 120px;
+    }
 }
 
 h1 {
@@ -99,7 +118,7 @@ td{
     width: 12vw;
 }
 
-.answerSection {
+section {
     width: 100vw;
     display: flex;
     justify-content: center;

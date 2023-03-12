@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { EduDig } from "./eduDig";
 import { Answer } from "./answer";
+import { Footer } from "./footer"
 import styled from "styled-components";
 
 const StyledInput = styled.input`
@@ -128,7 +129,7 @@ export const Main = () => {
         })
     }
 
-    return <div className="main">
+    return <><div className="main">
             <header>
             <h1>EduDig</h1>
             <form className="digInput" onSubmit={handelSubmit}>
@@ -159,6 +160,10 @@ export const Main = () => {
                 <StyledSubmit type="submit" value="digish" disabled={!zone}></StyledSubmit>
             </form>
         </header>
-        {content}
+        <div className="contentWrap">
+            {content}
+        </div>
+        <Footer />
     </div>
+    </>
 }
