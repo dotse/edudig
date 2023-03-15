@@ -9,22 +9,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// func homePage(w http.ResponseWriter, r *http.Request) {
-// 	w.Header().Set("access-control-allow-origin", "*")
-// 	w.Header().Set("access-control-allow-methods", "POST, GET, OPTIONS, PUT, DELETE")
-// 	w.Header().Set("access-control-allow-headers", "Accept, Accept-Language, Content-Type, YourOwnHeader")
-// 	_, err := fmt.Fprintf(w, "Welcome to Digish!")
-// 	if err != nil {
-// 		log.Printf("Fprintf messed up..")
-// 	}
-// 	fmt.Println("Endpoint Hit: homePage")
-// }
-
 func homePage(w http.ResponseWriter, r *http.Request) {
-	// w.Header().Set("access-control-allow-origin", "*")
-	// w.Header().Set("access-control-allow-methods", "POST, GET, OPTIONS, PUT, DELETE")
-	// w.Header().Set("access-control-allow-headers", "Accept, Accept-Language, Content-Type, YourOwnHeader")
-	// Stop here if its Preflighted OPTIONS request
 	if r.Method == "OPTIONS" {
 		return
 	}
