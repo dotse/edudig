@@ -8,16 +8,27 @@ import styled from "styled-components";
 
 const StyledInput = styled.input`
     width: 77vw;
+    height: 40px;
     max-width: 320px;
-    padding: 8px;
-    margin: 8px;
+    padding-top: 3px;
+    padding-left: 8px;
+    margin-top: 8px;
     border: none;
-    border-bottom-color: grey;
-    border-bottom-width: 1.5px;
+    border-bottom-color: lightgrey;
+    border-bottom-width: 5px;
     border-bottom-style: solid;
+    border-radius: 5px;
     font-family: 'Monda', Courier, monospace;
-    &::placeholder {
-        color: black;
+    font-size: 1rem;
+    color: #070D0C;
+
+    &:hover {
+        border-bottom-color: #FF8C00;
+    }
+
+    &:focus {
+        outline: none;
+        border-bottom-color: #FF8C00;
     }
 
     @media screen and (min-width: 1024px){
@@ -27,47 +38,73 @@ const StyledInput = styled.input`
 const StyledInputNumber = styled.input`
     width: 77vw;
     max-width: 320px;
-    padding: 8px;
-    margin: 8px;
+    height: 40px;
+    padding-top: 3px;
+    padding-left: 8px;
+    margin-top: 8px;
     border: none;
-    border-bottom-color: grey;
-    border-bottom-width: 1.5px;
+    border-bottom-color: lightgrey;
+    border-bottom-width: 5px;
     border-bottom-style: solid;
+    border-radius: 5px;
+    color: #070D0C;
     font-family: 'Monda', Courier, monospace;
+    font-size: 1rem;
     &::placeholder {
         color: black;
     }
 
+    &:hover {
+        border-bottom-color: #FF8C00;
+    }
+
+    &:focus {
+        outline: none;
+        border-bottom-color: #FF8C00;
+    }
+
     @media screen and (min-width: 1024px){
-        width: 10vw;
+        width: 15vw;
         max-width: 75px;
     }
 `
 const StyledSelect = styled.select`
     border: none;
     width: 80vw;
-    max-width: 330px; 
+    max-width: 330px;
+    height: 40px; 
     font-family: 'Monda', Courier, monospace;
+    font-size: 1rem;
+    color: #070D0C;
 
+    &:focus {
+        outline: none;
+    }
     @media screen and (min-width: 1024px){
-        width: 10vw;
-        max-width: 75px;
+        width: 20vw;
+        max-width: 95px;
     }
 `
 const StyledSelectBorder = styled.div`
-    margin: 8px;
-    padding-bottom: 8px;
+    margin-top: 6px;
+    padding-top: 4px;
     width: 80vw;
     max-width: 330px; 
-    border-bottom-color: grey;
-    border-bottom-width: 1.5px;
+    border-bottom-color: lightgrey;
+    border-bottom-width: 5px;
     border-bottom-style: solid;
+    border-radius: 5px;
+    
+    &:hover {
+        border-bottom-color: #FF8C00;
+    }
 
     @media screen and (min-width: 1024px){
-        width: 10vw;
-        max-width: 75px;
+        width: 15vw;
+        max-width: 100px;
     }
 `
+
 const StyledSubmit = styled.input`
     margin: 8px;
     margin-top: 20px;
@@ -93,7 +130,7 @@ const StyledSubmit = styled.input`
         }
     }
     @media screen and (min-width: 1024px){
-        width: 20vw;
+        width: 10vw;
         max-width: 20vw;
     }   
 `
@@ -120,7 +157,6 @@ export const Main = () => {
         //axios.post("http://edudig.se:8053/digish", reqData)
         .then(response => {
             setResponseData([reqData,response.data])
-            setZone("");
         })
         .catch(error => {
             console.error(error)
@@ -132,30 +168,49 @@ export const Main = () => {
             <header>
             <h1>EduDig</h1>
             <form className="digInput" onSubmit={handelSubmit}>
-                <StyledInput value={server} id="server" onChange={(e) => setServer(e.target.value)}></StyledInput>
-                <StyledInputNumber type="number" value={port} id="port" onChange={(e) => setPort(e.target.value)}></StyledInputNumber>
-                <StyledSelectBorder>
-                    <StyledSelect value={recursion} onChange={(e) => setRecursion(e.target.value)}>
-                        <option>true</option>
-                        <option>false</option>
-                    </StyledSelect>
-                </StyledSelectBorder>
-                <StyledSelectBorder>
-                    <StyledSelect value={queryType} id="QueryType" onChange={(e) => setQueryType(e.target.value)}>
-                        <option>A</option>
-                        <option>NS</option>
-                        <option>SOA</option>
-                        <option>MX</option>
-                        <option>DNSKEY</option>
-                    </StyledSelect>
-                </StyledSelectBorder>
-                <StyledInput type="text" className="zone" onChange={(e) => setZone(e.target.value)} value={zone} placeholder="zone"></StyledInput>
-                <StyledSelectBorder>
-                    <StyledSelect value={protocol} id="protocol" onChange={(e) => setProtocol(e.target.value)}>
-                        <option>udp</option>
-                        <option>tcp</option>
-                    </StyledSelect>
-                </StyledSelectBorder>
+                <div className="labelDiv">
+                    <StyledInput type="text" className="zone" onChange={(e) => setZone(e.target.value)} value={zone} ></StyledInput>
+                    <label className={`is${zone ? 'active' : ''} `}>zone</label>
+                </div>
+                <div className="labelDiv">
+                    <StyledInput value={server} id="server" onChange={(e) => setServer(e.target.value)}></StyledInput>
+                    <label className={`is${server ? 'active' : ''} `}>server</label>
+                </div>
+                <div className="labelDiv">
+                    <StyledInputNumber type="number" value={port} id="port" onChange={(e) => setPort(e.target.value)}></StyledInputNumber>
+                    <label className={`is${port ? 'active' : ''} `}>port</label>
+                </div>
+                <div className="labelDiv">
+                    <StyledSelectBorder className="selectBorder">
+                        <StyledSelect value={recursion} onChange={(e) => setRecursion(e.target.value)}>
+                            <option>true</option>
+                            <option>false</option>
+                        </StyledSelect>
+                    </StyledSelectBorder>
+                    <label className={`is${recursion ? 'active' : ''} `}>recursion</label>
+                </div>
+                <div className="labelDiv">    
+                    <StyledSelectBorder className="selectBorder">
+                        <StyledSelect value={queryType} id="QueryType" onChange={(e) => setQueryType(e.target.value)}>
+                            <option>A</option>
+                            <option>NS</option>
+                            <option>SOA</option>
+                            <option>MX</option>
+                            <option>DNSKEY</option>
+                        </StyledSelect>
+                    </StyledSelectBorder>
+                    <label className={`is${queryType ? 'active' : ''} `}>query type</label>
+                </div>
+                <div className="labelDiv">
+                    <StyledSelectBorder className="selectBorder">
+                        <StyledSelect  value={protocol} id="protocol" onChange={(e) => setProtocol(e.target.value)}>
+                            <option>udp</option>
+                            <option>tcp</option>
+                        </StyledSelect>
+                    </StyledSelectBorder>
+                    <label className={`is${protocol ? 'active' : ''} `}>protocol</label>
+                </div>
+                
                 <StyledSubmit type="submit" value="digish" disabled={!zone}></StyledSubmit>
             </form>
         </header>
