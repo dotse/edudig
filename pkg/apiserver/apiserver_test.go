@@ -18,6 +18,5 @@ func TestAPIServer_homePage(t *testing.T) {
 	response := httptest.NewRecorder()
 	Router().ServeHTTP(response, request)
 	assert.Equal(t, 200, response.Code, "OK response is expected")
-	assert.Equal(t, response.Body.String(), "Welcome to Digish!")
-
+	assert.Equal(t, response.Body.String(), "{\"content\":\"Welcome to EduDig\"}")
 }

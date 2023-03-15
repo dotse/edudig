@@ -30,7 +30,7 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("Endpoint Hit: homePage")
 
-	response, err := json.Marshal(map[string]string{"content": "hello world"})
+	response, err := json.Marshal(map[string]string{"content": "Welcome to EduDig"})
 	if err != nil {
 		panic(err)
 	}
