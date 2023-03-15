@@ -453,7 +453,7 @@ export const Answer = (props) => {
                             ;; Query time: {queryTime} msec
                         </StyledTerminalPHover>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(Server)} >
-                            ;; SERVER: {digishResp.Nameserver}#port({digishResp.Nameserver})
+                            ;; SERVER: {digishResp.Nameserver}#{digishQuestion.Port}({digishResp.Nameserver})
                         </StyledTerminalPHover>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(When)} >
                             ;; WHEN: {time}
