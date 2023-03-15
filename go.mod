@@ -1,4 +1,4 @@
-module github.com/romu42/go-webbish
+module github.com/dotse/edudig
 
 go 1.19
 

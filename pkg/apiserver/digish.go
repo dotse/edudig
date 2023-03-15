@@ -8,9 +8,11 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/dotse/edudig/pkg"
 	"github.com/miekg/dns"
 )
 
+/*
 // Query contains the information needed to create a DNS query
 type Query struct {
 	Zone       string `json:"Zone"`
@@ -43,6 +45,8 @@ type Dug struct {
 	Transport  string        `json:"Transport"`
 }
 
+*/
+
 // digish gets query data from the frontend, creates and sends a dns query.
 // The reply is parsed and sent back to the frontend.
 func digish(w http.ResponseWriter, r *http.Request) {
@@ -52,8 +56,8 @@ func digish(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "OPTIONS" {
 		return
 	}
-	var query Query
-	var dug Dug
+	var query pkg.Query
+	var dug pkg.Dug
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&query)
 	if err != nil {
@@ -86,15 +90,15 @@ func digish(w http.ResponseWriter, r *http.Request) {
 
 	msgSize := response.Len()
 
-	dug = Dug{
+	dug = pkg.Dug{
 		Zone: query.Zone,
-		Resp: Response{
-			response.MsgHdr,
-			response.Compress,
-			response.Question,
-			response.Answer,
-			response.Ns,
-			response.Extra,
+		Resp: pkg.Response{
+			MsgHdr:     response.MsgHdr,
+			Compress:   response.Compress,
+			Question:   response.Question,
+			Answer:     response.Answer,
+			Authority:  response.Ns,
+			Additional: response.Extra,
 		},
 		RTT:        rtt,
 		Nameserver: query.Nameserver,

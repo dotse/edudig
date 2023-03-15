@@ -1,6 +1,6 @@
 package main
 
-import "github.com/romu42/go-webbish/pkg/apiserver"
+import "github.com/dotse/edudig/pkg/apiserver"
 
 func main() {
 	apiserver.HandleRequests()
