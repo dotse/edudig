@@ -2,21 +2,9 @@
 
 Learn DNS using edudig.
 
-### Clone the repository
+### What is EduDig?
+Dig is the defacto standard DNS troubleshooting tool. Sadly dig is not always available and has a little bit of a learning curve. EduDig is a web 'dig' that is both useful and educational.
+This will enable domain name owners to more easily be able to troubleshoot on their own domain issues and hopefully spread knowledge about the workings of the Domain Name System and how to use dig.
 
-   git clone git@github.com:dotse/edudig.git
-
-
-### If you have revel and go installed you can run EduDig this way:
-
-go run cmd/main.go
-
-
-
-### Send a json body post to localhost:8053/digish 
-
-I recommend testing HTTPie then you can use the following command
-https://httpie.io/
-
-
-http post localhost:8053/digish < postbody
+### Try it out.
+https://edudig.se
