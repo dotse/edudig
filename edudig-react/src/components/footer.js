@@ -2,14 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledFooter = styled.footer`
-    width: 100%;
-    max-width: 1200px;
+    width: 100vw;
     height: 90px;
     background-color: #51A69D;
     position: fixed;
     bottom: 0;
     margin-top: 120px;
     text-align: left;
+    display: flex;
+    justify-content: center;
 `
 
 const StyledColumn = styled.div`
@@ -32,9 +33,11 @@ const StyledLink = styled.a`
 
 export const Footer = () => {
     return <StyledFooter>
-        <StyledColumn>
-            <StyledLink href="https://github.com/dotse/edudig" target="_blank">EduDig GitHub</StyledLink>
-            <StyledLink href="https://github.com/dotse/edudig" target="_blank">EduDig GitHub</StyledLink>
-        </StyledColumn>
+        <div className="footerWrap">
+            <StyledColumn>
+                <StyledLink href="https://github.com/dotse/edudig" target="_blank">EduDig GitHub</StyledLink>
+                <StyledLink href="https://github.com/dotse/edudig" target="_blank">EduDig GitHub</StyledLink>
+            </StyledColumn>
+        </div>
     </StyledFooter>
 }

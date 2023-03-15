@@ -7,8 +7,9 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 100vh;
-    max-width: 1200px;
+    align-items: center;
+    margin: 16px;
+    min-height: 100%;
     
     .digInput {
         margin-top: 10px;
@@ -22,6 +23,11 @@ body {
         display: flex;
         justify-content: center;
         margin-bottom: 120px;
+    }
+
+    .footerWrap {
+        width: 100%;
+        max-width: 1200px;
     }
 }
 

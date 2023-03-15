@@ -19,8 +19,11 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  min-height: 100vh;
-  max-width: 1200px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 16px;
+  min-height: 100%;
 }
 
 .main .digInput {
@@ -40,12 +43,18 @@ body {
 }
 
 .main .contentWrap {
-  -ms-flex-preferred-size: auto;
-      flex-basis: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   margin-bottom: 120px;
+}
+
+.main .footerWrap {
+  width: 100%;
+  max-width: 1200px;
 }
 
 h1 {
@@ -173,6 +182,14 @@ section {
 }
 
 @media screen and (min-width: 1024px) {
+  body {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
   .main {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -192,6 +209,10 @@ section {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+    max-width: 1200px;
+  }
+  .main .contentWrap {
+    max-width: 1200px;
   }
   .answerSection {
     margin-bottom: 0px;
