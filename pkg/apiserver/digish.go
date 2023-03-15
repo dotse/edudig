@@ -108,9 +108,19 @@ type Query struct {
 	Recursion  string `json:"Recursion"`
 }
 
+type Response struct {
+	MsgHdr     dns.MsgHdr
+	Compress   bool
+	Question   []dns.Question
+	Answer     []dns.RR
+	Authority  []dns.RR
+	Additional []dns.RR
+}
+
 type DugOut struct {
-	Zone       string        `json:"Zone"`
-	Resp       *dns.Msg      `json:"Response"`
+	Zone string `json:"Zone"`
+	//Resp       *dns.Msg      `json:"Response"`
+	Resp       Response      `json:"Response"`
 	RTT        time.Duration `json:"Round trip time"`
 	Nameserver string        `json:"Nameserver"`
 	MsgSize    int           `json:"Message Size"`
@@ -128,8 +138,6 @@ func digish(w http.ResponseWriter, r *http.Request) {
 	}
 	var query Query
 	var dugOut DugOut
-
-	// TODO: Read up on Unmarshal and NewDecoder, what is the differnce?
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&query)
 	if err != nil {
@@ -146,7 +154,7 @@ func digish(w http.ResponseWriter, r *http.Request) {
 	message.Question = make([]dns.Question, 1)
 	message.Question[0] = dns.Question{
 		Name:   dns.Fqdn(query.Zone),
-		Qtype:  TypeToInt[query.Qtype],
+		Qtype:  dns.StringToType[query.Qtype],
 		Qclass: dns.ClassINET,
 	}
 
@@ -163,8 +171,15 @@ func digish(w http.ResponseWriter, r *http.Request) {
 	msgSize := response.Len()
 
 	dugOut = DugOut{
-		Zone:       query.Zone,
-		Resp:       response,
+		Zone: query.Zone,
+		Resp: Response{
+			response.MsgHdr,
+			response.Compress,
+			response.Question,
+			response.Answer,
+			response.Ns,
+			response.Extra,
+		},
 		RTT:        rtt,
 		Nameserver: query.Nameserver,
 		MsgSize:    msgSize,
