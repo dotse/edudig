@@ -29,9 +29,10 @@ const StyledAnswerWrapper = styled.div`
     display:flex;
     flex-direction: column;
     justify-content: center;
-    width: 100vw;
+    
     @media screen and (min-width: 1024px){
         flex-direction: row;
+        max-width: 1200px;
     }
 `
 const StyledTerminal = styled.div`
@@ -41,12 +42,12 @@ const StyledTerminal = styled.div`
     font-family: 'Monda', Lucida Console, monospace;
     font-size: 0.80rem;
     margin-top:: 0px;
-    padding-top: 10px;
-    padding-left: 10px;
+    padding: 10px;
     width: 90vw;
     text-align: left;
     @media screen and (min-width: 1024px){
         width: 55vw;
+        margin-right: 16px;
     }
 `
 const StyledTerminalSection = styled.div`
@@ -71,11 +72,17 @@ const StyledTerminalPHover = styled.p`
 `
 const StyledInfoBoxWrapper = styled.div`
     background-color: #49A671;
-    width: 100vw;
+    width: 90vw;
+    margin-top: 16px;
     padding-top: 12px;
     padding-bottom: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
     @media screen and (min-width: 1024px){
-        width: 40vw;
+        width: 38vw;
+        margin-top: 0px;
+        margin-right: 10px;
     }
 `
 const StyledInfoBox = styled.div`
@@ -362,7 +369,6 @@ export const Answer = (props) => {
     })
 
     return <StyledAnswerWrapper>
-            <section className="answerSection">
                 <StyledTerminal>
                     <StyledTerminalSection>
                         <StyledTerminalP>{digish}</StyledTerminalP>
@@ -463,8 +469,6 @@ export const Answer = (props) => {
                         </StyledTerminalPHover>
                     </StyledTerminalSection>
                 </StyledTerminal>
-            </section>
-            <section>
                 <StyledInfoBoxWrapper>
                     <StyledTipBox className="tipBox">
                         <h3>Tip!</h3>
@@ -482,6 +486,5 @@ export const Answer = (props) => {
                         {text}
                     </StyledInfoBox>
                 </StyledInfoBoxWrapper>
-            </section>
          </StyledAnswerWrapper>
 }

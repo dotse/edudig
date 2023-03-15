@@ -1,8 +1,19 @@
-.digInput{
-    width: 100vw;
-    flex-direction: row;
-    align-items: center;
+body {
     justify-content: center;
+    align-items: center;
+}
+.main {
+    display: flex;
+    justify-content: center;
+    .digInput{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        max-width: 1200px;
+    }
+    .contentWrap {
+        max-width: 1200px;
+    }
 }
 .answerSection {
     margin-bottom: 0px;

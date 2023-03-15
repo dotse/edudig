@@ -10,7 +10,6 @@ const StyledInfoBox = styled.div`
     background-color: #49A671;
     border-bottom-left-radius: 100px;
     border-top-right-radius: 100px;
-    width: 80vw;
     align-items: center;
     margin: auto;
     padding: 5vw;
@@ -30,7 +29,7 @@ export const EduDig = () => {
     </div>)
 
     return <StyledWrapper className="wrapper">
-        <StyledInfoBox className="main">
+        <StyledInfoBox className="edudigContent">
             {content}
         </StyledInfoBox>
     </StyledWrapper>
