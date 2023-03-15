@@ -1,9 +1,34 @@
-.digInput {
-    margin-top: 10px;
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+.main {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    align-self: center;
+    margin: 16px;
+    min-height: 100%;
+    
+    .digInput {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-self: center;
+    }
+
+    .contentWrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 120px;
+    }
+
+    .footerWrap {
+        width: 100%;
+        max-width: 1200px;
+    }
 }
 
 .wrapInput {
@@ -55,15 +80,6 @@
     }
 }
 
-.labelDiv2 {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    border-radius: 5px;
-    height: 55px;
-    margin-right: 16px;
-}
-
 label {
     font-family: Arial, Helvetica, sans-serif;
     color: grey;
@@ -81,24 +97,6 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
   }
-  
-
-// label {
-//     font-family: Arial, Helvetica, sans-serif;
-//     position: absolute;
-//     color: grey;
-//     font-size: 1.2rem;
-//     margin-left: 8px;
-//     margin-top: 14px;
-// }
-
-// .active {
-//     margin-top: 0px;
-//     font-size: 0.85rem;
-//     &:hover {
-//         color: #FF8C00;
-//     }
-// }
 
 input:focus ~ label, select:focus ~ label {
     margin-left: 0px;
@@ -219,7 +217,7 @@ td{
     width: 12vw;
 }
 
-.answerSection {
+section {
     width: 100vw;
     display: flex;
     justify-content: center;

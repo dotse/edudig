@@ -1,8 +1,8 @@
 {
-	"Zone":"bob.se",
-	"Nameserver": "1.1.1.1",
+	"Zone":"catch22.se",
+	"Nameserver": "a.ns.se",
 	"Transport":  "udp",
 	"Qtype":      "NS",
 	"Port":       "53",
-	"Recursion": true 
+	"Recursion": "true"
 }
