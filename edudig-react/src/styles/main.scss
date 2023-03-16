@@ -197,24 +197,25 @@ h4{
     background-color: blueviolet;
 }
 
-.queryTypeClass {
-   flex: 1 1 0;
-   padding: 0px;
-}
-
 table{
+    width: 100%;
+    max-width: 660px;
     border-spacing: 0px;
-}
-tr {
-    width: 50vw;
-}
-
-td{
-    width: 8vw;
-}
-
-.firstCell {
-    width: 12vw;
+    tr {
+        .firstCell {
+            width: 32%;
+        }
+        .queryTypeClass {
+            width: 16%;
+            padding: 0px;
+            margin: 0px;
+        }
+        .tableP {
+            width: 32%;
+            padding: 0;
+            margin: 0;
+        }
+    }
 }
 
 section {

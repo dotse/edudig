@@ -42,6 +42,21 @@ body {
       align-self: center;
 }
 
+.main .contentWrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 120px;
+}
+
+.main .footerWrap {
+  width: 100%;
+  max-width: 1200px;
+}
+
 .wrapInput {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -105,20 +120,6 @@ body {
 
 .isactive:hover {
   color: #FF8C00;
-}
-
-.labelDiv2 {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  text-align: left;
-  border-radius: 5px;
-  height: 55px;
-  margin-right: 16px;
 }
 
 label {
@@ -256,27 +257,26 @@ h4 {
   background-color: blueviolet;
 }
 
-.queryTypeClass {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 0px;
-          flex: 1 1 0;
-  padding: 0px;
-}
-
 table {
+  width: 100%;
+  max-width: 660px;
   border-spacing: 0px;
 }
 
-tr {
-  width: 50vw;
+table tr .firstCell {
+  width: 32%;
 }
 
-td {
-  width: 8vw;
+table tr .queryTypeClass {
+  width: 16%;
+  padding: 0px;
+  margin: 0px;
 }
 
-.firstCell {
-  width: 12vw;
+table tr .tableP {
+  width: 32%;
+  padding: 0;
+  margin: 0;
 }
 
 section {
