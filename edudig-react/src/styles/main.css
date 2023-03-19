@@ -28,6 +28,7 @@ body {
 
 .main .digInput {
   margin-top: 10px;
+  margin-bottom: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -40,6 +41,21 @@ body {
           align-items: center;
   -ms-flex-item-align: center;
       align-self: center;
+}
+
+.main .contentWrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 120px;
+}
+
+.main .footerWrap {
+  width: 100%;
+  max-width: 1200px;
 }
 
 .wrapInput {
@@ -105,20 +121,6 @@ body {
 
 .isactive:hover {
   color: #FF8C00;
-}
-
-.labelDiv2 {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  text-align: left;
-  border-radius: 5px;
-  height: 55px;
-  margin-right: 16px;
 }
 
 label {
