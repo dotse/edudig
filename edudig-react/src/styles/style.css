@@ -267,26 +267,26 @@ h4 {
 
 table {
   width: 100%;
-  max-width: 660px;
   border-spacing: 0px;
   padding-left: 5px;
   padding-top: 5px;
 }
 
 table tr .firstCell {
-  width: 32%;
+  width: 29%;
 }
 
 table tr .queryTypeClass {
-  width: 16%;
+  width: 14%;
+}
+
+table tr td {
   padding: 0px;
   margin: 0px;
 }
 
-table tr .tableP {
-  width: 32%;
-  padding: 0;
-  margin: 0;
+table tr .lastCell {
+  width: 29%;
 }
 
 section {
