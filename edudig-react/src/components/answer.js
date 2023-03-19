@@ -54,6 +54,8 @@ const StyledTerminal = styled.div`
 const StyledTerminalSection = styled.div`
     margin-top: 0px;
     margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
 `
 const StyledTerminalP = styled.p`
     padding-top: 5px;
