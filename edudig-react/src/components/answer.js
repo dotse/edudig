@@ -25,6 +25,7 @@ import Status from "../textfiles/Status.json"
 import TCFlag from "../textfiles/TCFlag.json"
 import When from "../textfiles/When.json"
 import ZFlag from "../textfiles/ZFlag.json"
+import AdditionalSection from "../textfiles/AdditionalSection.json"
 
 const StyledAnswerWrapper = styled.div`
     display:flex;
@@ -306,7 +307,7 @@ export const Answer = (props) => {
         return respSection.map((section,i) => {
             i = +1;
             const rrType = mapFunction(queryTypeList, section.Hdr.Rrtype)
-            let qClass = (<StyledTerminalP className="queryTypeClass">{section.Hdr.Class}</StyledTerminalP>);
+            let qClass = section.Hdr.Class;
             if(section.Hdr.Class === 1 || section.Hdr.Class === 3 || section.Hdr.Class ===4){
                 qClass = mapFunction(queryClassList, section.Hdr.Class);
             };
@@ -345,7 +346,7 @@ export const Answer = (props) => {
     let digishQuestions = response.Question.map((Question, i) => {
         i = +1;
         const qType = mapFunction(queryTypeList,Question.Qtype)
-        let qClass = <StyledTerminalP className="queryTypeClass">{Question.Qclass}</StyledTerminalP>
+        let qClass = Question.Qclass
         if(Question.Qclass === 1 || Question.Qclass === 3 || Question.Qclass === 4){
             qClass = mapFunction(queryClassList, Question.Qclass)
         }
@@ -356,7 +357,7 @@ export const Answer = (props) => {
                             <StyledTerminalP key={uuidv4()} className="tableP" >;{Question.Name}</StyledTerminalP >
                         </td>
                         <td key={uuidv4()} className="queryTypeClass"><StyledTerminalP className="queryTypeClass"></StyledTerminalP></td>
-                        <td key={uuidv4()} className="queryTypeClass"><StyledTerminalP className="queryTypeClass">{qClass}</StyledTerminalP></td>
+                        <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
                         <td key={uuidv4()} className="queryTypeClass">{qType}</td>
                         <td key={uuidv4()} className="queryTypeClass"></td>
                     </tr>
@@ -395,9 +396,7 @@ export const Answer = (props) => {
                             {rCode}
                             <StyledTerminalPHover tabIndex="0" onClick={() => setFile(ID)}>id: {response.Id}</StyledTerminalPHover>
                         </div>
-
                         <div className="flexRow">
-
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(Flags)}>
                                 ;; flags:
@@ -472,7 +471,7 @@ export const Answer = (props) => {
                         {digishAuthority}
                     </StyledTerminalSection>
                     <StyledTerminalSection>
-                        <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''}`} onClick={() => setFile(AuthoritySection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
+                        <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
                         {digishAdditional}
                     </StyledTerminalSection>
                     <StyledTerminalSection>

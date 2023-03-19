@@ -42,6 +42,14 @@ body {
       align-self: center;
 }
 
+.main .digInput input:-webkit-autofill,
+.main .digInput input:-webkit-autofill:hover,
+.main .digInput input:-webkit-autofill:focus,
+.main .digInput input:-webkit-autofill:active {
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 .main .contentWrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -261,6 +269,8 @@ table {
   width: 100%;
   max-width: 660px;
   border-spacing: 0px;
+  padding-left: 5px;
+  padding-top: 5px;
 }
 
 table tr .firstCell {
