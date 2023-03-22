@@ -33,6 +33,7 @@ const StyledAnswerWrapper = styled.div`
     
     @media screen and (min-width: 1024px){
         flex-direction: row;
+        align-items: flex-start;
         max-width: 1200px;
     }
 `
@@ -54,6 +55,8 @@ const StyledTerminal = styled.div`
 const StyledTerminalSection = styled.div`
     margin-top: 0px;
     margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
 `
 const StyledTerminalP = styled.p`
     padding-top: 5px;
@@ -61,7 +64,9 @@ const StyledTerminalP = styled.p`
     margin-top: 0px;
     margin-bottom: 0px;
 `
-const StyledTerminalPHover = styled.p`
+const StyledTerminalPHover = styled.a`
+    text-decoration: none;
+    color: white;
     padding-top: 5px;
     padding-left: 5px;
     margin-top: 0px;
@@ -254,7 +259,7 @@ export const Answer = (props) => {
         const map = new Map(list);
         const key = map.get(value);
         if(hover !== undefined){
-            return <StyledTerminalPHover tabIndex="0" key={uuidv4()} onClick={() => setFile(file)}>{text}: {key},</StyledTerminalPHover>
+            return <StyledTerminalPHover href="#infoSection" tabIndex="0" key={uuidv4()} onClick={() => setFile(file)}>{text}: {key},</StyledTerminalPHover>
         }
         return(<StyledTerminalP key={uuidv4()} className="queryTypeClass">{text} {key}</StyledTerminalP>)
     })
@@ -482,7 +487,7 @@ export const Answer = (props) => {
                             </div>
                         </StyledTerminalLine>
                     </StyledTipBox>
-                    <h2>Info section</h2>
+                    <h2 id="infoSection">Info section</h2>
                     <StyledInfoBox>
                         {text}
                     </StyledInfoBox>

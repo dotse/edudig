@@ -1,4 +1,4 @@
-@import 'variables';
+@import '_variables';
 body {
     margin: 0;
     display: flex;
@@ -14,10 +14,17 @@ body {
     
     .digInput {
         margin-top: $padding*2;
+        margin-bottom: $padding*2;
         display: flex;
         flex-direction: column;
         align-items: center;
         align-self: center;
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s;
+        }
     }
 
     .contentWrap {
@@ -56,7 +63,7 @@ body {
     flex-direction: column;
     text-align: center;
     border-radius:$padding;
-    height: 55px;
+    height: 65px;
     margin-right: $margin*4;
 }
 .is {
@@ -164,6 +171,13 @@ h4{
     color: #FDFFFE;
 }
 
+.state {
+    color: #949494;
+}
+.statetrue {
+    color: #FDFFFE;
+}
+
 .flexRow {
     display: flex;
     flex-direction: row;
@@ -177,24 +191,26 @@ h4{
     margin-bottom: 0px;
 }
 
-.queryTypeClass {
-   flex: 1 1 0;
-   padding: 0px;
-}
-
 table{
+    width: 100%;
     border-spacing: 0px;
-}
-tr {
-    width: 50vw;
-}
-
-td{
-    width: 8vw;
-}
-
-.firstCell {
-    width: 12vw;
+    padding-left: 5px;
+    padding-top: 5px;
+    tr {
+        .firstCell {
+            width: 29%;
+        }
+        .queryTypeClass {
+            width: 14%;
+        }
+        td{
+            padding: 0px;
+            margin: 0px;
+        }
+        .lastCell {
+            width: 29%;
+        }
+    }
 }
 
 section {
