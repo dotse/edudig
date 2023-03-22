@@ -185,7 +185,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.2 rem;
+  font-size: 1.2rem;
   margin-bottom: 0px;
   margin-left: 12px;
 }
@@ -241,29 +241,6 @@ h4 {
   padding-top: 5px;
   margin-top: 0px;
   margin-bottom: 0px;
-}
-
-.flexGrid {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  width: 40vw;
-}
-
-.flexRight {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  width: inherit;
-  background-color: blueviolet;
 }
 
 table {

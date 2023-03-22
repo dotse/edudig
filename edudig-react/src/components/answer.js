@@ -1,29 +1,30 @@
-import { useEffect, useState } from "react"
-import styled from "styled-components"
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import '../styles/_variables.scss';
 import { v4 as uuidv4 } from 'uuid';
-import AAFlag from "../textfiles/AAFlag.json"
-import ADFlag from "../textfiles/ADFlag.json"
-import ANCOUNT from "../textfiles/ANCOUNT.json"
-import AnswerSection from "../textfiles/AnswerSection.json"
-import ARCOUNT from "../textfiles/ARCOUNT.json"
-import CDFlag from "../textfiles/CDFlag.json"
-import Flags from "../textfiles/Flags.json"
-import ID from "../textfiles/ID.json"
-import Info from "../textfiles/Info.json"
-import MSGSize from "../textfiles/MSGSize.json"
-import NSCount from "../textfiles/NSCount.json"
-import OPCode from "../textfiles/OPCode.json"
-import QDCount from "../textfiles/QDCount.json"
-import QRFlag from "../textfiles/QRFlag.json"
-import QueryTime from "../textfiles/QueryTime.json"
-import QuestionSection from "../textfiles/QuestionSection.json"
-import RAFlag from "../textfiles/RAFlag.json"
-import RDFlag from "../textfiles/RDFlag.json"
-import Server from "../textfiles/Server.json"
-import Status from "../textfiles/Status.json"
-import TCFlag from "../textfiles/TCFlag.json"
-import When from "../textfiles/When.json"
-import ZFlag from "../textfiles/ZFlag.json"
+import AAFlag from "../textfiles/AAFlag.json";
+import ADFlag from "../textfiles/ADFlag.json";
+import ANCOUNT from "../textfiles/ANCOUNT.json";
+import AnswerSection from "../textfiles/AnswerSection.json";
+import ARCOUNT from "../textfiles/ARCOUNT.json";
+import CDFlag from "../textfiles/CDFlag.json";
+import Flags from "../textfiles/Flags.json";
+import ID from "../textfiles/ID.json";
+import Info from "../textfiles/Info.json";
+import MSGSize from "../textfiles/MSGSize.json";
+import NSCount from "../textfiles/NSCount.json";
+import OPCode from "../textfiles/OPCode.json";
+import QDCount from "../textfiles/QDCount.json";
+import QRFlag from "../textfiles/QRFlag.json";
+import QueryTime from "../textfiles/QueryTime.json";
+import QuestionSection from "../textfiles/QuestionSection.json";
+import RAFlag from "../textfiles/RAFlag.json";
+import RDFlag from "../textfiles/RDFlag.json";
+import Server from "../textfiles/Server.json";
+import Status from "../textfiles/Status.json";
+import TCFlag from "../textfiles/TCFlag.json";
+import When from "../textfiles/When.json";
+import ZFlag from "../textfiles/ZFlag.json";
 
 const StyledAnswerWrapper = styled.div`
     display:flex;
@@ -110,7 +111,7 @@ const StyledTipBox = styled.div`
 const StyledTerminalLine = styled.div`
     background-color: #070D0C;
     border-radius: 10px;
-    color: white;
+    color: #FDFFFE;
     font-family: 'Monda', Courier, monospace;
     padding-left: 12px;
     padding-right: 12px;
