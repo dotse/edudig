@@ -28,6 +28,7 @@ body {
 
 .main .digInput {
   margin-top: 10px;
+  margin-bottom: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -40,14 +41,6 @@ body {
           align-items: center;
   -ms-flex-item-align: center;
       align-self: center;
-}
-
-.main .digInput input:-webkit-autofill,
-.main .digInput input:-webkit-autofill:hover,
-.main .digInput input:-webkit-autofill:focus,
-.main .digInput input:-webkit-autofill:active {
-  -webkit-transition: background-color 5000s ease-in-out 0s;
-  transition: background-color 5000s ease-in-out 0s;
 }
 
 .main .contentWrap {
@@ -103,7 +96,7 @@ body {
           flex-direction: column;
   text-align: center;
   border-radius: 5px;
-  height: 65px;
+  height: 55px;
   margin-right: 16px;
 }
 
@@ -215,14 +208,6 @@ h4 {
   color: #FDFFFE;
 }
 
-.state {
-  color: #949494;
-}
-
-.statetrue {
-  color: #FDFFFE;
-}
-
 .flexRow {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -265,28 +250,27 @@ h4 {
   background-color: blueviolet;
 }
 
-table {
-  width: 100%;
-  border-spacing: 0px;
-  padding-left: 5px;
-  padding-top: 5px;
-}
-
-table tr .firstCell {
-  width: 29%;
-}
-
-table tr .queryTypeClass {
-  width: 14%;
-}
-
-table tr td {
+.queryTypeClass {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 0px;
+          flex: 1 1 0;
   padding: 0px;
-  margin: 0px;
 }
 
-table tr .lastCell {
-  width: 29%;
+table {
+  border-spacing: 0px;
+}
+
+tr {
+  width: 50vw;
+}
+
+td {
+  width: 8vw;
+}
+
+.firstCell {
+  width: 12vw;
 }
 
 section {
