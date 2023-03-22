@@ -464,6 +464,14 @@ export const Answer = (props) => {
                         </table>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
+                        <StyledTerminalPHover tabIndex="0" className={`state${response.Authority ? true : ''}`} onClick={() => setFile(AuthoritySection)}>;; AUTHORITY SECTION:</StyledTerminalPHover>
+                        {digishAuthority}
+                    </StyledTerminalSection>
+                    <StyledTerminalSection>
+                        <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
+                        {digishAdditional}
+                    </StyledTerminalSection>
+                    <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QueryTime)}>
                             ;; Query time: {queryTime} msec
                         </StyledTerminalPHover>
@@ -485,7 +493,7 @@ export const Answer = (props) => {
                         <StyledTerminalLine className="terminal">
                             <p>dig @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.Qtype} {digishQuestion.Zone} {questionTransport}</p>
                             <div className="copyBtn" onClick={() =>
-                                {navigator.clipboard.writeText(`dig @${digishQuestion.Nameserver} -p ${digishQuestion.Port} ${digishQuestion.QueryType} ${digishQuestion.Zone} ${questionTransport}`)}
+                                {navigator.clipboard.writeText(`dig @${digishQuestion.Nameserver} -p ${digishQuestion.Port} ${digishQuestion.Qtype} ${digishQuestion.Zone} ${questionTransport}`)}
                                 }>
                             </div>
                         </StyledTerminalLine>
