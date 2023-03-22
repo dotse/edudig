@@ -34,6 +34,8 @@ const StyledInput = styled.input`
 
     @media screen and (min-width: 1024px){
         width: 20vw;
+        margin-top: 8px;
+
     }
 `
 const StyledInputNumber = styled.input`
