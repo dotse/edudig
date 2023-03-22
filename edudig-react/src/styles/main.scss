@@ -1,9 +1,126 @@
-.digInput {
-    margin-top: 10px;
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+.main {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    align-self: center;
+    margin: 16px;
+    min-height: 100%;
+    
+    .digInput {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-self: center;
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s;
+        }
+    }
+
+    .contentWrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 120px;
+    }
+
+    .footerWrap {
+        width: 100%;
+        max-width: 1200px;
+    }
+}
+
+.wrapInput {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    text-align: left;
+    border-radius: 5px;
+    height: 55px;
+    margin-right: 16px;
+}
+
+.labelStyle {
+    color: grey;
+    margin-top: -5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.labelDiv {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 5px;
+    height: 65px;
+    margin-right: 16px;
+}
+.is {
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    color: grey;
+    font-size: 1rem;
+    margin-left: 8px;
+    margin-top: 28px;
+}
+
+.isactive {
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    color: grey;
+    font-size: 1.2rem;
+    margin-left: 0px;
+    margin-top: 0px;
+    font-size: 0.85rem;
+    &:hover {
+        color: #FF8C00;
+    }
+}
+
+label {
+    font-family: Arial, Helvetica, sans-serif;
+    color: grey;
+    font-size: 1.2rem;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+input:focus ~ label, select:focus ~ label {
+    margin-left: 0px;
+    margin-top: 0px;
+    font-size:0.85rem;
+    color:#FF8C00;
+  }
+
+input:hover ~ label {
+    color: #FF8C00;
+}
+
+.selectBorder:hover ~ label {
+    color: #FF8C00;
+}
+
+.selectBorder:focus ~ label {
+    color: #FF8C00;
 }
 
 h1 {
@@ -52,6 +169,13 @@ h4{
     color: #FDFFFE;
 }
 
+.state {
+    color: #949494;
+}
+.statetrue {
+    color: #FDFFFE;
+}
+
 .flexRow {
     display: flex;
     flex-direction: row;
@@ -79,27 +203,29 @@ h4{
     background-color: blueviolet;
 }
 
-.queryTypeClass {
-   flex: 1 1 0;
-   padding: 0px;
-}
-
 table{
+    width: 100%;
     border-spacing: 0px;
-}
-tr {
-    width: 50vw;
+    padding-left: 5px;
+    padding-top: 5px;
+    tr {
+        .firstCell {
+            width: 29%;
+        }
+        .queryTypeClass {
+            width: 14%;
+        }
+        td{
+            padding: 0px;
+            margin: 0px;
+        }
+        .lastCell {
+            width: 29%;
+        }
+    }
 }
 
-td{
-    width: 8vw;
-}
-
-.firstCell {
-    width: 12vw;
-}
-
-.answerSection {
+section {
     width: 100vw;
     display: flex;
     justify-content: center;

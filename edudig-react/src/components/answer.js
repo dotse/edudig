@@ -6,6 +6,7 @@ import ADFlag from "../textfiles/ADFlag.json"
 import ANCOUNT from "../textfiles/ANCOUNT.json"
 import AnswerSection from "../textfiles/AnswerSection.json"
 import ARCOUNT from "../textfiles/ARCOUNT.json"
+import AuthoritySection from "../textfiles/AuthoritySection.json"
 import CDFlag from "../textfiles/CDFlag.json"
 import Flags from "../textfiles/Flags.json"
 import ID from "../textfiles/ID.json"
@@ -24,14 +25,17 @@ import Status from "../textfiles/Status.json"
 import TCFlag from "../textfiles/TCFlag.json"
 import When from "../textfiles/When.json"
 import ZFlag from "../textfiles/ZFlag.json"
+import AdditionalSection from "../textfiles/AdditionalSection.json"
 
 const StyledAnswerWrapper = styled.div`
     display:flex;
     flex-direction: column;
     justify-content: center;
-    width: 100vw;
+    
     @media screen and (min-width: 1024px){
         flex-direction: row;
+        margin: 10px;
+        max-width: 1200px;
     }
 `
 const StyledTerminal = styled.div`
@@ -41,12 +45,12 @@ const StyledTerminal = styled.div`
     font-family: 'Monda', Lucida Console, monospace;
     font-size: 0.80rem;
     margin-top:: 0px;
-    padding-top: 10px;
-    padding-left: 10px;
+    padding: 10px;
     width: 90vw;
     text-align: left;
     @media screen and (min-width: 1024px){
         width: 55vw;
+        margin-right: 16px;
     }
 `
 const StyledTerminalSection = styled.div`
@@ -71,11 +75,17 @@ const StyledTerminalPHover = styled.p`
 `
 const StyledInfoBoxWrapper = styled.div`
     background-color: #49A671;
-    width: 100vw;
+    width: 90vw;
+    margin-top: 16px;
     padding-top: 12px;
     padding-bottom: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
     @media screen and (min-width: 1024px){
-        width: 40vw;
+        width: 38vw;
+        margin-top: 0px;
+        margin-right: 10px;
     }
 `
 const StyledInfoBox = styled.div`
@@ -115,7 +125,11 @@ const StyledInfoP = styled.p`
 export const Answer = (props) => {
     const digishQuestion = props.data[0];
     const digishResp = props.data[1];
-    let digishRespResp = digishResp.Response;
+    const response = digishResp.Response;
+
+    //CONSOLE LOG
+    console.log(response);
+
     const [text, setText] = useState();
     let questionTransport = "";
     if (digishQuestion.Transport !== "udp"){
@@ -249,7 +263,7 @@ export const Answer = (props) => {
             return <StyledTerminalPHover tabIndex="0" key={uuidv4()} onClick={() => setFile(file)}>{text}: {key},</StyledTerminalPHover>
         }
         return(<StyledTerminalP key={uuidv4()} className="queryTypeClass">{text} {key}</StyledTerminalP>)
-    })
+    });
 
     const setFile = (jsonFile) => {
         const list = [jsonFile]
@@ -282,128 +296,115 @@ export const Answer = (props) => {
                 </div>
             )
         }))
-    }
+    };
+
+    const createTable = (respSection) => {
+        return respSection.map((section,i) => {
+            i = +1;
+            let name = '';
+            let ttl = '';
+            let type = '';
+            let sectionClass = '';
+            let queryType = '';
+            if (section.Hdr){
+                type = mapFunction(queryTypeList, section.Hdr.Rrtype);
+                sectionClass = section.Hdr.Class;
+                queryType = section.A ? section.A : section.Ns;
+                name = section.Hdr.Name;
+            }
+            else if (respSection === response.Question){
+                type = mapFunction(queryTypeList, section.Qtype);
+                sectionClass = section.Qclass;
+                name = section.Name;
+            }
+            let qClass = sectionClass;
+            if(sectionClass === 1 || sectionClass === 3 || sectionClass ===4){
+                qClass = mapFunction(queryClassList, sectionClass);
+
+            }
+
+            return (<tr key={uuidv4()}>
+                    <td key={uuidv4()} className="firstCell"><StyledTerminalP className="tableP">{name}</StyledTerminalP></td>
+                    <td key={uuidv4()} className="queryTypeClass"><StyledTerminalP key={uuidv4()}>{ttl}</StyledTerminalP></td>
+                    <td key={uuidv4()} className="queryTypeClass"><StyledTerminalP key={uuidv4()}>{qClass}</StyledTerminalP></td>
+                    <td key={uuidv4()} className="queryTypeClass" ><StyledTerminalP key={uuidv4()}>{type}</StyledTerminalP></td>
+                    <td key={uuidv4()} className="lastCell"><StyledTerminalP key={uuidv4()}>{queryType}</StyledTerminalP></td>
+                </tr>)
+        });
+    };
 
     useEffect (() => {
         setFile(Info)
     },[])
 
-    const digish = `; <<>> DiGiSH <<>>  ${digishResp.Zone}`;
-    const opCode = mapFunction(opCodeList,digishRespResp.Opcode, "opcode", "hover", OPCode);
-    const digishHeader = `;; ->>HEADER<<-`;
-    const rCode = mapFunction(rCodeList,digishRespResp.Rcode, "status", "hover", Status);
+    const opCode = mapFunction(opCodeList,response.MsgHdr.Opcode, "opcode", "hover", OPCode);
+    const rCode = mapFunction(rCodeList,response.MsgHdr.Rcode, "status", "hover", Status);
+
     let digishQuestionLen = "0";
-    if (digishRespResp.Question !== null) {
-        digishQuestionLen = digishRespResp.Question.length
+    if (response.Question) {
+        digishQuestionLen = response.Question.length;
     };
-    let digishAnswerSection ="";
+    let digishQuestions = createTable(response.Question);
+
     let digishAnswerLen = "0";
     let digishAnswers = "";
-    if (digishRespResp.Answer !== null){
-        digishAnswerSection = (<StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} >
-            ;; ANSWER SECTION:</StyledTerminalPHover>);
-        digishAnswerLen = digishRespResp.Answer.length;
-        digishAnswers = digishRespResp.Answer.map((Answer,i) => {
-            i = +1;
-            const rrType = mapFunction(queryTypeList, Answer.Hdr.Rrtype);
-            let qClass = (<StyledTerminalP  className="queryTypeClass">{Answer.Hdr.Class }</StyledTerminalP >);
-            if(Answer.Hdr.Class === 1 || Answer.Hdr.Class === 3 || Answer.Hdr.Class ===4){
-                qClass = mapFunction(queryClassList,Answer.Hdr.Class)
-            };
-            return (<table key={uuidv4()}>
-                <tbody key={uuidv4()}>
-                    <tr key={uuidv4()}>
-                        <td key={uuidv4()} className="firstCell">
-                            <StyledTerminalP className="queryTypeClass">{Answer.Hdr.Name}</StyledTerminalP>
-                        </td>
-                        <td key={uuidv4()}>
-                            <StyledTerminalP className="queryTypeClass" key={uuidv4()}>{Answer.Hdr.Ttl}</StyledTerminalP>
-                        </td>
-                        <td key={uuidv4()}>{qClass}</td>
-                        <td key={uuidv4()}>{rrType}</td>
-                        <td key={uuidv4()}>
-                            <StyledTerminalP className="queryTypeClass" key={uuidv4()}>{Answer.A}</StyledTerminalP>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>)
-        })
-    }
+    if (response.Answer){
+        digishAnswers = createTable(response.Answer)
+    };
 
-    let digishNsLen = "0";
-    if(digishRespResp.Ns){
-        digishNsLen = digishRespResp.Ns.length
-    } 
+    let digishAuthorityLen = "0";
+    let digishAuthority = '';
+    if(response.Authority) {
+        digishAuthority = createTable(response.Authority)
+    };
 
-    let digishExtraLen = "0";
-    if(digishRespResp.Extra){
-        digishExtraLen = digishRespResp.Extra.length
-    } 
-
-    let digishQuestions = digishRespResp.Question.map((Question, i) => {
-        i = +1;
-        const qType = mapFunction(queryTypeList,Question.Qtype)
-        let qClass = <StyledTerminalP className="noPadding">{Question.Qclass}</StyledTerminalP>
-        if(Question.Qclass === 1 || Question.Qclass === 3 || Question.Qclass === 4){
-            qClass = mapFunction(queryClassList, Question.Qclass)
-        }
-        return (<table key={uuidv4()}>
-                <tbody key={uuidv4()}>
-                    <tr key={uuidv4()}>
-                        <td key={uuidv4()} className="firstCell">
-                            <StyledTerminalP key={uuidv4()} className="noPadding">;{Question.Name}</StyledTerminalP >
-                        </td>
-                        <td key={uuidv4()}></td>
-                        <td key={uuidv4()}>{qClass}</td>
-                        <td key={uuidv4()}>{qType}</td>
-                    </tr>
-                </tbody>
-            </table>)
-    })
-
+    let digishAdditionalLen = "0";
+    let digishAdditional = '';
+    if(response.Additional){
+        digishAdditionalLen = response.Additional.length
+        digishAdditional = createTable(response.Additional, digishAdditionalLen, response.Additional.A)
+    };
+     
     return <StyledAnswerWrapper>
-            <section className="answerSection">
                 <StyledTerminal>
                     <StyledTerminalSection>
-                        <StyledTerminalP>{digish}</StyledTerminalP>
+                        <StyledTerminalP>; &#60;&#60;&#62;&#62; DiGiSH &#60;&#60;&#62;&#62; {digishResp.Zone}</StyledTerminalP>
                         <StyledTerminalP>;; global options: +cmd</StyledTerminalP>
                         <StyledTerminalP>;; Got answer: </StyledTerminalP>
                         <div className="flexRow">
-                            <StyledTerminalP>{digishHeader}</StyledTerminalP>
+                            <StyledTerminalP>;; -&#62;&#62;HEADER&#60;&#60;</StyledTerminalP>
                             {opCode}
                             {rCode}
-                            <StyledTerminalPHover tabIndex="0" onClick={() => setFile(ID)}>id: {digishRespResp.Id}</StyledTerminalPHover>
+                            <StyledTerminalPHover tabIndex="0" onClick={() => setFile(ID)}>id: {response.MsgHdr.Id}</StyledTerminalPHover>
                         </div>
-
                         <div className="flexRow">
-
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(Flags)}>
                                 ;; flags:
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(QRFlag)}
-                                className={`flag${digishRespResp.Response ? true : ''}`}>
+                                className={`flag${response.Response ? true : ''}`}>
                                     qr
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(AAFlag)}
-                                className={`flag${digishRespResp.Authoritative ? true : ''}`}>
+                                className={`flag${response.Authoritative ? true : ''}`}>
                                     aa
                             </StyledTerminalPHover>
                             <StyledTerminalPHover
                                 onClick={() => setFile(TCFlag)}
-                                className={`flag${digishRespResp.Truncated ? true : ''}`}>
+                                className={`flag${response.Truncated ? true : ''}`}>
                                     tc
                                 </StyledTerminalPHover>
                             <StyledTerminalPHover
                                 onClick={() => setFile(RDFlag)}
-                                className={`flag${digishRespResp.RecursionDesired ? true : ''}`}>
+                                className={`flag${response.RecursionDesired ? true : ''}`}>
                                     rd
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(RAFlag)}
-                                className={`flag${digishRespResp.RecursionAvailable ? true : ''}`}>
+                                className={`flag${response.RecursionAvailable ? true : ''}`}>
                                     ra
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
@@ -413,12 +414,12 @@ export const Answer = (props) => {
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(ADFlag)}
-                                className={`flag${digishRespResp.AuthenticatedData ? true : ''}`}>
+                                className={`flag${response.AuthenticatedData ? true : ''}`}>
                                     ad
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(CDFlag)}
-                                className={`flag${digishRespResp.CheckingDisabled ? true : ''}`}>
+                                className={`flag${response.CheckingDisabled ? true : ''}`}>
                                     cd
                             </StyledTerminalPHover>
                             <p className="noPadding">;</p>
@@ -429,31 +430,45 @@ export const Answer = (props) => {
                                 ANSWER:{digishAnswerLen},
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0" onClick={() => setFile(NSCount)} >
-                                AUTHORITY:{digishNsLen},
+                                AUTHORITY:{digishAuthorityLen},
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0" onClick={() => setFile(ARCOUNT)} >
-                                ADDITIONAL:{digishExtraLen}
+                                ADDITIONAL:{digishAdditionalLen}
                             </StyledTerminalPHover>
                         </div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalP>;; OPT PSEUDOSECTION:</StyledTerminalP>
                         <StyledTerminalP>; EDNS: version: 0, flags:; udp: 1232 </StyledTerminalP>
-                        <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QuestionSection)} >
-                            ;; QUESTION SECTION:
-                        </StyledTerminalPHover>
-                        {digishQuestions}
+                        <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QuestionSection)} >;; QUESTION SECTION:</StyledTerminalPHover>
+                        <table>
+                            {digishQuestions}
+                        </table>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
-                        {digishAnswerSection}
-                        {digishAnswers}
+                    <StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} className={`state${response.Answer ? true : ''}`} >;; ANSWER SECTION:</StyledTerminalPHover>
+                        <table>
+                            {digishAnswers}
+                        </table>
+                    </StyledTerminalSection>
+                    <StyledTerminalSection>
+                        <StyledTerminalPHover tabIndex="0" className={`state${response.Authority ? true : ''}`} onClick={() => setFile(AuthoritySection)}>;; AUTHORITY SECTION:</StyledTerminalPHover>
+                        <table>
+                            {digishAuthority}
+                        </table>
+                    </StyledTerminalSection>
+                    <StyledTerminalSection>
+                        <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
+                        <table>
+                            {digishAdditional}
+                        </table>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QueryTime)}>
                             ;; Query time: {queryTime} msec
                         </StyledTerminalPHover>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(Server)} >
-                            ;; SERVER: {digishResp.Nameserver}#port({digishResp.Nameserver})
+                            ;; SERVER: {digishResp.Nameserver}#{digishQuestion.Port}({digishResp.Nameserver})
                         </StyledTerminalPHover>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(When)} >
                             ;; WHEN: {time}
@@ -463,8 +478,6 @@ export const Answer = (props) => {
                         </StyledTerminalPHover>
                     </StyledTerminalSection>
                 </StyledTerminal>
-            </section>
-            <section>
                 <StyledInfoBoxWrapper>
                     <StyledTipBox className="tipBox">
                         <h3>Tip!</h3>
@@ -482,6 +495,5 @@ export const Answer = (props) => {
                         {text}
                     </StyledInfoBox>
                 </StyledInfoBoxWrapper>
-            </section>
          </StyledAnswerWrapper>
 }

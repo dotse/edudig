@@ -1,1 +1,9 @@
-{"version":3,"sources":["desktop.scss","desktop.css"],"names":[],"mappings":"AAAA;EACI,YAAA;EACA,mBAAA;EACA,mBAAA;EACA,uBAAA;ACCJ;;ADCA;EACI,kBAAA;ACEJ","file":"desktop.css"}
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,CAAC;EACD,eAAe,EAAE,MAAM;EACvB,WAAW,EAAE,MAAM;CACtB;;AACD,AAAA,KAAK,CAAC;EACF,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;CAU1B;;AAZD,AAGI,KAHC,CAGD,SAAS,CAAA;EACL,cAAc,EAAE,GAAG;EACnB,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,MAAM;EACvB,SAAS,EAAE,MAAM;CACpB;;AARL,AASI,KATC,CASD,YAAY,CAAC;EACT,SAAS,EAAE,MAAM;CACpB;;AAEL,AAAA,cAAc,CAAC;EACX,aAAa,EAAE,GAAG;CACrB",
+    "sources": [
+        "desktop.scss"
+    ],
+    "names": [],
+    "file": "desktop.css"
+}
