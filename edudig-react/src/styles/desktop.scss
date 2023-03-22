@@ -3,16 +3,31 @@ body {
     align-items: center;
 }
 .main {
+    margin: 0;
+    width: 100%;
     display: flex;
     justify-content: center;
+    header {
+        width: 100%;
+    }
     .digInput{
         flex-direction: row;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
         max-width: 1200px;
+    }
+    .labelDiv._inputText {
+        width: 20%;
+    }
+    
+    .labelDiv._inputSelet {
+        width: 10%;
     }
     .contentWrap {
         max-width: 1200px;
+    }
+    .submit {
+        max-width: 20%;
     }
 }
 .answerSection {
