@@ -33,7 +33,7 @@ const StyledAnswerWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     
-    @media screen and (min-width: 1024px){
+    @media screen and (min-width: 1200px){
         flex-direction: row;
         align-items: flex-start;
         max-width: 1200px;
@@ -49,7 +49,7 @@ const StyledTerminal = styled.div`
     padding: 10px;
     width: 90vw;
     text-align: left;
-    @media screen and (min-width: 1024px){
+    @media screen and (min-width: 1200px){
         width: 55vw;
         margin-right: 16px;
     }
@@ -86,7 +86,7 @@ const StyledInfoBoxWrapper = styled.div`
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 10px;
-    @media screen and (min-width: 1024px){
+    @media screen and (min-width: 1200px){
         width: 38vw;
         margin-top: 0px;
         margin-right: 10px;
