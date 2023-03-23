@@ -87,7 +87,7 @@ body {
 }
 
 .labelStyle {
-  color: grey;
+  color: #949494;
   margin-top: -5px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 500;
@@ -111,7 +111,7 @@ body {
 .is {
   font-family: Arial, Helvetica, sans-serif;
   position: absolute;
-  color: grey;
+  color: #949494;
   font-size: 1rem;
   margin-left: 10px;
   margin-top: 35px;
@@ -120,7 +120,7 @@ body {
 .isactive {
   font-family: Arial, Helvetica, sans-serif;
   position: absolute;
-  color: grey;
+  color: #949494;
   font-size: 1.2rem;
   margin-left: 0px;
   margin-top: 0px;
@@ -133,7 +133,7 @@ body {
 
 label {
   font-family: Arial, Helvetica, sans-serif;
-  color: grey;
+  color: #949494;
   font-size: 1.2rem;
   font-size: 0.85rem;
   margin-bottom: 5px;
@@ -170,13 +170,13 @@ input:hover ~ label {
 
 h1 {
   color: #FF8C00;
-  font-family: 'Monda', Courier, monospace;
+  font-family: "Monda", Courier, monospace;
   font-size: 5rem;
   margin-bottom: 10px;
 }
 
 h2 {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: 1.5rem;
   color: #070D0C;
   margin-left: 15px;

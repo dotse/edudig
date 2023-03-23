@@ -51,9 +51,9 @@ body {
 }
 
 .labelStyle {
-    color: grey;
-    margin-top: -5px;
-    font-family: Arial, Helvetica, sans-serif;
+    color: $grey;
+    margin-top: -$margin;
+    font-family: $label;
     font-weight: 500;
     font-size: 0.9rem;
 }
@@ -68,18 +68,18 @@ body {
 }
 
 .is {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: $label;
     position: absolute;
-    color: grey;
+    color: $grey;
     font-size: 1rem;
     margin-left: $margin*2;
     margin-top: $margin*7;
 }
 
 .isactive {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: $label;
     position: absolute;
-    color: grey;
+    color: $grey;
     font-size: 1.2rem;
     margin-left: 0px;
     margin-top: 0px;
@@ -90,8 +90,8 @@ body {
 }
 
 label {
-    font-family: Arial, Helvetica, sans-serif;
-    color: grey;
+    font-family: $label;
+    color: $grey;
     font-size: 1.2rem;
     font-size: 0.85rem;
     margin-bottom: $margin;
@@ -128,13 +128,13 @@ input:hover ~ label {
 
 h1 {
     color: $primary-orange;
-    font-family: 'Monda', Courier, monospace;
+    font-family: $h1;
     font-size: 5rem;
     margin-bottom: $padding*2;
 }
 
 h2 {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: $h2;
     font-size: 1.5rem;
     color: $black;
     margin-left: $margin*3;
@@ -166,20 +166,20 @@ h4{
 }
 
 .flag {
-    color: #949494;
+    color: $grey;
 }
 .flagtrue {
-    color: #FDFFFE;
+    color: $white;
 }
 a {
-    color: #FDFFFE;
+    color: $white;
 }
 
 .state {
-    color: #949494;
+    color: $grey;
 }
 .statetrue {
-    color: #FDFFFE;
+    color: $white;
 }
 
 .flexRow {
@@ -198,8 +198,8 @@ a {
 table{
     width: 100%;
     border-spacing: 0px;
-    padding-left: 5px;
-    padding-top: 5px;
+    padding-left: $padding;
+    padding-top: $padding;
     tr {
         .firstCell {
             width: 29%;
@@ -221,5 +221,5 @@ section {
     width: 100vw;
     display: flex;
     justify-content: center;
-    margin-bottom: 12px;;
+    margin-bottom: $margin*2.4;
 }
