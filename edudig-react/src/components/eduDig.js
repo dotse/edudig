@@ -18,7 +18,7 @@ const StyledInfoBox = styled.div`
 const StyledH2= styled.h2`
     font-family: 'Monda', Courier, monospace;
     font-size: 2rem;
-    color: white;
+    color: #FDFFFE;
 `
 
 export const EduDig = () => {
