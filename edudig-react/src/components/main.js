@@ -222,7 +222,6 @@ export const Main = () => {
         <div className="contentWrap">
             {content}
         </div>
-        <p>baseURL: {window._env_.baseURL}</p>
         <Footer />
     </div>
     </>
