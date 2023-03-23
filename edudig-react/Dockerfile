@@ -55,7 +55,7 @@ RUN rm -rf ./*
 # Copy static assets from builder stage
 COPY --from=build /app/build .
 
-# Configurable API_URL
+# Configurable baseURL
 # Copy .env file and shell script to container
 COPY ./env.sh .
 COPY .env .

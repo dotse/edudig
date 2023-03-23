@@ -159,9 +159,7 @@ export const Main = () => {
         const instance = axios.create({
             baseURL: `${window._env_.baseURL}`},
             )
-        //axios.post("http://localhost:8053/digish", reqData)
         instance.post("digish", reqData)
-        //axios.post("http://edudig.se:8053/digish", reqData)
         .then(response => {
             setResponseData([reqData,response.data])
         })
