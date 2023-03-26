@@ -27,6 +27,8 @@ import Status from "../textfiles/Status.json"
 import TCFlag from "../textfiles/TCFlag.json"
 import When from "../textfiles/When.json"
 import ZFlag from "../textfiles/ZFlag.json"
+import { ClassroomIcon } from '../icons/classroomIcon'
+import { CopyIcon } from "../icons/copyIcon";
 
 const StyledAnswerWrapper = styled.div`
     display:flex;
@@ -47,10 +49,8 @@ const StyledTerminal = styled.div`
     font-size: 0.80rem;
     margin-top:: 0px;
     padding: 10px;
-    width: 90vw;
     text-align: left;
     @media screen and (min-width: 1200px){
-        width: 55vw;
         margin-right: 16px;
     }
 `
@@ -97,7 +97,7 @@ const StyledInfoBox = styled.div`
     border-bottom-left-radius: 50px;
     border-top-right-radius: 50px;
     padding: 12px;
-    margin: 12px;
+    margin: 24px 12px 12px 12px;
 `
 const StyledTipBox = styled.div`
     background-color: #fdfffe;
@@ -369,6 +369,11 @@ export const Answer = (props) => {
     };
      
     return <StyledAnswerWrapper>
+                <div className="answerSection">
+                    <div className="answerHeader">
+                        <h2 className="answerH2">Answer</h2>
+                        <ClassroomIcon />
+                    </div>
                 <StyledTerminal>
                     <StyledTerminalSection>
                         <StyledTerminalP>; &#60;&#60;&#62;&#62; DiGiSH &#60;&#60;&#62;&#62; {digishResp.Zone}</StyledTerminalP>
@@ -473,20 +478,20 @@ export const Answer = (props) => {
                         </StyledTerminalPHover>
                     </StyledTerminalSection>
                 </StyledTerminal>
+                </div>
                 <StyledInfoBoxWrapper>
                     <StyledTipBox className="tipBox">
                         <h3>Tip!</h3>
                         <h4>Copy and paste this line into your terminal</h4>
                         <StyledTerminalLine className="terminal">
                             <p>dig @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.Qtype} {digishQuestion.Zone} {questionTransport}</p>
-                            <div className="copyBtn" onClick={() =>
-                                {navigator.clipboard.writeText(`dig @${digishQuestion.Nameserver} -p ${digishQuestion.Port} ${digishQuestion.QueryType} ${digishQuestion.Zone} ${questionTransport}`)}
-                                }>
-                            </div>
+                            <CopyIcon onClick={() =>
+                                {navigator.clipboard.writeText(`dig @${digishQuestion.Nameserver} -p ${digishQuestion.Port} ${digishQuestion.Qtype} ${digishQuestion.Zone} ${questionTransport}`)}
+                                }></CopyIcon>
                         </StyledTerminalLine>
                     </StyledTipBox>
-                    <h2>Info section</h2>
                     <StyledInfoBox>
+                        <h2 className="infoSectionH2">Info section</h2>
                         {text}
                     </StyledInfoBox>
                 </StyledInfoBoxWrapper>

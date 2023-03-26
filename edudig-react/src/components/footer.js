@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import gitHubLogo from '../images/github-mark-white.png'
 
 const StyledFooter = styled.footer`
     width: 100vw;
@@ -35,8 +36,7 @@ export const Footer = () => {
     return <StyledFooter>
         <div className="footerWrap">
             <StyledColumn>
-                <StyledLink href="https://github.com/dotse/edudig" target="_blank">EduDig GitHub</StyledLink>
-                <StyledLink href="https://github.com/dotse/edudig" target="_blank">EduDig GitHub</StyledLink>
+                <StyledLink href="https://github.com/dotse/edudig" target="_blank"><img className="gitHubLogo" src={gitHubLogo} alt="gitHubLogo"></img></StyledLink>
             </StyledColumn>
         </div>
     </StyledFooter>
