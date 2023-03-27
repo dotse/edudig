@@ -157,7 +157,7 @@ export const Main = () => {
         e.preventDefault();
         const reqData = {"Zone":`${zone}`, "Nameserver":`${server}`,"Transport":`${protocol}`, "Qtype":`${queryType}`, "Port":`${port}`,"Recursion": `${recursion}`}
         const instance = axios.create({
-            baseURL: `${process.env.REACT_APP_baseURL}`},
+            baseURL: `${window._env_.REACT_APP_baseURL}`},
             )
         instance.post("digish", reqData)
         .then(response => {
@@ -217,6 +217,8 @@ export const Main = () => {
                 </div>
                 <StyledSubmit className="submit" type="submit" value="digish" disabled={!zone}></StyledSubmit>
             </form>
+                               <p>API_URL window env: {window._env_.REACT_APP_baseURL}</p>
+                               <p>API_URL process env: {process.env.REACT_APP_baseURL}</p>
             </header>
         <div className="contentWrap">
             {content}
