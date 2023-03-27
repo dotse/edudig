@@ -53,6 +53,12 @@ body {
                     }
                 }
             }
+            .hiddentrue {
+                display: none;
+            }
+            .hiddenfalse {
+                display: block;
+            }
         }
         .infoSectionH2 {
             font-size: 1.5rem;

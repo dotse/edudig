@@ -95,6 +95,14 @@ body {
   stroke: #FF8C00;
 }
 
+.main .contentWrap .answerSection .hiddentrue {
+  display: none;
+}
+
+.main .contentWrap .answerSection .hiddenfalse {
+  display: block;
+}
+
 .main .contentWrap .infoSectionH2 {
   font-size: 1.5rem;
   margin-top: 5px;

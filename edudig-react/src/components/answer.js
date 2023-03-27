@@ -131,6 +131,8 @@ export const Answer = (props) => {
     const digishResp = props.data[1];
     let response = digishResp.Response;
     const [text, setText] = useState();
+    const [style, setStyle] = useState(false);
+    const [classroomView, setClassroomView] = useState('');
     let questionTransport = "";
     if (digishQuestion.Transport !== "udp"){
         questionTransport = "+tcp"
@@ -338,7 +340,10 @@ export const Answer = (props) => {
 
     useEffect (() => {
         setFile(Info)
-    },[])
+
+    },[ style, classroomView])
+
+    
 
     const opCode = mapFunction(opCodeList,response.MsgHdr.Opcode, "opcode", "hover", OPCode);
     const rCode = mapFunction(rCodeList,response.MsgHdr.Rcode, "status", "hover", Status);
@@ -372,7 +377,7 @@ export const Answer = (props) => {
                 <div className="answerSection">
                     <div className="answerHeader">
                         <h2 className="answerH2">Answer</h2>
-                        <ClassroomIcon />
+                        <div onClick={() => setClassroomView(!classroomView)}><ClassroomIcon /></div>
                     </div>
                 <StyledTerminal>
                     <StyledTerminalSection>
@@ -392,42 +397,42 @@ export const Answer = (props) => {
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(QRFlag)}
-                                className={`flag${response.Response ? true : ''}`}>
+                                className={`flag${response.Response ? true : ''} ${response.Response ? '' : `hidden${classroomView}`}`}>
                                     qr
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(AAFlag)}
-                                className={`flag${response.Authoritative ? true : ''}`}>
+                                className={`flag${response.Authoritative ? true : ''} ${response.Authoritative ? '' : `hidden${classroomView}`}`}>
                                     aa
                             </StyledTerminalPHover>
                             <StyledTerminalPHover
                                 onClick={() => setFile(TCFlag)}
-                                className={`flag${response.Truncated ? true : ''}`}>
+                                className={`flag${response.Truncated ? true : ''} ${response.Truncated ? '' : `hidden${classroomView}`}`}>
                                     tc
                                 </StyledTerminalPHover>
                             <StyledTerminalPHover
                                 onClick={() => setFile(RDFlag)}
-                                className={`flag${response.RecursionDesired ? true : ''}`}>
+                                className={`flag${response.RecursionDesired ? true : ''} ${response.RecursionDesired ? '' : `hidden${classroomView}`}`}>
                                     rd
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(RAFlag)}
-                                className={`flag${response.RecursionAvailable ? true : ''}`}>
+                                className={`flag${response.RecursionAvailable ? true : ''} ${response.RecursionAvailable ? '' : `hidden${classroomView}`}`}>
                                     ra
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(ZFlag)}
-                                className="flag">
+                                className={`flag hidden${classroomView}`}>
                                     z
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(ADFlag)}
-                                className={`flag${response.AuthenticatedData ? true : ''}`}>
+                                className={`flag${response.AuthenticatedData ? true : ''} ${response.AuthenticatedData ? '' : `hidden${classroomView}`}`}>
                                     ad
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(CDFlag)}
-                                className={`flag${response.CheckingDisabled ? true : ''}`}>
+                                className={`flag${response.CheckingDisabled ? true : ''} ${response.CheckingDisabled ? '' : `hidden${classroomView}`}`}>
                                     cd
                             </StyledTerminalPHover>
                             <p className="noPadding">;</p>
