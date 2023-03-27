@@ -87,6 +87,10 @@ body {
   margin-right: 30px;
 }
 
+.main .contentWrap .answerSection .answerHeader .classroomIcon svg:hover {
+  cursor: pointer;
+}
+
 .main .contentWrap .answerSection .answerHeader .classroomIcon svg:hover path, .main .contentWrap .answerSection .answerHeader .classroomIcon svg:hover rect {
   stroke: #FF8C00;
 }
@@ -106,6 +110,10 @@ body {
   stroke: #FF8C00;
 }
 
+.main .contentWrap .copyIcon svg:hover {
+  cursor: pointer;
+}
+
 .main .contentWrap .copyIcon svg:hover path {
   stroke: #FFCD8F;
 }
@@ -115,8 +123,17 @@ body {
   max-width: 1200px;
 }
 
-.main .footerWrap .gitHubLogo {
+.main .footerWrap .githubIcon svg {
   width: 32px;
+  height: 32px;
+}
+
+.main .footerWrap .githubIcon svg path {
+  fill: #FDFFFE;
+}
+
+.main .footerWrap .githubIcon svg:hover path {
+  fill: #070D0C;
 }
 
 .wrapInput {

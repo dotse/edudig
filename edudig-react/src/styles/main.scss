@@ -46,6 +46,7 @@ body {
                 .classroomIcon {
                     margin-right: $margin*6;
                     svg:hover {
+                        cursor: pointer;
                         path, rect {
                             stroke: $primary-orange;
                         }
@@ -65,6 +66,7 @@ body {
                 }
             }
             svg:hover {
+                cursor: pointer;
                 path {
                     stroke: $secondary-orange;
                 }
@@ -75,8 +77,19 @@ body {
     .footerWrap {
         width: 100%;
         max-width: 1200px;
-        .gitHubLogo{
-            width: 32px;
+        .githubIcon {
+            svg {
+                width: 32px;
+                height: 32px;
+                path {
+                    fill: $white;
+                }
+                &:hover{
+                    path {
+                        fill: $black;
+                    }
+                } 
+            }
         }
     }
 }
