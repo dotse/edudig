@@ -15,4 +15,4 @@ services:
     ports:
       - "3000:80"
     environment:
-      - "baseURL=http://localhost:8053/"
+      - "REACT_APP_baseURL=http://localhost:8053/"
