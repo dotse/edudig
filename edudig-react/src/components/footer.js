@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledFooter = styled.footer`
     width: 100vw;
     height: 90px;
-    background-color: #51A69D;
+    background-color: #49A671;
     position: fixed;
     bottom: 0;
     margin-top: 120px;

@@ -32,10 +32,10 @@ const StyledInput = styled.input`
         border-bottom-color: #FF8C00;
     }
 
-    @media screen and (min-width: 1024px){
+    @media screen and (min-width: 1200px){
         width: 20vw;
+        max-width: 240px;
         margin-top: 8px;
-
     }
 `
 const StyledInputNumber = styled.input`
@@ -66,16 +66,16 @@ const StyledInputNumber = styled.input`
         border-bottom-color: #FF8C00;
     }
 
-    @media screen and (min-width: 1024px){
-        width: 15vw;
-        max-width: 75px;
+    @media screen and (min-width: 1200px){
+        width: 20vw;
+        max-width: 100px;
     }
 `
 const StyledSelect = styled.select`
     border: none;
     width: 80vw;
     max-width: 330px;
-    height: 40px; 
+    height: 42px; 
     font-family: 'Monda', Courier, monospace;
     font-size: 1rem;
     color: #070D0C;
@@ -83,7 +83,7 @@ const StyledSelect = styled.select`
     &:focus {
         outline: none;
     }
-    @media screen and (min-width: 1024px){
+    @media screen and (min-width: 1200px){
         width: 20vw;
         max-width: 95px;
     }
@@ -102,7 +102,7 @@ const StyledSelectBorder = styled.div`
         border-bottom-color: #FF8C00;
     }
 
-    @media screen and (min-width: 1024px){
+    @media screen and (min-width: 1200px){
         width: 15vw;
         max-width: 100px;
     }
@@ -132,9 +132,9 @@ const StyledSubmit = styled.input`
             cursor: auto;
         }
     }
-    @media screen and (min-width: 1024px){
+    @media screen and (min-width: 1200px){
         width: 10vw;
-        max-width: 20vw;
+        max-width: 150px;
     }   
 `
 export const Main = () => {
@@ -171,19 +171,19 @@ export const Main = () => {
             <header>
             <h1>EduDig</h1>
             <form className="digInput" onSubmit={handelSubmit}>
-                <div className="labelDiv">
+                <div className="labelDiv _inputText">
                     <StyledInput type="text" className="zone" onChange={(e) => setZone(e.target.value)} value={zone} ></StyledInput>
                     <label className={`is${zone ? 'active' : ''} `}>zone</label>
                 </div>
-                <div className="labelDiv">
+                <div className="labelDiv _inputText">
                     <StyledInput value={server} id="server" onChange={(e) => setServer(e.target.value)}></StyledInput>
                     <label className={`is${server ? 'active' : ''} `}>server</label>
                 </div>
-                <div className="labelDiv">
+                <div className="labelDiv _inputSelect">
                     <StyledInputNumber type="number" value={port} id="port" onChange={(e) => setPort(e.target.value)}></StyledInputNumber>
                     <label className={`is${port ? 'active' : ''} `}>port</label>
                 </div>
-                <div className="labelDiv">
+                <div className="labelDiv _inputSelect">
                     <StyledSelectBorder className="selectBorder">
                         <StyledSelect value={recursion} onChange={(e) => setRecursion(e.target.value)}>
                             <option>true</option>
@@ -192,7 +192,7 @@ export const Main = () => {
                     </StyledSelectBorder>
                     <label className={`is${recursion ? 'active' : ''} `}>recursion</label>
                 </div>
-                <div className="labelDiv">    
+                <div className="labelDiv _inputSelect">    
                     <StyledSelectBorder className="selectBorder">
                         <StyledSelect value={queryType} id="QueryType" onChange={(e) => setQueryType(e.target.value)}>
                             <option>A</option>
@@ -204,7 +204,7 @@ export const Main = () => {
                     </StyledSelectBorder>
                     <label className={`is${queryType ? 'active' : ''} `}>query type</label>
                 </div>
-                <div className="labelDiv">
+                <div className="labelDiv _inputSelect">
                     <StyledSelectBorder className="selectBorder">
                         <StyledSelect  value={protocol} id="protocol" onChange={(e) => setProtocol(e.target.value)}>
                             <option>udp</option>
@@ -214,7 +214,7 @@ export const Main = () => {
                     <label className={`is${protocol ? 'active' : ''} `}>protocol</label>
                 </div>
                 
-                <StyledSubmit type="submit" value="digish" disabled={!zone}></StyledSubmit>
+                <StyledSubmit className="submit" type="submit" value="digish" disabled={!zone}></StyledSubmit>
             </form>
         </header>
         <div className="contentWrap">

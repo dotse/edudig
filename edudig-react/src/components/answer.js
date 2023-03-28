@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react"
-import styled from "styled-components"
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import '../styles/_variables.scss';
 import { v4 as uuidv4 } from 'uuid';
 import AAFlag from "../textfiles/AAFlag.json"
+import AdditionalSection from "../textfiles/AdditionalSection.json"
 import ADFlag from "../textfiles/ADFlag.json"
 import ANCOUNT from "../textfiles/ANCOUNT.json"
 import AnswerSection from "../textfiles/AnswerSection.json"
@@ -25,16 +27,15 @@ import Status from "../textfiles/Status.json"
 import TCFlag from "../textfiles/TCFlag.json"
 import When from "../textfiles/When.json"
 import ZFlag from "../textfiles/ZFlag.json"
-import AdditionalSection from "../textfiles/AdditionalSection.json"
 
 const StyledAnswerWrapper = styled.div`
     display:flex;
     flex-direction: column;
     justify-content: center;
     
-    @media screen and (min-width: 1024px){
+    @media screen and (min-width: 1200px){
         flex-direction: row;
-        margin: 10px;
+        align-items: flex-start;
         max-width: 1200px;
     }
 `
@@ -48,7 +49,7 @@ const StyledTerminal = styled.div`
     padding: 10px;
     width: 90vw;
     text-align: left;
-    @media screen and (min-width: 1024px){
+    @media screen and (min-width: 1200px){
         width: 55vw;
         margin-right: 16px;
     }
@@ -56,6 +57,8 @@ const StyledTerminal = styled.div`
 const StyledTerminalSection = styled.div`
     margin-top: 0px;
     margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
 `
 const StyledTerminalP = styled.p`
     padding-top: 5px;
@@ -63,7 +66,8 @@ const StyledTerminalP = styled.p`
     margin-top: 0px;
     margin-bottom: 0px;
 `
-const StyledTerminalPHover = styled.p`
+const StyledTerminalPHover = styled.a`
+    text-decoration: none;
     padding-top: 5px;
     padding-left: 5px;
     margin-top: 0px;
@@ -82,7 +86,7 @@ const StyledInfoBoxWrapper = styled.div`
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 10px;
-    @media screen and (min-width: 1024px){
+    @media screen and (min-width: 1200px){
         width: 38vw;
         margin-top: 0px;
         margin-right: 10px;
@@ -108,7 +112,7 @@ const StyledTipBox = styled.div`
 const StyledTerminalLine = styled.div`
     background-color: #070D0C;
     border-radius: 10px;
-    color: white;
+    color: #FDFFFE;
     font-family: 'Monda', Courier, monospace;
     padding-left: 12px;
     padding-right: 12px;
@@ -125,11 +129,7 @@ const StyledInfoP = styled.p`
 export const Answer = (props) => {
     const digishQuestion = props.data[0];
     const digishResp = props.data[1];
-    const response = digishResp.Response;
-
-    //CONSOLE LOG
-    console.log(response);
-
+    let response = digishResp.Response;
     const [text, setText] = useState();
     let questionTransport = "";
     if (digishQuestion.Transport !== "udp"){
@@ -260,10 +260,10 @@ export const Answer = (props) => {
         const map = new Map(list);
         const key = map.get(value);
         if(hover !== undefined){
-            return <StyledTerminalPHover tabIndex="0" key={uuidv4()} onClick={() => setFile(file)}>{text}: {key},</StyledTerminalPHover>
+            return <StyledTerminalPHover href="#infoSection" tabIndex="0" key={uuidv4()} onClick={() => setFile(file)}>{text}: {key},</StyledTerminalPHover>
         }
-        return(<StyledTerminalP key={uuidv4()} className="queryTypeClass">{text} {key}</StyledTerminalP>)
-    });
+        return(`${key}`)
+    })
 
     const setFile = (jsonFile) => {
         const list = [jsonFile]
@@ -296,7 +296,7 @@ export const Answer = (props) => {
                 </div>
             )
         }))
-    };
+    }
 
     const createTable = (respSection) => {
         return respSection.map((section,i) => {
@@ -320,16 +320,19 @@ export const Answer = (props) => {
             let qClass = sectionClass;
             if(sectionClass === 1 || sectionClass === 3 || sectionClass ===4){
                 qClass = mapFunction(queryClassList, sectionClass);
-
             }
 
-            return (<tr key={uuidv4()}>
-                    <td key={uuidv4()} className="firstCell"><StyledTerminalP className="tableP">{name}</StyledTerminalP></td>
-                    <td key={uuidv4()} className="queryTypeClass"><StyledTerminalP key={uuidv4()}>{ttl}</StyledTerminalP></td>
-                    <td key={uuidv4()} className="queryTypeClass"><StyledTerminalP key={uuidv4()}>{qClass}</StyledTerminalP></td>
-                    <td key={uuidv4()} className="queryTypeClass" ><StyledTerminalP key={uuidv4()}>{type}</StyledTerminalP></td>
-                    <td key={uuidv4()} className="lastCell"><StyledTerminalP key={uuidv4()}>{queryType}</StyledTerminalP></td>
-                </tr>)
+            return (<table key={uuidv4()}>
+                <tbody key={uuidv4()}>
+                    <tr key={uuidv4()}>
+                        <td key={uuidv4()} className="firstCell tableP">{name}</td>
+                        <td key={uuidv4()} className="queryTypeClass">{ttl}</td>
+                        <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
+                        <td key={uuidv4()} className="queryTypeClass" >{type}</td>
+                        <td key={uuidv4()} className="lastCell">{queryType}</td>
+                    </tr>
+                </tbody>
+            </table>)
         });
     };
 
@@ -362,7 +365,7 @@ export const Answer = (props) => {
     let digishAdditional = '';
     if(response.Additional){
         digishAdditionalLen = response.Additional.length
-        digishAdditional = createTable(response.Additional, digishAdditionalLen, response.Additional.A)
+        digishAdditional = createTable(response.Additional)
     };
      
     return <StyledAnswerWrapper>
@@ -441,27 +444,19 @@ export const Answer = (props) => {
                         <StyledTerminalP>;; OPT PSEUDOSECTION:</StyledTerminalP>
                         <StyledTerminalP>; EDNS: version: 0, flags:; udp: 1232 </StyledTerminalP>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QuestionSection)} >;; QUESTION SECTION:</StyledTerminalPHover>
-                        <table>
                             {digishQuestions}
-                        </table>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                     <StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} className={`state${response.Answer ? true : ''}`} >;; ANSWER SECTION:</StyledTerminalPHover>
-                        <table>
-                            {digishAnswers}
-                        </table>
+                        {digishAnswers}
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" className={`state${response.Authority ? true : ''}`} onClick={() => setFile(AuthoritySection)}>;; AUTHORITY SECTION:</StyledTerminalPHover>
-                        <table>
-                            {digishAuthority}
-                        </table>
+                        {digishAuthority}
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
-                        <table>
-                            {digishAdditional}
-                        </table>
+                        {digishAdditional}
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QueryTime)}>
@@ -485,7 +480,7 @@ export const Answer = (props) => {
                         <StyledTerminalLine className="terminal">
                             <p>dig @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.Qtype} {digishQuestion.Zone} {questionTransport}</p>
                             <div className="copyBtn" onClick={() =>
-                                {navigator.clipboard.writeText(`dig @${digishQuestion.Nameserver} -p ${digishQuestion.Port} ${digishQuestion.QueryType} ${digishQuestion.Zone} ${questionTransport}`)}
+                                {navigator.clipboard.writeText(`dig @${digishQuestion.Nameserver} -p ${digishQuestion.Port} ${digishQuestion.Qtype} ${digishQuestion.Zone} ${questionTransport}`)}
                                 }>
                             </div>
                         </StyledTerminalLine>
