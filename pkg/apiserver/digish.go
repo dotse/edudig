@@ -47,6 +47,40 @@ type Dug struct {
 
 */
 
+// Harmonize lookup nameserver to always use IP:Port
+/*
+func ParseLookupServer(server, port, ipver string) string {
+	var nameserver string
+	ip := net.ParseIP(server)
+	if ip != nil {
+		if ipver == "6" {
+			nameserver = "[" + server + "]:" + port
+		} else {
+			nameserver = server + ":" + port
+		}
+	} else {
+		IPlist, err := net.LookupIP(server)
+		if err != nil {
+			fmt.Printf("Nameserver lookup error: %v\n", err)
+		} else {
+			for _, ip := range IPlist {
+				if ipver == "6" {
+					if strings.Count(ip.String(), ":") >= 2 {
+						nameserver = "[" + ip.String() + "]:" + port
+						break
+					}
+				} else {
+					nameserver = ip.String() + ":" + port
+					break
+				}
+			}
+		}
+
+	}
+	return nameserver
+}
+*/
+
 // digish gets query data from the frontend, creates and sends a dns query.
 // The reply is parsed and sent back to the frontend.
 func digish(w http.ResponseWriter, r *http.Request) {
@@ -60,6 +94,10 @@ func digish(w http.ResponseWriter, r *http.Request) {
 	var dug pkg.Dug
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&query)
+
+	// T
+	fmt.Printf("%v\n", query)
+
 	if err != nil {
 		log.Printf("Unmarshalling error, %v", err)
 	}
@@ -79,11 +117,23 @@ func digish(w http.ResponseWriter, r *http.Request) {
 	}
 
 	client := new(dns.Client)
+
+	nameserver := query.GetLookupNS()
+
+	// Set correct transport protocol (udp, udp4, udp6, tcp, tcp4, tcp6)
+	query.Transport += query.IpVersion
+
 	client.Net = query.Transport
+
+	//fmt.Printf("Query Struct:\n%v\n", query)
+	fmt.Printf("Lookup nameserver = %v\n", nameserver)
+
 	client.DialTimeout = 1 * time.Second
 	client.ReadTimeout = 1 * time.Second
 	client.WriteTimeout = 1 * time.Second
-	response, rtt, err := client.Exchange(message, query.Nameserver+":"+query.Port)
+
+	//response, rtt, err := client.Exchange(message, query.Nameserver+":"+query.Port)
+	response, rtt, err := client.Exchange(message, nameserver)
 	if err != nil {
 		panic(err)
 	}

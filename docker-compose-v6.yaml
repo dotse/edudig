@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: edudig-backend
+    networks:
+      dignet:
+        ipv4_address: '10.0.53.53'
+        ipv6_address: 'fd00:c0de:cafe:0:53::53'
+    ports:
+      - "8053:8053"
+  frontend:
+    build:
+      context: ./edudig-react/
+    container_name: edudig-frontend
+    networks:
+      dignet:
+        ipv4_address: '10.0.53.80'
+        ipv6_address: 'fd00:c0de:cafe:0:53::80'
+    ports:
+      - "3000:80"
+
+networks:
+  dignet:
+    enable_ipv6: true
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/16
+          gateway: 10.0.0.1
+        - subnet: fd00:c0de:cafe::/64
+          gateway: fd00:c0de:cafe::1
