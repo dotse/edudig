@@ -8,3 +8,29 @@ This will enable domain name owners to more easily be able to troubleshoot on th
 
 ### Try it out.
 https://edudig.se
+
+### For (optional) IPv6 support
+
+**Windows**: Untested
+
+**Mac**: Does not work
+
+**Linux**: Tested on Amazon Linux
+
+Adding IPv6 support to Docker:
+
+Add the following to /etc/docker/daemon.json
+```
+{
+    "ipv6": true,
+    "fixed-cidr-v6": "fc00:c0de:cafe::/64"
+}
+```
+
+Restart docker
+
+Add IPv6 routing to iptables on host machine
+
+```ip6tables -t nat -A POSTROUTING -o <interface> -j MASQUERADE```
+
+Run docker-compose with the option ```--file docker-compose-v6.yaml```
