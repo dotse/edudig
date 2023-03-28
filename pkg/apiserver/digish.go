@@ -56,14 +56,10 @@ func digish(w http.ResponseWriter, r *http.Request) {
 
 	client.Net = query.Transport
 
-	//fmt.Printf("Query Struct:\n%v\n", query)
-	fmt.Printf("Lookup nameserver = %v\n", nameserver)
-
 	client.DialTimeout = 1 * time.Second
 	client.ReadTimeout = 1 * time.Second
 	client.WriteTimeout = 1 * time.Second
 
-	//response, rtt, err := client.Exchange(message, query.Nameserver+":"+query.Port)
 	response, rtt, err := client.Exchange(message, nameserver)
 	if err != nil {
 		panic(err)
