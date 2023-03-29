@@ -131,7 +131,6 @@ export const Answer = (props) => {
     const digishResp = props.data[1];
     let response = digishResp.Response;
     const [text, setText] = useState();
-    const [style, setStyle] = useState(false);
     const [classroomView, setClassroomView] = useState('');
     let questionTransport = "";
     if (digishQuestion.Transport !== "udp"){
@@ -340,10 +339,8 @@ export const Answer = (props) => {
 
     useEffect (() => {
         setFile(Info)
-
-    },[ style, classroomView])
-
-    
+        setClassroomView(props.classroomState)
+    },[props.classroomState]);
 
     const opCode = mapFunction(opCodeList,response.MsgHdr.Opcode, "opcode", "hover", OPCode);
     const rCode = mapFunction(rCodeList,response.MsgHdr.Rcode, "status", "hover", Status);
@@ -357,27 +354,28 @@ export const Answer = (props) => {
     let digishAnswerLen = "0";
     let digishAnswers = "";
     if (response.Answer){
-        digishAnswers = createTable(response.Answer)
+        digishAnswerLen = response.Answer.length;
+        digishAnswers = createTable(response.Answer);
     };
 
     let digishAuthorityLen = "0";
     let digishAuthority = '';
     if(response.Authority) {
-        digishAuthority = createTable(response.Authority)
+        digishAuthorityLen = response.Authority.length;
+        digishAuthority = createTable(response.Authority);
     };
 
     let digishAdditionalLen = "0";
     let digishAdditional = '';
     if(response.Additional){
-        digishAdditionalLen = response.Additional.length
-        digishAdditional = createTable(response.Additional)
+        digishAdditionalLen = response.Additional.length;
+        digishAdditional = createTable(response.Additional);
     };
      
     return <StyledAnswerWrapper>
                 <div className="answerSection">
                     <div className="answerHeader">
                         <h2 className="answerH2">Answer</h2>
-                        <div onClick={() => setClassroomView(!classroomView)}><ClassroomIcon /></div>
                     </div>
                 <StyledTerminal>
                     <StyledTerminalSection>
@@ -397,27 +395,27 @@ export const Answer = (props) => {
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(QRFlag)}
-                                className={`flag${response.Response ? true : ''} ${response.Response ? '' : `hidden${classroomView}`}`}>
+                                className={`flag${response.MsgHdr.Response ? true : ''} ${response.MsgHdr.Response ? '' : `hidden${classroomView}`}`}>
                                     qr
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(AAFlag)}
-                                className={`flag${response.Authoritative ? true : ''} ${response.Authoritative ? '' : `hidden${classroomView}`}`}>
+                                className={`flag${response.MsgHdr.Authoritative ? true : ''} ${response.MsgHdr.Authoritative ? '' : `hidden${classroomView}`}`}>
                                     aa
                             </StyledTerminalPHover>
                             <StyledTerminalPHover
                                 onClick={() => setFile(TCFlag)}
-                                className={`flag${response.Truncated ? true : ''} ${response.Truncated ? '' : `hidden${classroomView}`}`}>
+                                className={`flag${response.MsgHdr.Truncated ? true : ''} ${response.MsgHdr.Truncated ? '' : `hidden${classroomView}`}`}>
                                     tc
                                 </StyledTerminalPHover>
                             <StyledTerminalPHover
                                 onClick={() => setFile(RDFlag)}
-                                className={`flag${response.RecursionDesired ? true : ''} ${response.RecursionDesired ? '' : `hidden${classroomView}`}`}>
+                                className={`flag${response.MsgHdr.RecursionDesired ? true : ''} ${response.MsgHdr.RecursionDesired ? '' : `hidden${classroomView}`}`}>
                                     rd
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(RAFlag)}
-                                className={`flag${response.RecursionAvailable ? true : ''} ${response.RecursionAvailable ? '' : `hidden${classroomView}`}`}>
+                                className={`flag${response.MsgHdr.RecursionAvailable ? true : ''} ${response.MsgHdr.RecursionAvailable ? '' : `hidden${classroomView}`}`}>
                                     ra
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
@@ -427,12 +425,12 @@ export const Answer = (props) => {
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(ADFlag)}
-                                className={`flag${response.AuthenticatedData ? true : ''} ${response.AuthenticatedData ? '' : `hidden${classroomView}`}`}>
+                                className={`flag${response.MsgHdr.AuthenticatedData ? true : ''} ${response.MsgHdr.AuthenticatedData ? '' : `hidden${classroomView}`}`}>
                                     ad
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(CDFlag)}
-                                className={`flag${response.CheckingDisabled ? true : ''} ${response.CheckingDisabled ? '' : `hidden${classroomView}`}`}>
+                                className={`flag${response.MsgHdr.CheckingDisabled ? true : ''} ${response.MsgHdr.CheckingDisabled ? '' : `hidden${classroomView}`}`}>
                                     cd
                             </StyledTerminalPHover>
                             <p className="noPadding">;</p>
@@ -457,15 +455,15 @@ export const Answer = (props) => {
                             {digishQuestions}
                     </StyledTerminalSection>
                     <StyledTerminalSection>
-                    <StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} className={`state${response.Answer ? true : ''}`} >;; ANSWER SECTION:</StyledTerminalPHover>
+                    <StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} className={`state${response.Answer ? true : ''} ${response.Answer ? '' : `hidden${classroomView}`} `} >;; ANSWER SECTION:</StyledTerminalPHover>
                         {digishAnswers}
                     </StyledTerminalSection>
                     <StyledTerminalSection>
-                        <StyledTerminalPHover tabIndex="0" className={`state${response.Authority ? true : ''}`} onClick={() => setFile(AuthoritySection)}>;; AUTHORITY SECTION:</StyledTerminalPHover>
+                        <StyledTerminalPHover tabIndex="0" className={`state${response.Authority ? true : ''} ${response.Authority ? '' : `hidden${classroomView}`}`} onClick={() => setFile(AuthoritySection)}>;; AUTHORITY SECTION:</StyledTerminalPHover>
                         {digishAuthority}
                     </StyledTerminalSection>
                     <StyledTerminalSection>
-                        <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
+                        <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''} ${response.Additional ? '' : `hidden${classroomView}`}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
                         {digishAdditional}
                     </StyledTerminalSection>
                     <StyledTerminalSection>
