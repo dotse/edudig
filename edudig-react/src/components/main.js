@@ -217,8 +217,6 @@ export const Main = () => {
                 </div>
                 <StyledSubmit className="submit" type="submit" value="digish" disabled={!zone}></StyledSubmit>
             </form>
-                               <p>API_URL window env: {window._env_.REACT_APP_baseURL}</p>
-                               <p>API_URL process env: {process.env.REACT_APP_baseURL}</p>
             </header>
         <div className="contentWrap">
             {content}
