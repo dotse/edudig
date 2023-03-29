@@ -157,8 +157,10 @@ export const Main = () => {
     const handelSubmit = (e) => {
         e.preventDefault();
         const reqData = {"Zone":`${zone}`, "Nameserver":`${server}`,"Transport":`${protocol}`, "Qtype":`${queryType}`, "Port":`${port}`,"Recursion": `${recursion}`}
-        axios.post("http://localhost:8053/digish", reqData)
-        //axios.post("http://edudig.se:8053/digish", reqData)
+        const instance = axios.create({
+            baseURL: `${window._env_.REACT_APP_baseURL}`},
+            )
+        instance.post("digish", reqData)
         .then(response => {
             setResponseData([reqData,response.data])
         })
@@ -218,10 +220,9 @@ export const Main = () => {
                     </StyledSelectBorder>
                     <label className={`is${protocol ? 'active' : ''} `}>protocol</label>
                 </div>
-                
                 <StyledSubmit className="submit" type="submit" value="digish" disabled={!zone}></StyledSubmit>
             </form>
-        </header>
+            </header>
         <div className="contentWrap">
             {content}
         </div>
