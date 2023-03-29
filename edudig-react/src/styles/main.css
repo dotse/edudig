@@ -61,9 +61,97 @@ body {
   margin-bottom: 120px;
 }
 
+.main .contentWrap .answerSection {
+  width: 90vw;
+  text-align: left;
+}
+
+.main .contentWrap .answerSection .answerHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main .contentWrap .answerSection .answerHeader .answerH2 {
+  margin-top: 0;
+}
+
+.main .contentWrap .answerSection .hiddentrue {
+  display: none;
+}
+
+.main .contentWrap .answerSection .hiddenfalse {
+  display: block;
+}
+
+.main .contentWrap .infoSectionH2 {
+  font-size: 1.5rem;
+  margin-top: 5px;
+}
+
+.main .contentWrap .copyIcon {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.main .contentWrap .copyIcon svg path {
+  stroke: #FF8C00;
+}
+
+.main .contentWrap .copyIcon svg:hover {
+  cursor: pointer;
+}
+
+.main .contentWrap .copyIcon svg:hover path {
+  stroke: #FFCD8F;
+}
+
 .main .footerWrap {
   width: 100%;
   max-width: 1200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.main .footerWrap .githubIcon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.main .footerWrap .githubIcon svg path {
+  fill: #FDFFFE;
+}
+
+.main .footerWrap .githubIcon svg:hover path {
+  fill: #070D0C;
+}
+
+.main .footerWrap .classroomIcon {
+  margin-right: 5px;
+}
+
+.main .footerWrap .classroomIcon svg path, .main .footerWrap .classroomIcon svg rect {
+  stroke: #FDFFFE;
+}
+
+.main .footerWrap .classroomIcon svg:hover {
+  cursor: pointer;
+}
+
+.main .footerWrap .classroomIcon svg:hover path, .main .footerWrap .classroomIcon svg:hover rect {
+  stroke: #070D0C;
 }
 
 .wrapInput {
@@ -87,7 +175,7 @@ body {
 }
 
 .labelStyle {
-  color: grey;
+  color: #949494;
   margin-top: -5px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 500;
@@ -111,7 +199,7 @@ body {
 .is {
   font-family: Arial, Helvetica, sans-serif;
   position: absolute;
-  color: grey;
+  color: #949494;
   font-size: 1rem;
   margin-left: 10px;
   margin-top: 35px;
@@ -120,8 +208,7 @@ body {
 .isactive {
   font-family: Arial, Helvetica, sans-serif;
   position: absolute;
-  color: grey;
-  font-size: 1.2rem;
+  color: #949494;
   margin-left: 0px;
   margin-top: 0px;
   font-size: 0.85rem;
@@ -133,7 +220,7 @@ body {
 
 label {
   font-family: Arial, Helvetica, sans-serif;
-  color: grey;
+  color: #949494;
   font-size: 1.2rem;
   font-size: 0.85rem;
   margin-bottom: 5px;
@@ -170,14 +257,14 @@ input:hover ~ label {
 
 h1 {
   color: #FF8C00;
-  font-family: 'Monda', Courier, monospace;
+  font-family: "Monda", Courier, monospace;
   font-size: 5rem;
   margin-bottom: 10px;
 }
 
 h2 {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 1.5rem;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 2rem;
   color: #070D0C;
   margin-left: 15px;
   margin-bottom: 0px;
@@ -185,12 +272,16 @@ h2 {
 }
 
 h3 {
+  font-family: "Courier New", Courier, monospace;
   font-size: 1.2rem;
   margin-bottom: 0px;
   margin-left: 15px;
 }
 
 h4 {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.9rem;
+  font-weight: 400;
   margin-left: 15px;
   margin-top: 0px;
   margin-bottom: 0px;
