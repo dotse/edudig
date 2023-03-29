@@ -355,14 +355,14 @@ export const Answer = (props) => {
     let digishAnswers = "";
     if (response.Answer){
         digishAnswerLen = response.Answer.length;
-        digishAnswers = createTable(response.Answer);
+        digishAnswers = createTable(response.Answer)
     };
 
     let digishAuthorityLen = "0";
     let digishAuthority = '';
     if(response.Authority) {
         digishAuthorityLen = response.Authority.length;
-        digishAuthority = createTable(response.Authority);
+        digishAuthority = createTable(response.Authority)
     };
 
     let digishAdditionalLen = "0";
