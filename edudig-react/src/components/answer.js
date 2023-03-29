@@ -27,7 +27,6 @@ import Status from "../textfiles/Status.json"
 import TCFlag from "../textfiles/TCFlag.json"
 import When from "../textfiles/When.json"
 import ZFlag from "../textfiles/ZFlag.json"
-import { ClassroomIcon } from '../icons/classroomIcon'
 import { CopyIcon } from "../icons/copyIcon";
 
 const StyledAnswerWrapper = styled.div`
