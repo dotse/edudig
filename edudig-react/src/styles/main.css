@@ -83,16 +83,12 @@ body {
   margin-top: 0;
 }
 
-.main .contentWrap .answerSection .answerHeader .classroomIcon {
-  margin-right: 30px;
+.main .contentWrap .answerSection .hiddentrue {
+  display: none;
 }
 
-.main .contentWrap .answerSection .answerHeader .classroomIcon svg:hover {
-  cursor: pointer;
-}
-
-.main .contentWrap .answerSection .answerHeader .classroomIcon svg:hover path, .main .contentWrap .answerSection .answerHeader .classroomIcon svg:hover rect {
-  stroke: #FF8C00;
+.main .contentWrap .answerSection .hiddenfalse {
+  display: block;
 }
 
 .main .contentWrap .infoSectionH2 {
@@ -121,6 +117,12 @@ body {
 .main .footerWrap {
   width: 100%;
   max-width: 1200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .main .footerWrap .githubIcon svg {
@@ -134,6 +136,22 @@ body {
 
 .main .footerWrap .githubIcon svg:hover path {
   fill: #070D0C;
+}
+
+.main .footerWrap .classroomIcon {
+  margin-right: 5px;
+}
+
+.main .footerWrap .classroomIcon svg path, .main .footerWrap .classroomIcon svg rect {
+  stroke: #FDFFFE;
+}
+
+.main .footerWrap .classroomIcon svg:hover {
+  cursor: pointer;
+}
+
+.main .footerWrap .classroomIcon svg:hover path, .main .footerWrap .classroomIcon svg:hover rect {
+  stroke: #070D0C;
 }
 
 .wrapInput {

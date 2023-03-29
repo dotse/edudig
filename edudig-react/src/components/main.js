@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import '../styles/style.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { EduDig } from "./eduDig";
 import { Answer } from "./answer";
@@ -146,12 +146,13 @@ export const Main = () => {
     const [content, setContent] = useState(<EduDig />);
     const [port, setPort] = useState("53");
     const [recursion, setRecursion] = useState(true)
+    const [state, setState] = useState(false);
 
     useEffect ( () => {
         if (responseData.length > 0 ){
-            setContent(<Answer data={responseData} />)
+            setContent(<Answer data={responseData} classroomState={state} />)
         }
-    },[responseData]);
+    },[responseData, state]);
 
     const handelSubmit = (e) => {
         e.preventDefault();
@@ -165,6 +166,10 @@ export const Main = () => {
             console.error(error)
             //setErrorResponse(error)
         })
+    }
+
+    const handleViewState = (state) => {
+        setState(state)
     }
 
     return <><div className="main">
@@ -220,7 +225,7 @@ export const Main = () => {
         <div className="contentWrap">
             {content}
         </div>
-        <Footer />
+        <Footer viewState={handleViewState}/>
     </div>
     </>
 }

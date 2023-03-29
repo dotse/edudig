@@ -43,15 +43,12 @@ body {
                 .answerH2 {
                     margin-top: 0;
                 }
-                .classroomIcon {
-                    margin-right: $margin*6;
-                    svg:hover {
-                        cursor: pointer;
-                        path, rect {
-                            stroke: $primary-orange;
-                        }
-                    }
-                }
+            }
+            .hiddentrue {
+                display: none;
+            }
+            .hiddenfalse {
+                display: block;
             }
         }
         .infoSectionH2 {
@@ -77,6 +74,8 @@ body {
     .footerWrap {
         width: 100%;
         max-width: 1200px;
+        display: flex;
+        justify-content: space-between;
         .githubIcon {
             svg {
                 width: 32px;
@@ -89,6 +88,20 @@ body {
                         fill: $black;
                     }
                 } 
+            }
+        }
+        .classroomIcon {
+            margin-right: $margin;
+            svg{
+                path, rect {
+                    stroke: $white;
+                }
+            }
+            svg:hover {
+                cursor: pointer;
+                path, rect {
+                    stroke: $black;
+                }
             }
         }
     }
