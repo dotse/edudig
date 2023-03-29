@@ -14,6 +14,7 @@ type Query struct {
 	Qtype      string `json:"Qtype"`
 	Port       string `json:"Port"`
 	Recursion  string `json:"Recursion"`
+	DNSSEC     string `json:"DNSSEC"`
 }
 
 // Response is used to rename the fields dns.Msg.Ns -> Response.Authority
