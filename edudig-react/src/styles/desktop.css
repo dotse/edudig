@@ -48,6 +48,10 @@ body {
   max-width: 1200px;
 }
 
+.main .contentWrap .answerSection {
+  width: 55vw;
+}
+
 .main .submit {
   max-width: 20%;
 }
