@@ -236,11 +236,63 @@ h4{
     }
 }
 
+.toolTip {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    background-color: $white;
+    color: $black;
+    padding: $padding;
+    border-radius: 5px;
+    border: 2px solid $primary-orange;
+    top: -24px;
+    width: max-content;
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 1%;
+        border-width: 5px;
+        border-style: solid;
+        border-color: $primary-orange transparent transparent transparent
+    }
+}
+
 .flag {
     color: $grey;
+    position: relative;
+    
+    &:hover .toolTip.false {
+        visibility: visible;
+    }
 }
 .flagtrue {
     color: $white;
+    position: relative;
+    // .toolTip {
+    //     visibility: hidden;
+    //     position: absolute;
+    //     z-index: 1;
+    //     background-color: $white;
+    //     color: $black;
+    //     padding: $padding;
+    //     border-radius: 5px;
+    //     border: 2px solid $primary-orange;
+    //     top: -24px;
+    //     width: max-content;
+    //     &::after {
+    //         content: '';
+    //         position: absolute;
+    //         bottom: -10px;
+    //         left: 1%;
+    //         border-width: 5px;
+    //         border-style: solid;
+    //         border-color: $primary-orange transparent transparent transparent
+    //     }
+    // }
+    &:hover .toolTip.false {
+        visibility: visible;
+    }
 }
 a {
     color: $white;

@@ -393,13 +393,15 @@ export const Answer = (props) => {
                                 ;; flags:
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
-                                onClick={() => setFile(QRFlag)}
+                                onClick={() => setFile(QRFlag)} 
                                 className={`flag${response.MsgHdr.Response ? true : ''} ${response.MsgHdr.Response ? '' : `hidden${classroomView}`}`}>
+                                    <span className={`toolTip ${classroomView}`}>{`This flag is ${response.MsgHdr.Response ? 'set' : 'not set'}`}</span>
                                     qr
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(AAFlag)}
                                 className={`flag${response.MsgHdr.Authoritative ? true : ''} ${response.MsgHdr.Authoritative ? '' : `hidden${classroomView}`}`}>
+                                    <span className={`toolTip ${classroomView}`}>{`This flag is ${response.MsgHdr.Authoritative ? 'set' : 'not set'}`}</span>
                                     aa
                             </StyledTerminalPHover>
                             <StyledTerminalPHover

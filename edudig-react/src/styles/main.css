@@ -299,12 +299,47 @@ h4 {
   background-image: url(../images/CopySymbolhover.png);
 }
 
+.toolTip {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  background-color: #FDFFFE;
+  color: #070D0C;
+  padding: 5px;
+  border-radius: 5px;
+  border: 2px solid #FF8C00;
+  top: -24px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.toolTip::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 1%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #FF8C00 transparent transparent transparent;
+}
+
 .flag {
   color: #949494;
+  position: relative;
+}
+
+.flag:hover .toolTip.false {
+  visibility: visible;
 }
 
 .flagtrue {
   color: #FDFFFE;
+  position: relative;
+}
+
+.flagtrue:hover .toolTip.false {
+  visibility: visible;
 }
 
 a {

@@ -162,6 +162,7 @@ export const Main = () => {
             )
         instance.post("digish", reqData)
         .then(response => {
+            console.log(axios.defaults.headers);
             setResponseData([reqData,response.data])
         })
         .catch(error => {
