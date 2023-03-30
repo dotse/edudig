@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { GithubIcon } from "../icons/githubIcon";
+import { ClassroomIcon } from '../icons/classroomIcon'
+import { useState } from "react";
 
 const StyledFooter = styled.footer`
     width: 100vw;
@@ -15,9 +18,10 @@ const StyledFooter = styled.footer`
 
 const StyledColumn = styled.div`
     margin: 16px;
-    padding: 16px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+
 `
 
 const StyledLink = styled.a`
@@ -30,13 +34,29 @@ const StyledLink = styled.a`
         text-decoration: underline;
     }
 `
+const StyledText = styled.p`
+    width: 300px;
+    font-size: 0.85rem;
+    color: white;
+    margin: 0px;
+`
 
-export const Footer = () => {
+export const Footer = (props) => {
+    const [classroomView, setClassroomView] = useState('');
+    const handleViewStateClick = () => {
+        setClassroomView(!classroomView)
+        props.viewState(classroomView)
+    }
     return <StyledFooter>
         <div className="footerWrap">
             <StyledColumn>
-                <StyledLink href="https://github.com/dotse/edudig" target="_blank">EduDig GitHub</StyledLink>
-                <StyledLink href="https://github.com/dotse/edudig" target="_blank">EduDig GitHub</StyledLink>
+                <StyledLink href="https://github.com/dotse/edudig" target="_blank">
+                    <GithubIcon />
+                </StyledLink>
+            </StyledColumn>
+            <StyledColumn onClick={handleViewStateClick} className="classroomIconWrap">
+                <ClassroomIcon />
+                <StyledText>Use this to switch between classroom view and terminal view. Classroom view shows all unused flags and sections.</StyledText> 
             </StyledColumn>
         </div>
     </StyledFooter>

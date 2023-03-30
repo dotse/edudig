@@ -55,5 +55,17 @@ RUN rm -rf ./*
 # Copy static assets from builder stage
 COPY --from=build /app/build .
 
+# Configurable baseURL
+# Copy .env file and shell script to container
+COPY ./env.sh .
+COPY .env .
+
+# Add bash
+RUN apk add --no-cache bash
+
+# Make shell script executable
+RUN chmod +x env.sh
+
 # Containers run nginx with global directives and daemon off
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+#ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]

@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import '../styles/style.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { EduDig } from "./eduDig";
 import { Answer } from "./answer";
@@ -146,18 +146,21 @@ export const Main = () => {
     const [content, setContent] = useState(<EduDig />);
     const [port, setPort] = useState("53");
     const [recursion, setRecursion] = useState(true)
+    const [state, setState] = useState(false);
 
     useEffect ( () => {
         if (responseData.length > 0 ){
-            setContent(<Answer data={responseData} />)
+            setContent(<Answer data={responseData} classroomState={state} />)
         }
-    },[responseData]);
+    },[responseData, state]);
 
     const handelSubmit = (e) => {
         e.preventDefault();
         const reqData = {"Zone":`${zone}`, "Nameserver":`${server}`,"Transport":`${protocol}`, "Qtype":`${queryType}`, "Port":`${port}`,"Recursion": `${recursion}`}
-        axios.post("http://localhost:8053/digish", reqData)
-        //axios.post("http://edudig.se:8053/digish", reqData)
+        const instance = axios.create({
+            baseURL: `${window._env_.REACT_APP_baseURL}`},
+            )
+        instance.post("digish", reqData)
         .then(response => {
             setResponseData([reqData,response.data])
         })
@@ -165,6 +168,10 @@ export const Main = () => {
             console.error(error)
             //setErrorResponse(error)
         })
+    }
+
+    const handleViewState = (state) => {
+        setState(state)
     }
 
     return <><div className="main">
@@ -213,14 +220,13 @@ export const Main = () => {
                     </StyledSelectBorder>
                     <label className={`is${protocol ? 'active' : ''} `}>protocol</label>
                 </div>
-                
                 <StyledSubmit className="submit" type="submit" value="digish" disabled={!zone}></StyledSubmit>
             </form>
-        </header>
+            </header>
         <div className="contentWrap">
             {content}
         </div>
-        <Footer />
+        <Footer viewState={handleViewState}/>
     </div>
     </>
 }

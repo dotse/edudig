@@ -21,8 +21,11 @@ func digish(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "OPTIONS" {
 		return
 	}
+
 	var query pkg.Query
 	var dug pkg.Dug
+	var doBit bool
+
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&query)
 
@@ -38,6 +41,8 @@ func digish(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		message.RecursionDesired = true
 	}
+	doBit, err = strconv.ParseBool(query.DNSSEC)
+	message.SetEdns0(1232, doBit)
 	message.Id = dns.Id()
 
 	message.Question = make([]dns.Question, 1)

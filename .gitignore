@@ -18,3 +18,7 @@
 
 # unrelated mac junk
 .DS_Store
+
+# Temporary env files
+/edudig-react/public/env-config.js
+env-config.js

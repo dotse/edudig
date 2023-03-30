@@ -19,6 +19,7 @@ type Query struct {
 	Port       string `json:"Port"`
 	Recursion  string `json:"Recursion"`
 	IpVersion  string `json:"IpVersion"`
+	DNSSEC     string `json:"DNSSEC"`
 }
 
 // Harmonize lookup nameserver to always use IP:Port
