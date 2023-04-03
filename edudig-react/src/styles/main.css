@@ -91,6 +91,10 @@ body {
   display: block;
 }
 
+.main .contentWrap .answerSection .showAdditionalDefaulttrue {
+  color: #949494;
+}
+
 .main .contentWrap .infoSectionH2 {
   font-size: 1.5rem;
   margin-top: 5px;

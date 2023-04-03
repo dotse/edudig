@@ -126,11 +126,14 @@ const StyledInfoP = styled.p`
 `
 
 export const Answer = (props) => {
+    //LOG
+    console.log(props.data[1]);
     const digishQuestion = props.data[0];
     const digishResp = props.data[1];
     let response = digishResp.Response;
     const [text, setText] = useState();
     const [classroomView, setClassroomView] = useState('');
+    const [showAdditionalDefault, setShowAdditionalDefault] = useState(false)
     let questionTransport = "";
     if (digishQuestion.Transport !== "udp"){
         questionTransport = "+tcp"
@@ -339,7 +342,10 @@ export const Answer = (props) => {
     useEffect (() => {
         setFile(Info)
         setClassroomView(props.classroomState)
-    },[props.classroomState]);
+        if(response.Additional[0].Hdr.Name === '.'){
+            setShowAdditionalDefault(true)
+        }
+    },[props.classroomState, response]);
 
     const opCode = mapFunction(opCodeList,response.MsgHdr.Opcode, "opcode", "hover", OPCode);
     const rCode = mapFunction(rCodeList,response.MsgHdr.Rcode, "status", "hover", Status);
@@ -359,6 +365,7 @@ export const Answer = (props) => {
 
     let digishAuthorityLen = "0";
     let digishAuthority = '';
+    
     if(response.Authority) {
         digishAuthorityLen = response.Authority.length;
         digishAuthority = createTable(response.Authority)
@@ -462,8 +469,8 @@ export const Answer = (props) => {
                         {digishAuthority}
                     </StyledTerminalSection>
                     <StyledTerminalSection>
-                        <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''} ${response.Additional ? '' : `hidden${classroomView}`}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
-                        {digishAdditional}
+                        <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''} ${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
+                        <div className={`${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`}>{digishAdditional}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QueryTime)}>
