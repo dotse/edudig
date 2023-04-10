@@ -163,7 +163,6 @@ export const Main = () => {
             )
         instance.post("digish", reqData)
         .then(response => {
-            console.log(axios.defaults.headers);
             setResponseData([reqData,response.data])
         })
         .catch(error => {
@@ -230,7 +229,7 @@ export const Main = () => {
                 </div>
                 <div className="labelDiv _inputSelect">
                     <StyledSelectBorder className="selectBorder inputTooltip">
-                        <StyledSelect  value={protocol} id="dnssec" onChange={(e) => setDnssec(e.target.value)}>
+                        <StyledSelect  value={dnssec} id="dnssec" onChange={(e) => setDnssec(e.target.value)}>
                             <option>true</option>
                             <option>false</option>
                         </StyledSelect>

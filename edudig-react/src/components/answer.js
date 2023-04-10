@@ -129,7 +129,6 @@ export const Answer = (props) => {
     const digishQuestion = props.data[0];
     const digishResp = props.data[1];
     let response = digishResp.Response;
-    console.log(response);
     const [text, setText] = useState();
     const [classroomView, setClassroomView] = useState('');
     const [showAdditionalDefault, setShowAdditionalDefault] = useState(false)
@@ -317,6 +316,12 @@ export const Answer = (props) => {
             let keyTag = '';
             let signerName = '';
             let signature = '';
+            let mbox = '';
+            let minttl = '';
+            let refresh = '';
+            let retry = '';
+            let serial = '';
+            let expire = '';
             if (section.Hdr){
                 type = mapFunction(queryTypeList, section.Hdr.Rrtype);
                 sectionClass = section.Hdr.Class;
@@ -333,6 +338,14 @@ export const Answer = (props) => {
                     keyTag = section.KeyTag;
                     signerName = section.SignerName;
                     signature = section.Signature;
+                }
+                if (type === "SOA") {
+                    mbox = section.Mbox;
+                    minttl = section.Minttl;
+                    refresh = section.Refresh;
+                    retry = section.Retry;
+                    serial = section.Serial;
+                    expire = section.Expire;
                 }
             }
             else if (respSection === response.Question){
@@ -355,7 +368,10 @@ export const Answer = (props) => {
                         <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {algorithm} {labels} {origTtl}</td>
                     </tr>
                     <tr key={uuidv4()}>
-                        <td className="secondRow" key={uuidv4()} colSpan={5}>{inception} {expiration} {keyTag} {signerName} {signature}</td>
+                        <td className="secondRow" key={uuidv4()} colSpan={5}>
+                            {inception} {expiration} {keyTag} {signerName} {signature}
+                            {mbox} {serial} {refresh} {retry} {expire} {minttl}
+                        </td>
                     </tr>
                 </tbody>
             </table>)
