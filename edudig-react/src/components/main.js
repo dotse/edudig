@@ -145,7 +145,8 @@ export const Main = () => {
     const [responseData, setResponseData] = useState([]);
     const [content, setContent] = useState(<EduDig />);
     const [port, setPort] = useState("53");
-    const [recursion, setRecursion] = useState(true)
+    const [recursion, setRecursion] = useState(true);
+    const [dnssec, setDnssec] = useState(true)
     const [state, setState] = useState(false);
 
     useEffect ( () => {
@@ -156,7 +157,7 @@ export const Main = () => {
 
     const handelSubmit = (e) => {
         e.preventDefault();
-        const reqData = {"Zone":`${zone}`, "Nameserver":`${server}`,"Transport":`${protocol}`, "Qtype":`${queryType}`, "Port":`${port}`,"Recursion": `${recursion}`}
+        const reqData = {"Zone":`${zone}`, "Nameserver":`${server}`,"Transport":`${protocol}`, "Qtype":`${queryType}`, "Port":`${port}`,"Recursion": `${recursion}`, "DNSSEC":`${dnssec}`}
         const instance = axios.create({
             baseURL: `${window._env_.REACT_APP_baseURL}`},
             )
@@ -226,6 +227,16 @@ export const Main = () => {
                     </StyledSelectBorder>
                     <span className="toolTip">Protocol</span>
                     <label className={`is${protocol ? 'active' : ''} `}>protocol</label>
+                </div>
+                <div className="labelDiv _inputSelect">
+                    <StyledSelectBorder className="selectBorder inputTooltip">
+                        <StyledSelect  value={protocol} id="dnssec" onChange={(e) => setDnssec(e.target.value)}>
+                            <option>true</option>
+                            <option>false</option>
+                        </StyledSelect>
+                    </StyledSelectBorder>
+                    <span className="toolTip">DNSSEC</span>
+                    <label className={`is${protocol ? 'active' : ''} `}>dnssec</label>
                 </div>
                 <StyledSubmit className="submit" type="submit" value="digish" disabled={!zone}></StyledSubmit>
             </form>
