@@ -1,4 +1,5 @@
 @import '_variables';
+
 body {
     margin: 0;
     display: flex;
@@ -136,6 +137,12 @@ body {
     border-radius:$padding;
     height: 65px;
     margin-right: $margin*4;
+    &:hover {
+        position: relative;
+        .toolTip {
+            visibility: visible;
+        }
+    }
 }
 
 .is {
@@ -165,6 +172,28 @@ label {
     font-size: 1.2rem;
     font-size: 0.85rem;
     margin-bottom: $margin;
+}
+
+.toolTip {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    background-color: $white;
+    color: $black;
+    padding: $padding*2;
+    border-radius: 5px;
+    border: 2px solid $primary-orange;
+    top: -50px;
+    width: max-content;
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 1%;
+        border-width: 5px;
+        border-style: solid;
+        border-color: $primary-orange transparent transparent transparent
+    }
 }
 
 input::-webkit-outer-spin-button,
@@ -244,6 +273,7 @@ h4{
 }
 .flagtrue {
     color: $white;
+    position: relative;
 }
 a {
     color: $white;
@@ -269,11 +299,14 @@ a {
     margin-bottom: 0px;
 }
 
+.tableMargin {
+    margin-top: $margin;
+}
+
 table{
     width: 100%;
     border-spacing: 0px;
     padding-left: $padding;
-    padding-top: $padding;
     tr {
         .firstCell {
             width: 29%;
@@ -282,11 +315,14 @@ table{
             width: 14%;
         }
         td{
-            padding: 0px;
             margin: 0px;
         }
         .lastCell {
             width: 29%;
+        }
+        .secondRow {
+            padding-top: $padding;
+            word-break: break-all;
         }
     }
 }
