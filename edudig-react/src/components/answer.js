@@ -129,6 +129,7 @@ export const Answer = (props) => {
     const digishQuestion = props.data[0];
     const digishResp = props.data[1];
     let response = digishResp.Response;
+    console.log(response);
     const [text, setText] = useState();
     const [classroomView, setClassroomView] = useState('');
     let questionTransport = "";
@@ -306,11 +307,32 @@ export const Answer = (props) => {
             let type = '';
             let sectionClass = '';
             let queryType = '';
+            let typeCovered = '';
+            let algorithm = '';
+            let labels = '';
+            let origTtl = '';
+            let inception = '';
+            let expiration = '';
+            let keyTag = '';
+            let signerName = '';
+            let signature = '';
             if (section.Hdr){
                 type = mapFunction(queryTypeList, section.Hdr.Rrtype);
                 sectionClass = section.Hdr.Class;
                 queryType = section.A ? section.A : section.Ns;
                 name = section.Hdr.Name;
+                ttl = section.Hdr.Ttl;
+                if (type === "RRSIG") {
+                    typeCovered = mapFunction(queryTypeList, section.TypeCovered);
+                    algorithm = section.Algorithm;
+                    labels = section.Labels;
+                    origTtl = section.OrigTtl;
+                    inception = section.Inception;
+                    expiration = section.Expiration;
+                    keyTag = section.KeyTag;
+                    signerName = section.SignerName;
+                    signature = section.Signature;
+                }
             }
             else if (respSection === response.Question){
                 type = mapFunction(queryTypeList, section.Qtype);
@@ -329,7 +351,10 @@ export const Answer = (props) => {
                         <td key={uuidv4()} className="queryTypeClass">{ttl}</td>
                         <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
                         <td key={uuidv4()} className="queryTypeClass" >{type}</td>
-                        <td key={uuidv4()} className="lastCell">{queryType}</td>
+                        <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {algorithm} {labels} {origTtl}</td>
+                    </tr>
+                    <tr key={uuidv4()}>
+                        <td className="secondRow" key={uuidv4()} colSpan={5}>{inception} {expiration} {keyTag} {signerName} {signature}</td>
                     </tr>
                 </tbody>
             </table>)
@@ -451,19 +476,19 @@ export const Answer = (props) => {
                         <StyledTerminalP>;; OPT PSEUDOSECTION:</StyledTerminalP>
                         <StyledTerminalP>; EDNS: version: 0, flags:; udp: 1232 </StyledTerminalP>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QuestionSection)} >;; QUESTION SECTION:</StyledTerminalPHover>
-                            {digishQuestions}
+                            <div className="tableMargin">{digishQuestions}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                     <StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} className={`state${response.Answer ? true : ''} ${response.Answer ? '' : `hidden${classroomView}`} `} >;; ANSWER SECTION:</StyledTerminalPHover>
-                        {digishAnswers}
+                        <div className="tableMargin">{digishAnswers}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" className={`state${response.Authority ? true : ''} ${response.Authority ? '' : `hidden${classroomView}`}`} onClick={() => setFile(AuthoritySection)}>;; AUTHORITY SECTION:</StyledTerminalPHover>
-                        {digishAuthority}
+                        <div className="tableMargin">{digishAuthority}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''} ${response.Additional ? '' : `hidden${classroomView}`}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
-                        {digishAdditional}
+                        <div className="tableMargin">{digishAdditional}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QueryTime)}>

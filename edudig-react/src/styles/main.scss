@@ -1,4 +1,5 @@
 @import '_variables';
+
 body {
     margin: 0;
     display: flex;
@@ -270,9 +271,6 @@ h4{
 .flagtrue {
     color: $white;
     position: relative;
-    // &:hover .toolTip.false {
-    //     visibility: visible;
-    // }
 }
 a {
     color: $white;
@@ -298,11 +296,14 @@ a {
     margin-bottom: 0px;
 }
 
+.tableMargin {
+    margin-top: $margin;
+}
+
 table{
     width: 100%;
     border-spacing: 0px;
     padding-left: $padding;
-    padding-top: $padding;
     tr {
         .firstCell {
             width: 29%;
@@ -311,11 +312,14 @@ table{
             width: 14%;
         }
         td{
-            padding: 0px;
             margin: 0px;
         }
         .lastCell {
             width: 29%;
+        }
+        .secondRow {
+            padding-top: $padding;
+            word-break: break-all;
         }
     }
 }
