@@ -180,28 +180,32 @@ export const Main = () => {
             <h1>EduDig</h1>
             <form className="digInput" onSubmit={handelSubmit}>
                 <div className="labelDiv _inputText">
-                    <StyledInput type="text" className="zone" onChange={(e) => setZone(e.target.value)} value={zone} ></StyledInput>
+                    <StyledInput type="text" className="zone inputTooltip" onChange={(e) => setZone(e.target.value)} value={zone} ></StyledInput>
+                    <span className="toolTip">Zone</span>
                     <label className={`is${zone ? 'active' : ''} `}>zone</label>
                 </div>
                 <div className="labelDiv _inputText">
-                    <StyledInput value={server} id="server" onChange={(e) => setServer(e.target.value)}></StyledInput>
+                    <StyledInput value={server} id="server inputTooltip" onChange={(e) => setServer(e.target.value)}></StyledInput>
+                    <span className="toolTip">Server</span>
                     <label className={`is${server ? 'active' : ''} `}>server</label>
                 </div>
                 <div className="labelDiv _inputSelect">
-                    <StyledInputNumber type="number" value={port} id="port" onChange={(e) => setPort(e.target.value)}></StyledInputNumber>
+                    <StyledInputNumber type="number" value={port} id="port inputTooltip" onChange={(e) => setPort(e.target.value)}></StyledInputNumber>
+                    <span className="toolTip">Port</span>
                     <label className={`is${port ? 'active' : ''} `}>port</label>
                 </div>
                 <div className="labelDiv _inputSelect">
-                    <StyledSelectBorder className="selectBorder">
+                    <StyledSelectBorder className="selectBorder inputTooltip">
                         <StyledSelect value={recursion} onChange={(e) => setRecursion(e.target.value)}>
                             <option>true</option>
                             <option>false</option>
                         </StyledSelect>
                     </StyledSelectBorder>
+                    <span className="toolTip">Recursion</span>
                     <label className={`is${recursion ? 'active' : ''} `}>recursion</label>
                 </div>
                 <div className="labelDiv _inputSelect">    
-                    <StyledSelectBorder className="selectBorder">
+                    <StyledSelectBorder className="selectBorder inputTooltip">
                         <StyledSelect value={queryType} id="QueryType" onChange={(e) => setQueryType(e.target.value)}>
                             <option>A</option>
                             <option>NS</option>
@@ -210,15 +214,17 @@ export const Main = () => {
                             <option>DNSKEY</option>
                         </StyledSelect>
                     </StyledSelectBorder>
+                    <span className="toolTip">Query type</span>
                     <label className={`is${queryType ? 'active' : ''} `}>query type</label>
                 </div>
                 <div className="labelDiv _inputSelect">
-                    <StyledSelectBorder className="selectBorder">
+                    <StyledSelectBorder className="selectBorder inputTooltip">
                         <StyledSelect  value={protocol} id="protocol" onChange={(e) => setProtocol(e.target.value)}>
                             <option>udp</option>
                             <option>tcp</option>
                         </StyledSelect>
                     </StyledSelectBorder>
+                    <span className="toolTip">Protocol</span>
                     <label className={`is${protocol ? 'active' : ''} `}>protocol</label>
                 </div>
                 <StyledSubmit className="submit" type="submit" value="digish" disabled={!zone}></StyledSubmit>

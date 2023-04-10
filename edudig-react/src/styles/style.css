@@ -196,6 +196,14 @@ body {
   margin-right: 20px;
 }
 
+.labelDiv:hover {
+  position: relative;
+}
+
+.labelDiv:hover .toolTip {
+  visibility: visible;
+}
+
 .is {
   font-family: Arial, Helvetica, sans-serif;
   position: absolute;
@@ -224,6 +232,31 @@ label {
   font-size: 1.2rem;
   font-size: 0.85rem;
   margin-bottom: 5px;
+}
+
+.toolTip {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  background-color: #FDFFFE;
+  color: #070D0C;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #FF8C00;
+  top: -50px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.toolTip::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 1%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #FF8C00 transparent transparent transparent;
 }
 
 input::-webkit-outer-spin-button,
@@ -299,52 +332,13 @@ h4 {
   background-image: url(../images/CopySymbolhover.png);
 }
 
-.toolTip {
-  visibility: hidden;
-  position: absolute;
-  z-index: 1;
-  background-color: #FDFFFE;
-  color: #070D0C;
-  padding: 10px;
-  border-radius: 5px;
-  border: 2px solid #FF8C00;
-  top: -34px;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-}
-
-.toolTip::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 1%;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #FF8C00 transparent transparent transparent;
-}
-
 .flag {
   color: #949494;
-  position: relative;
-}
-
-.flag:hover .toolTip.false {
-  visibility: visible;
-  border-color: #949494;
-}
-
-.flag:hover .toolTip.false::after {
-  border-color: #949494 transparent transparent transparent;
 }
 
 .flagtrue {
   color: #FDFFFE;
   position: relative;
-}
-
-.flagtrue:hover .toolTip.false {
-  visibility: visible;
 }
 
 a {
