@@ -126,8 +126,6 @@ const StyledInfoP = styled.p`
 `
 
 export const Answer = (props) => {
-    //LOG
-    console.log(props.data[1]);
     const digishQuestion = props.data[0];
     const digishResp = props.data[1];
     let response = digishResp.Response;
