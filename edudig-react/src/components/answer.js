@@ -88,7 +88,7 @@ const StyledInfoBoxWrapper = styled.div`
     display: flex;
     @media screen and (min-width: 1200px){
         width: 38vw;
-        margin-top: 0px;
+        margin-top: 36px;
         margin-right: 10px;
         flex-direction: column;
     }

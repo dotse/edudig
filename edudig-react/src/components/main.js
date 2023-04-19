@@ -79,7 +79,7 @@ const StyledSelect = styled.select`
     font-family: 'Monda', Courier, monospace;
     font-size: 1rem;
     color: #070D0C;
-
+    background: white;
     &:focus {
         outline: none;
     }
@@ -92,7 +92,8 @@ const StyledSelectBorder = styled.div`
     margin-top: 6px;
     padding-top: 4px;
     width: 80vw;
-    max-width: 330px; 
+    max-width: 330px;
+    backgorund-color: blue; 
     border-bottom-color: lightgrey;
     border-bottom-width: 5px;
     border-bottom-style: solid;
