@@ -85,10 +85,12 @@ const StyledInfoBoxWrapper = styled.div`
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 10px;
+    display: flex;
     @media screen and (min-width: 1200px){
         width: 38vw;
         margin-top: 0px;
         margin-right: 10px;
+        flex-direction: column;
     }
 `
 const StyledInfoBox = styled.div`
@@ -97,6 +99,8 @@ const StyledInfoBox = styled.div`
     border-top-right-radius: 50px;
     padding: 12px;
     margin: 24px 12px 12px 12px;
+    flex: 1 1 0px;
+
 `
 const StyledTipBox = styled.div`
     background-color: #fdfffe;
@@ -107,6 +111,9 @@ const StyledTipBox = styled.div`
     text-align: left;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    row-gap: 24px;
+    flex: 1 1 0px;
 `
 const StyledTerminalLine = styled.div`
     background-color: #070D0C;
@@ -127,6 +134,7 @@ const StyledInfoP = styled.p`
 
 export const Answer = (props) => {
     const digishQuestion = props.data[0];
+    console.log(digishQuestion);
     const digishResp = props.data[1];
     let response = digishResp.Response;
     const [text, setText] = useState();
@@ -516,7 +524,7 @@ export const Answer = (props) => {
                             ;; Query time: {queryTime} msec
                         </StyledTerminalPHover>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(Server)} >
-                            ;; SERVER: {digishResp.Nameserver}#{digishQuestion.Port}({digishResp.Nameserver})
+                            ;; SERVER: {digishResp.Nameserver}#{digishQuestion.Port}({digishResp.Nameserver}) ({digishQuestion.Transport.toUpperCase()})
                         </StyledTerminalPHover>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(When)} >
                             ;; WHEN: {time}
@@ -529,8 +537,10 @@ export const Answer = (props) => {
                 </div>
                 <StyledInfoBoxWrapper>
                     <StyledTipBox className="tipBox">
-                        <h3>Tip!</h3>
-                        <h4>Copy and paste this line into your terminal</h4>
+                        <div>
+                            <h3>Tip!</h3>
+                            <h4>Copy and paste this line into your terminal</h4>
+                        </div>
                         <StyledTerminalLine className="terminal">
                             <p>dig @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.Qtype} {digishQuestion.Zone} {questionTransport}</p>
                             <CopyIcon onClick={() =>
