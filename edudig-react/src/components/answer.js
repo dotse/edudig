@@ -134,12 +134,11 @@ const StyledInfoP = styled.p`
 
 export const Answer = (props) => {
     const digishQuestion = props.data[0];
-    console.log(digishQuestion);
     const digishResp = props.data[1];
     let response = digishResp.Response;
     const [text, setText] = useState();
     const [classroomView, setClassroomView] = useState('');
-    const [showAdditionalDefault, setShowAdditionalDefault] = useState(false)
+    const [showAdditionalDefault, setShowAdditionalDefault] = useState(false);
     let questionTransport = "";
     if (digishQuestion.Transport !== "udp"){
         questionTransport = "+tcp"
@@ -389,9 +388,9 @@ export const Answer = (props) => {
     useEffect (() => {
         setFile(Info)
         setClassroomView(props.classroomState)
-        if(response.Additional[0].Hdr.Name === '.'){
+        if(response.Additional.length === 1  && response.Additional[0].Hdr.Name === '.'){
             setShowAdditionalDefault(true)
-        }
+        } else { setShowAdditionalDefault(false) }
     },[props.classroomState, response]);
 
     const opCode = mapFunction(opCodeList,response.MsgHdr.Opcode, "opcode", "hover", OPCode);
@@ -421,8 +420,18 @@ export const Answer = (props) => {
     let digishAdditionalLen = "0";
     let digishAdditional = '';
     if(response.Additional){
+        let modifiedAdditonalResponse = [];
         digishAdditionalLen = response.Additional.length;
-        digishAdditional = createTable(response.Additional);
+        if(digishAdditionalLen > 1) {
+            for (let i = 0; i < digishAdditionalLen; i++) {
+                if(response.Additional[i].Hdr.Name !== '.') {
+                    modifiedAdditonalResponse.push(response.Additional[i])
+                }
+            }
+            digishAdditional = createTable(modifiedAdditonalResponse)
+        } else {
+            digishAdditional = createTable(response.Additional)
+        }
     };
      
     return <StyledAnswerWrapper>
