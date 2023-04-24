@@ -85,10 +85,12 @@ const StyledInfoBoxWrapper = styled.div`
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 10px;
+    display: flex;
     @media screen and (min-width: 1200px){
         width: 38vw;
-        margin-top: 0px;
+        margin-top: 36px;
         margin-right: 10px;
+        flex-direction: column;
     }
 `
 const StyledInfoBox = styled.div`
@@ -97,6 +99,8 @@ const StyledInfoBox = styled.div`
     border-top-right-radius: 50px;
     padding: 12px;
     margin: 24px 12px 12px 12px;
+    flex: 1 1 0px;
+
 `
 const StyledTipBox = styled.div`
     background-color: #fdfffe;
@@ -107,6 +111,9 @@ const StyledTipBox = styled.div`
     text-align: left;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    row-gap: 24px;
+    flex: 1 1 0px;
 `
 const StyledTerminalLine = styled.div`
     background-color: #070D0C;
@@ -131,6 +138,7 @@ export const Answer = (props) => {
     let response = digishResp.Response;
     const [text, setText] = useState();
     const [classroomView, setClassroomView] = useState('');
+    const [showAdditionalDefault, setShowAdditionalDefault] = useState(false);
     let questionTransport = "";
     if (digishQuestion.Transport !== "udp"){
         questionTransport = "+tcp"
@@ -306,11 +314,46 @@ export const Answer = (props) => {
             let type = '';
             let sectionClass = '';
             let queryType = '';
+            let typeCovered = '';
+            let algorithm = '';
+            let labels = '';
+            let origTtl = '';
+            let inception = '';
+            let expiration = '';
+            let keyTag = '';
+            let signerName = '';
+            let signature = '';
+            let mbox = '';
+            let minttl = '';
+            let refresh = '';
+            let retry = '';
+            let serial = '';
+            let expire = '';
             if (section.Hdr){
                 type = mapFunction(queryTypeList, section.Hdr.Rrtype);
                 sectionClass = section.Hdr.Class;
                 queryType = section.A ? section.A : section.Ns;
                 name = section.Hdr.Name;
+                ttl = section.Hdr.Ttl;
+                if (type === "RRSIG") {
+                    typeCovered = mapFunction(queryTypeList, section.TypeCovered);
+                    algorithm = section.Algorithm;
+                    labels = section.Labels;
+                    origTtl = section.OrigTtl;
+                    inception = section.Inception;
+                    expiration = section.Expiration;
+                    keyTag = section.KeyTag;
+                    signerName = section.SignerName;
+                    signature = section.Signature;
+                }
+                if (type === "SOA") {
+                    mbox = section.Mbox;
+                    minttl = section.Minttl;
+                    refresh = section.Refresh;
+                    retry = section.Retry;
+                    serial = section.Serial;
+                    expire = section.Expire;
+                }
             }
             else if (respSection === response.Question){
                 type = mapFunction(queryTypeList, section.Qtype);
@@ -329,7 +372,13 @@ export const Answer = (props) => {
                         <td key={uuidv4()} className="queryTypeClass">{ttl}</td>
                         <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
                         <td key={uuidv4()} className="queryTypeClass" >{type}</td>
-                        <td key={uuidv4()} className="lastCell">{queryType}</td>
+                        <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {algorithm} {labels} {origTtl}</td>
+                    </tr>
+                    <tr key={uuidv4()}>
+                        <td className="secondRow" key={uuidv4()} colSpan={5}>
+                            {inception} {expiration} {keyTag} {signerName} {signature}
+                            {mbox} {serial} {refresh} {retry} {expire} {minttl}
+                        </td>
                     </tr>
                 </tbody>
             </table>)
@@ -339,7 +388,10 @@ export const Answer = (props) => {
     useEffect (() => {
         setFile(Info)
         setClassroomView(props.classroomState)
-    },[props.classroomState]);
+        if(response.Additional.length === 1  && response.Additional[0].Hdr.Name === '.'){
+            setShowAdditionalDefault(true)
+        } else { setShowAdditionalDefault(false) }
+    },[props.classroomState, response]);
 
     const opCode = mapFunction(opCodeList,response.MsgHdr.Opcode, "opcode", "hover", OPCode);
     const rCode = mapFunction(rCodeList,response.MsgHdr.Rcode, "status", "hover", Status);
@@ -359,6 +411,7 @@ export const Answer = (props) => {
 
     let digishAuthorityLen = "0";
     let digishAuthority = '';
+    
     if(response.Authority) {
         digishAuthorityLen = response.Authority.length;
         digishAuthority = createTable(response.Authority)
@@ -367,8 +420,18 @@ export const Answer = (props) => {
     let digishAdditionalLen = "0";
     let digishAdditional = '';
     if(response.Additional){
+        let modifiedAdditonalResponse = [];
         digishAdditionalLen = response.Additional.length;
-        digishAdditional = createTable(response.Additional);
+        if(digishAdditionalLen > 1) {
+            for (let i = 0; i < digishAdditionalLen; i++) {
+                if(response.Additional[i].Hdr.Name !== '.') {
+                    modifiedAdditonalResponse.push(response.Additional[i])
+                }
+            }
+            digishAdditional = createTable(modifiedAdditonalResponse)
+        } else {
+            digishAdditional = createTable(response.Additional)
+        }
     };
      
     return <StyledAnswerWrapper>
@@ -393,7 +456,7 @@ export const Answer = (props) => {
                                 ;; flags:
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
-                                onClick={() => setFile(QRFlag)}
+                                onClick={() => setFile(QRFlag)} 
                                 className={`flag${response.MsgHdr.Response ? true : ''} ${response.MsgHdr.Response ? '' : `hidden${classroomView}`}`}>
                                     qr
                             </StyledTerminalPHover>
@@ -451,26 +514,26 @@ export const Answer = (props) => {
                         <StyledTerminalP>;; OPT PSEUDOSECTION:</StyledTerminalP>
                         <StyledTerminalP>; EDNS: version: 0, flags:; udp: 1232 </StyledTerminalP>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QuestionSection)} >;; QUESTION SECTION:</StyledTerminalPHover>
-                            {digishQuestions}
+                            <div className="tableMargin">{digishQuestions}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                     <StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} className={`state${response.Answer ? true : ''} ${response.Answer ? '' : `hidden${classroomView}`} `} >;; ANSWER SECTION:</StyledTerminalPHover>
-                        {digishAnswers}
+                        <div className="tableMargin">{digishAnswers}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" className={`state${response.Authority ? true : ''} ${response.Authority ? '' : `hidden${classroomView}`}`} onClick={() => setFile(AuthoritySection)}>;; AUTHORITY SECTION:</StyledTerminalPHover>
-                        {digishAuthority}
+                        <div className="tableMargin">{digishAuthority}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
-                        <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''} ${response.Additional ? '' : `hidden${classroomView}`}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
-                        {digishAdditional}
+                        <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''} ${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
+                        <div className={`tableMargin ${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`}>{digishAdditional}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QueryTime)}>
                             ;; Query time: {queryTime} msec
                         </StyledTerminalPHover>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(Server)} >
-                            ;; SERVER: {digishResp.Nameserver}#{digishQuestion.Port}({digishResp.Nameserver})
+                            ;; SERVER: {digishResp.Nameserver}#{digishQuestion.Port}({digishResp.Nameserver}) ({digishQuestion.Transport.toUpperCase()})
                         </StyledTerminalPHover>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(When)} >
                             ;; WHEN: {time}
@@ -483,8 +546,10 @@ export const Answer = (props) => {
                 </div>
                 <StyledInfoBoxWrapper>
                     <StyledTipBox className="tipBox">
-                        <h3>Tip!</h3>
-                        <h4>Copy and paste this line into your terminal</h4>
+                        <div>
+                            <h3>Tip!</h3>
+                            <h4>Copy and paste this line into your terminal</h4>
+                        </div>
                         <StyledTerminalLine className="terminal">
                             <p>dig @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.Qtype} {digishQuestion.Zone} {questionTransport}</p>
                             <CopyIcon onClick={() =>

@@ -91,6 +91,10 @@ body {
   display: block;
 }
 
+.main .contentWrap .answerSection .showAdditionalDefaulttrue {
+  color: #949494;
+}
+
 .main .contentWrap .infoSectionH2 {
   font-size: 1.5rem;
   margin-top: 5px;
@@ -196,6 +200,14 @@ body {
   margin-right: 20px;
 }
 
+.labelDiv:hover {
+  position: relative;
+}
+
+.labelDiv:hover .toolTip {
+  visibility: visible;
+}
+
 .is {
   font-family: Arial, Helvetica, sans-serif;
   position: absolute;
@@ -224,6 +236,31 @@ label {
   font-size: 1.2rem;
   font-size: 0.85rem;
   margin-bottom: 5px;
+}
+
+.toolTip {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  background-color: #FDFFFE;
+  color: #070D0C;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #FF8C00;
+  top: -50px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.toolTip::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 1%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #FF8C00 transparent transparent transparent;
 }
 
 input::-webkit-outer-spin-button,
@@ -283,7 +320,7 @@ h4 {
   font-size: 0.9rem;
   font-weight: 400;
   margin-left: 15px;
-  margin-top: 0px;
+  margin-top: 12px;
   margin-bottom: 0px;
 }
 
@@ -305,6 +342,7 @@ h4 {
 
 .flagtrue {
   color: #FDFFFE;
+  position: relative;
 }
 
 a {
@@ -338,11 +376,14 @@ a {
   margin-bottom: 0px;
 }
 
+.tableMargin {
+  margin-top: 5px;
+}
+
 table {
   width: 100%;
   border-spacing: 0px;
   padding-left: 5px;
-  padding-top: 5px;
 }
 
 table tr .firstCell {
@@ -354,12 +395,16 @@ table tr .queryTypeClass {
 }
 
 table tr td {
-  padding: 0px;
   margin: 0px;
 }
 
 table tr .lastCell {
   width: 29%;
+}
+
+table tr .secondRow {
+  padding-top: 5px;
+  word-break: break-all;
 }
 
 section {
