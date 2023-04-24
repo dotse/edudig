@@ -59,6 +59,7 @@ func digish(w http.ResponseWriter, r *http.Request) {
 	}
 
 	msgSize := response.Len()
+	timeStamp := time.Now().Format("Mon Jan 2 15:04:05 CET 2006")
 
 	dug = pkg.Dug{
 		Zone: query.Zone,
@@ -74,6 +75,7 @@ func digish(w http.ResponseWriter, r *http.Request) {
 		Nameserver: query.Nameserver,
 		MsgSize:    msgSize,
 		Transport:  query.Transport,
+		TimeStamp:  timeStamp,
 	}
 	err = json.NewEncoder(w).Encode(dug)
 	if err != nil {
