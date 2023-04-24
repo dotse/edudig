@@ -36,4 +36,5 @@ type Dug struct {
 	Nameserver string        `json:"Nameserver"`
 	MsgSize    int           `json:"Message Size"`
 	Transport  string        `json:"Transport"`
+	TimeStamp  string        `json:"Timestamp"`
 }
