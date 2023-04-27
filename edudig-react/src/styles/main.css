@@ -73,6 +73,7 @@ body {
 
 .main .contentWrap .hiddenfalse {
   display: block;
+  color: gray;
 }
 
 .main .contentWrap .showAdditionalDefaulttrue {

@@ -397,16 +397,22 @@ export const Answer = (props) => {
 
     let digishAdditionalLen = "0";
     let digishAdditional = '';
+    let digishAdditionalOpt = '';
     if(response.Additional){
         let modifiedAdditonalResponse = [];
+        let optResponse = []
         digishAdditionalLen = response.Additional.length;
         if(digishAdditionalLen > 1) {
             for (let i = 0; i < digishAdditionalLen; i++) {
                 if(response.Additional[i].Hdr.Name !== '.') {
                     modifiedAdditonalResponse.push(response.Additional[i])
+                } else {
+                    optResponse.push(response.Additional[i])
                 }
             }
             digishAdditional = createTable(modifiedAdditonalResponse)
+            digishAdditionalOpt = createTable(optResponse)
+
         } else {
             digishAdditional = createTable(response.Additional)
         }
@@ -500,7 +506,9 @@ export const Answer = (props) => {
                     </StyledTerminalSection>
                     <StyledTerminalSection className= {showAdditionalDefault ? `hidden${classroomView}` : ''}>
                         <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''} ${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
-                        <div className={`tableMargin ${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`}>{digishAdditional}</div>
+                        <div className={`tableMargin ${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`}>{digishAdditional}
+                            <div className= {digishAdditionalOpt ? `hidden${classroomView}` : ''} >{digishAdditionalOpt}</div>
+                        </div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QueryTime)}>
