@@ -33,6 +33,7 @@ const StyledAnswerWrapper = styled.div`
     display:flex;
     flex-direction: column;
     justify-content: center;
+    gap: 16px;
     
     @media screen and (min-width: 1200px){
         flex-direction: row;
@@ -48,9 +49,10 @@ const StyledTerminal = styled.div`
     font-size: 0.80rem;
     margin-top:: 0px;
     padding: 10px;
-    text-align: left;
+    text-align: left; 
     @media screen and (min-width: 1200px){
         margin-right: 16px;
+        width: 100%;
     }
 `
 const StyledTerminalSection = styled.div`
@@ -78,7 +80,6 @@ const StyledTerminalPHover = styled.a`
 `
 const StyledInfoBoxWrapper = styled.div`
     background-color: #49A671;
-    width: 90vw;
     margin-top: 16px;
     padding-top: 12px;
     padding-bottom: 12px;
@@ -87,10 +88,10 @@ const StyledInfoBoxWrapper = styled.div`
     border-radius: 10px;
     display: flex;
     @media screen and (min-width: 1200px){
-        width: 38vw;
-        margin-top: 36px;
+        margin-top: 0;
         margin-right: 10px;
         flex-direction: column;
+        width: 70%;
     }
 `
 const StyledInfoBox = styled.div`
@@ -404,10 +405,6 @@ export const Answer = (props) => {
     };
      
     return <StyledAnswerWrapper>
-                <div className="answerSection">
-                    <div className="answerHeader">
-                        <h2 className="answerH2">Answer</h2>
-                    </div>
                 <StyledTerminal>
                     <StyledTerminalSection>
                         <StyledTerminalP>; &#60;&#60;&#62;&#62; DiGiSH &#60;&#60;&#62;&#62; {digishResp.Zone}</StyledTerminalP>
@@ -512,7 +509,7 @@ export const Answer = (props) => {
                         </StyledTerminalPHover>
                     </StyledTerminalSection>
                 </StyledTerminal>
-                </div>
+                
                 <StyledInfoBoxWrapper>
                     <StyledTipBox className="tipBox">
                         <div>
