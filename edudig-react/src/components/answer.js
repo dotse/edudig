@@ -146,6 +146,12 @@ export const Answer = (props) => {
     if (digishQuestion.Transport !== "udp"){
         questionTransport = "+tcp"
     }
+    let dnssec ="";
+    if (digishQuestion.DNSSEC) {
+        console.log(digishQuestion.DNSSEC);
+        dnssec = "+dnssec"
+        console.log(dnssec);
+    }
     const queryTypeList = [[0,"None"],
     [1,"A"],
     [2,"NS"],
@@ -360,7 +366,6 @@ export const Answer = (props) => {
     useEffect (() => {
         setFile(Info)
         setClassroomView(props.classroomState)
-        console.log(classroomView);
         if(response.Additional.length === 1  && response.Additional[0].Hdr.Name === '.'){
             setShowAdditionalDefault(true)
         } else { setShowAdditionalDefault(false) }
@@ -520,9 +525,9 @@ export const Answer = (props) => {
                             <h4>Copy and paste this line into your terminal</h4>
                         </div>
                         <StyledTerminalLine className="terminal">
-                            <p>dig @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.Qtype} {digishQuestion.Zone} {questionTransport}</p>
+                            <p>dig @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.Qtype} {digishQuestion.Zone} {questionTransport} {dnssec}</p>
                             <CopyIcon onClick={() =>
-                                {navigator.clipboard.writeText(`dig @${digishQuestion.Nameserver} -p ${digishQuestion.Port} ${digishQuestion.Qtype} ${digishQuestion.Zone} ${questionTransport}`)}
+                                {navigator.clipboard.writeText(`dig @${digishQuestion.Nameserver} -p ${digishQuestion.Port} ${digishQuestion.Qtype} ${digishQuestion.Zone} ${questionTransport} ${dnssec}`)}
                                 }></CopyIcon>
                         </StyledTerminalLine>
                     </StyledTipBox>
