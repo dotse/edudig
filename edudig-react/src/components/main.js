@@ -182,8 +182,8 @@ export const Main = () => {
             <form className="digInput" onSubmit={handelSubmit}>
                 <div className="labelDiv _inputText">
                     <StyledInput type="text" className="zone inputTooltip" onChange={(e) => setZone(e.target.value)} value={zone} ></StyledInput>
-                    <span className="toolTip">Zone</span>
-                    <label className={`is${zone ? 'active' : ''} `}>zone</label>
+                    <span className="toolTip">Name</span>
+                    <label className={`is${zone ? 'active' : ''} `}>name</label>
                 </div>
                 <div className="labelDiv _inputText">
                     <StyledInput value={server} id="server inputTooltip" onChange={(e) => setServer(e.target.value)}></StyledInput>
