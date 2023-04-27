@@ -89,9 +89,11 @@ const StyledInfoBoxWrapper = styled.div`
     display: flex;
     @media screen and (min-width: 1200px){
         margin-top: 0;
-        margin-right: 10px;
         flex-direction: column;
         width: 70%;
+    }
+    @media screen and (max-width: 768px){
+        flex-direction: column;
     }
 `
 const StyledInfoBox = styled.div`
@@ -358,6 +360,7 @@ export const Answer = (props) => {
     useEffect (() => {
         setFile(Info)
         setClassroomView(props.classroomState)
+        console.log(classroomView);
         if(response.Additional.length === 1  && response.Additional[0].Hdr.Name === '.'){
             setShowAdditionalDefault(true)
         } else { setShowAdditionalDefault(false) }
@@ -490,7 +493,7 @@ export const Answer = (props) => {
                         <StyledTerminalPHover tabIndex="0" className={`state${response.Authority ? true : ''} ${response.Authority ? '' : `hidden${classroomView}`}`} onClick={() => setFile(AuthoritySection)}>;; AUTHORITY SECTION:</StyledTerminalPHover>
                         <div className="tableMargin">{digishAuthority}</div>
                     </StyledTerminalSection>
-                    <StyledTerminalSection>
+                    <StyledTerminalSection className= {showAdditionalDefault ? `hidden${classroomView}` : ''}>
                         <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''} ${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
                         <div className={`tableMargin ${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`}>{digishAdditional}</div>
                     </StyledTerminalSection>

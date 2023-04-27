@@ -8,9 +8,7 @@ import { Footer } from "./footer"
 import styled from "styled-components";
 
 const StyledInput = styled.input`
-    width: 77vw;
     height: 40px;
-    max-width: 320px;
     padding-top: 3px;
     padding-left: 8px;
     margin-top: 8px;
@@ -33,14 +31,10 @@ const StyledInput = styled.input`
     }
 
     @media screen and (min-width: 1200px){
-        width: 20vw;
-        max-width: 240px;
         margin-top: 8px;
     }
 `
 const StyledInputNumber = styled.input`
-    width: 77vw;
-    max-width: 320px;
     height: 40px;
     padding-top: 3px;
     padding-left: 8px;
@@ -65,64 +59,46 @@ const StyledInputNumber = styled.input`
         outline: none;
         border-bottom-color: #FF8C00;
     }
-
-    @media screen and (min-width: 1200px){
-        width: 20vw;
-        max-width: 100px;
-    }
 `
 const StyledSelect = styled.select`
     border: none;
-    width: 80vw;
-    max-width: 330px;
     height: 42px; 
     font-family: 'Monda', Courier, monospace;
     font-size: 1rem;
     color: #070D0C;
     background: white;
+    width: 100%;
     &:focus {
         outline: none;
-    }
-    @media screen and (min-width: 1200px){
-        width: 20vw;
-        max-width: 95px;
     }
 `
 const StyledSelectBorder = styled.div`
     margin-top: 6px;
     padding-top: 4px;
-    width: 80vw;
-    max-width: 330px;
     backgorund-color: blue; 
     border-bottom-color: lightgrey;
     border-bottom-width: 5px;
     border-bottom-style: solid;
     border-radius: 5px;
+    width: 100%;
     
     &:hover {
         border-bottom-color: #FF8C00;
     }
-
-    @media screen and (min-width: 1200px){
-        width: 15vw;
-        max-width: 100px;
-    }
 `
 
 const StyledSubmit = styled.input`
-    margin: 8px;
-    margin-top: 20px;
+
     padding: 8px;
     background-color: #FF8C00;
     border-radius: 10px;
     border: none;
     height: 45px;
-    width: 80vw;
-    max-width: 340px; 
     cursor: pointer;
     font-family: 'Monda', Courier, monospace;
     font-weight: bold;
     font-size: 1rem;
+    width: 45%;
     &:hover {
         background-color: #FFCD8F; 
     }
@@ -134,8 +110,7 @@ const StyledSubmit = styled.input`
         }
     }
     @media screen and (min-width: 1200px){
-        width: 10vw;
-        max-width: 150px;
+        width: 25%;
     }   
 `
 export const Main = () => {
@@ -180,65 +155,65 @@ export const Main = () => {
             <header>
             <h1>EduDig</h1>
             <form className="digInput" onSubmit={handelSubmit}>
-                <div className="labelDiv _inputText">
-                    <StyledInput type="text" className="zone inputTooltip" onChange={(e) => setZone(e.target.value)} value={zone} ></StyledInput>
-                    <span className="toolTip">Name</span>
-                    <label className={`is${zone ? 'active' : ''} `}>name</label>
-                </div>
-                <div className="labelDiv _inputText">
-                    <StyledInput value={server} id="server inputTooltip" onChange={(e) => setServer(e.target.value)}></StyledInput>
-                    <span className="toolTip">Server</span>
-                    <label className={`is${server ? 'active' : ''} `}>server</label>
-                </div>
-                <div className="labelDiv _inputSelect">
-                    <StyledInputNumber type="number" value={port} id="port inputTooltip" onChange={(e) => setPort(e.target.value)}></StyledInputNumber>
-                    <span className="toolTip">Port</span>
-                    <label className={`is${port ? 'active' : ''} `}>port</label>
-                </div>
-                <div className="labelDiv _inputSelect">
-                    <StyledSelectBorder className="selectBorder inputTooltip">
-                        <StyledSelect value={recursion} onChange={(e) => setRecursion(e.target.value)}>
-                            <option>true</option>
-                            <option>false</option>
-                        </StyledSelect>
-                    </StyledSelectBorder>
-                    <span className="toolTip">Recursion</span>
-                    <label className={`is${recursion ? 'active' : ''} `}>recursion</label>
-                </div>
-                <div className="labelDiv _inputSelect">    
-                    <StyledSelectBorder className="selectBorder inputTooltip">
-                        <StyledSelect value={queryType} id="QueryType" onChange={(e) => setQueryType(e.target.value)}>
-                            <option>A</option>
-                            <option>NS</option>
-                            <option>SOA</option>
-                            <option>MX</option>
-                            <option>DNSKEY</option>
-                        </StyledSelect>
-                    </StyledSelectBorder>
-                    <span className="toolTip">Query type</span>
-                    <label className={`is${queryType ? 'active' : ''} `}>query type</label>
-                </div>
-                <div className="labelDiv _inputSelect">
-                    <StyledSelectBorder className="selectBorder inputTooltip">
-                        <StyledSelect  value={protocol} id="protocol" onChange={(e) => setProtocol(e.target.value)}>
-                            <option>udp</option>
-                            <option>tcp</option>
-                        </StyledSelect>
-                    </StyledSelectBorder>
-                    <span className="toolTip">Protocol</span>
-                    <label className={`is${protocol ? 'active' : ''} `}>protocol</label>
-                </div>
-                <div className="labelDiv _inputSelect">
-                    <StyledSelectBorder className="selectBorder inputTooltip">
-                        <StyledSelect  value={dnssec} id="dnssec" onChange={(e) => setDnssec(e.target.value)}>
-                            <option>true</option>
-                            <option>false</option>
-                        </StyledSelect>
-                    </StyledSelectBorder>
-                    <span className="toolTip">DNSSEC</span>
-                    <label className={`is${protocol ? 'active' : ''} `}>dnssec</label>
-                </div>
-                <StyledSubmit className="submit" type="submit" value="digish" disabled={!zone}></StyledSubmit>
+                    <div className="labelDiv _inputText">
+                        <StyledInput type="text" className="zone inputTooltip" onChange={(e) => setZone(e.target.value)} value={zone} ></StyledInput>
+                        <span className="toolTip">Name</span>
+                        <label className={`is${zone ? 'active' : ''} `}>name</label>
+                    </div>
+                    <div className="labelDiv _inputText">
+                        <StyledInput value={server} id="server inputTooltip" onChange={(e) => setServer(e.target.value)}></StyledInput>
+                        <span className="toolTip">Server</span>
+                        <label className={`is${server ? 'active' : ''} `}>server</label>
+                    </div>
+                    <div className="labelDiv _inputSelect">
+                        <StyledInputNumber type="number" value={port} id="port inputTooltip" onChange={(e) => setPort(e.target.value)}></StyledInputNumber>
+                        <span className="toolTip">Port</span>
+                        <label className={`is${port ? 'active' : ''} `}>port</label>
+                    </div>
+                    <div className="labelDiv _inputSelect">
+                        <StyledSelectBorder className="selectBorder inputTooltip">
+                            <StyledSelect value={recursion} onChange={(e) => setRecursion(e.target.value)}>
+                                <option>true</option>
+                                <option>false</option>
+                            </StyledSelect>
+                        </StyledSelectBorder>
+                        <span className="toolTip">Recursion</span>
+                        <label className={`is${recursion ? 'active' : ''} `}>recursion</label>
+                    </div>
+                    <div className="labelDiv _inputSelect">    
+                        <StyledSelectBorder className="selectBorder inputTooltip">
+                            <StyledSelect value={queryType} id="QueryType" onChange={(e) => setQueryType(e.target.value)}>
+                                <option>A</option>
+                                <option>NS</option>
+                                <option>SOA</option>
+                                <option>MX</option>
+                                <option>DNSKEY</option>
+                            </StyledSelect>
+                        </StyledSelectBorder>
+                        <span className="toolTip">Query type</span>
+                        <label className={`is${queryType ? 'active' : ''} `}>query type</label>
+                    </div>
+                    <div className="labelDiv _inputSelect">
+                        <StyledSelectBorder className="selectBorder inputTooltip">
+                            <StyledSelect  value={protocol} id="protocol" onChange={(e) => setProtocol(e.target.value)}>
+                                <option>udp</option>
+                                <option>tcp</option>
+                            </StyledSelect>
+                        </StyledSelectBorder>
+                        <span className="toolTip">Protocol</span>
+                        <label className={`is${protocol ? 'active' : ''} `}>protocol</label>
+                    </div>
+                    <div className="labelDiv _inputSelect">
+                        <StyledSelectBorder className="selectBorder inputTooltip">
+                            <StyledSelect  value={dnssec} id="dnssec" onChange={(e) => setDnssec(e.target.value)}>
+                                <option>true</option>
+                                <option>false</option>
+                            </StyledSelect>
+                        </StyledSelectBorder>
+                        <span className="toolTip">DNSSEC</span>
+                        <label className={`is${protocol ? 'active' : ''} `}>dnssec</label>
+                    </div>
+                    <StyledSubmit className="submit" type="submit" value="digish" disabled={!zone}></StyledSubmit>
             </form>
             </header>
         <div className="contentWrap">

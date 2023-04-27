@@ -21,7 +21,6 @@ const StyledColumn = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-
 `
 
 const StyledLink = styled.a`
@@ -35,7 +34,7 @@ const StyledLink = styled.a`
     }
 `
 const StyledText = styled.p`
-    width: 300px;
+    max-width: 300px;
     font-size: 0.85rem;
     color: white;
     margin: 0px;

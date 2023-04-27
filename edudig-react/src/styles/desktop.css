@@ -30,18 +30,23 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   max-width: 1200px;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
 }
 
 .main .labelDiv._inputText {
-  width: 20%;
+  width: 35%;
 }
 
-.main .labelDiv._inputSelet {
-  width: 10%;
+.main .labelDiv._inputSelect {
+  width: 15%;
+}
+
+.main .labelDiv {
+  margin-right: 10px;
 }
 
 .main .contentWrap {

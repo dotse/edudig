@@ -32,15 +32,21 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+      -ms-flex-direction: row;
+          flex-direction: row;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   -ms-flex-item-align: center;
       align-self: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .main .digInput input:-webkit-autofill,
@@ -61,37 +67,15 @@ body {
   margin-bottom: 120px;
 }
 
-.main .contentWrap .answerSection {
-  width: 90vw;
-  text-align: left;
-}
-
-.main .contentWrap .answerSection .answerHeader {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.main .contentWrap .answerSection .answerHeader .answerH2 {
-  margin-top: 0;
-}
-
-.main .contentWrap .answerSection .hiddentrue {
+.main .contentWrap .hiddentrue {
   display: none;
 }
 
-.main .contentWrap .answerSection .hiddenfalse {
+.main .contentWrap .hiddenfalse {
   display: block;
 }
 
-.main .contentWrap .answerSection .showAdditionalDefaulttrue {
+.main .contentWrap .showAdditionalDefaulttrue {
   color: #949494;
 }
 
@@ -197,7 +181,7 @@ body {
   text-align: center;
   border-radius: 5px;
   height: 65px;
-  margin-right: 20px;
+  width: 45%;
 }
 
 .labelDiv:hover {
