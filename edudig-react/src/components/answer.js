@@ -230,39 +230,8 @@ export const Answer = (props) => {
     const queryClassList = [[1, "IN"],[3,"CH"],[4,"HS"]];
     const rCodeList = [[0, "NOERROR"], [1, "FORMATERROR"],[2, "SERVERFAILURE"],[3,"NAMEERROR"],[4,"NOTIMPLEMENTED"],[5,"REFUSED"]];
     const opCodeList = [[0, "QUERY"],[1,"IQUERY"],[2,"STATUS"]];
-    const days = [
-        'Sun',
-        'Mon',
-        'Tue',
-        'Wed',
-        'Thu',
-        'Fri',
-        'Sat'
-      ]
-      const months = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-      ]
-      const queryTime = Math.round(digishResp['Round trip time']/100000)
-      const d = new Date();
-      const day = days[d.getDay()];
-      const month = months[d.getMonth()];
-      const date = d.getDate();
-      const hour = d.getHours();
-      const minute = d.getMinutes();
-      const second = d.getSeconds();
-      const year = d.getFullYear()
-      const time =`${day} ${month} ${date} ${hour}:${minute}:${second} CET ${year}`
+    const queryTime = Math.round(digishResp['Round trip time']/100000)
+    const when = digishResp.Timestamp;
 
     const mapFunction = ((list,value,text,hover,file) => {
         const map = new Map(list);
@@ -536,7 +505,7 @@ export const Answer = (props) => {
                             ;; SERVER: {digishResp.Nameserver}#{digishQuestion.Port}({digishResp.Nameserver}) ({digishQuestion.Transport.toUpperCase()})
                         </StyledTerminalPHover>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(When)} >
-                            ;; WHEN: {time}
+                            ;; WHEN: {when}
                         </StyledTerminalPHover>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(MSGSize)} >
                             ;; MSG SIZE rcvd: {digishResp['Message Size']}
