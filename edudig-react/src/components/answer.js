@@ -139,6 +139,7 @@ export const Answer = (props) => {
     const digishQuestion = props.data[0];
     const digishResp = props.data[1];
     let response = digishResp.Response;
+    console.log(response);
     const [text, setText] = useState();
     const [classroomView, setClassroomView] = useState('');
     const [showAdditionalDefault, setShowAdditionalDefault] = useState(false);
@@ -148,9 +149,7 @@ export const Answer = (props) => {
     }
     let dnssec ="";
     if (digishQuestion.DNSSEC) {
-        console.log(digishQuestion.DNSSEC);
         dnssec = "+dnssec"
-        console.log(dnssec);
     }
     const queryTypeList = [[0,"None"],
     [1,"A"],
@@ -347,9 +346,10 @@ export const Answer = (props) => {
                 <tbody key={uuidv4()}>
                     <tr key={uuidv4()}>
                         <td key={uuidv4()} className="firstCell tableP">{name}</td>
-                        <td key={uuidv4()} className="queryTypeClass">{ttl}</td>
+                        <td key={uuidv4()} className="queryTypeClass">{ttl}</td>    
                         <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
-                        <td key={uuidv4()} className="queryTypeClass" >{type}</td>
+                        {/* rrType files needs to be imported by the same name as they are here */}
+                        <td key={uuidv4()} className="queryTypeClass rrType" tabIndex="0" onClick={() => setFile(type)}>{type}</td>
                         <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {algorithm} {labels} {origTtl}</td>
                     </tr>
                     <tr key={uuidv4()}>
