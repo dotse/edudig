@@ -306,6 +306,9 @@ export const Answer = (props) => {
             let retry = '';
             let serial = '';
             let expire = '';
+            let nextDomain = '';
+            let typeBitMap = [];
+            let renderTypeBitMap = '';
             if (section.Hdr){
                 type = mapFunction(queryTypeList, section.Hdr.Rrtype);
                 sectionClass = section.Hdr.Class;
@@ -331,6 +334,13 @@ export const Answer = (props) => {
                     serial = section.Serial;
                     expire = section.Expire;
                 }
+                if (type === "NSEC") {
+                    nextDomain = section.NextDomain
+                    for (let i = 0; i < section.TypeBitMap.length; i++) {
+                        typeBitMap.push(mapFunction(queryTypeList, section.TypeBitMap[i]))
+                    }
+                    renderTypeBitMap = typeBitMap.map((type) => <span key={uuidv4()}>{type} </span> )
+                }    
             }
             else if (respSection === response.Question){
                 type = mapFunction(queryTypeList, section.Qtype);
@@ -354,8 +364,19 @@ export const Answer = (props) => {
                     </tr>
                     <tr key={uuidv4()}>
                         <td className="secondRow" key={uuidv4()} colSpan={5}>
-                            {inception} {expiration} {keyTag} {signerName} {signature}
-                            {mbox} {serial} {refresh} {retry} {expire} {minttl}
+                            <span className="inception">{inception} </span>
+                            <span className="expiration">{expiration} </span>
+                            <span className="keyTag">{keyTag} </span>
+                            <span className="signerName">{signerName} </span>
+                            <span className="signature">{signature} </span>
+                            <span className="mbox">{mbox} </span>
+                            <span className="serial">{serial} </span>
+                            <span className="refresh">{refresh} </span>
+                            <span className="retry">{retry} </span>
+                            <span className="expire">{expire} </span>
+                            <span className="minttl">{minttl} </span>
+                            <span className="nextDomain">{nextDomain} </span>
+                            <span className="renderTypeBitMap">{renderTypeBitMap} </span>
                         </td>
                     </tr>
                 </tbody>
