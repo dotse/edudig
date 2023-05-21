@@ -41,10 +41,12 @@ const StyledText = styled.p`
 `
 
 export const Footer = (props) => {
-    const [classroomView, setClassroomView] = useState('');
+    const [classroomView, setClassroomView] = useState(true);
     const handleViewStateClick = () => {
+        console.log('click classroom icon');
         setClassroomView(!classroomView)
         props.viewState(classroomView)
+        console.log('classroom ' + classroomView);
     }
     return <StyledFooter>
         <div className="footerWrap">

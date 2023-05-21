@@ -149,6 +149,7 @@ export const Main = () => {
 
     const handleViewState = (state) => {
         setState(state)
+        console.log('handleViewState ' + state);
     }
 
     return <><div className="main">

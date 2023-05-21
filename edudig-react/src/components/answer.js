@@ -139,9 +139,10 @@ export const Answer = (props) => {
     const digishQuestion = props.data[0];
     const digishResp = props.data[1];
     let response = digishResp.Response;
-    console.log(response);
+    // console.log(response);
+    const [firstText, setFirstText] = useState();
     const [text, setText] = useState();
-    const [classroomView, setClassroomView] = useState('');
+    const [classroomView, setClassroomView] = useState(props.classroomState);
     const [showAdditionalDefault, setShowAdditionalDefault] = useState(false);
     let questionTransport = "";
     if (digishQuestion.Transport !== "udp"){
@@ -250,9 +251,18 @@ export const Answer = (props) => {
         return(`${key}`)
     })
 
+    const setFirstFile = (jsonFile) => {
+        const list = [jsonFile]
+        setFirstText(mapText(list))
+    }
+
     const setFile = (jsonFile) => {
         const list = [jsonFile]
-        setText(list.map((jsonFile, i) => {
+        setText(mapText(list))
+    }
+
+    const mapText = (list) => {
+        return list.map((jsonFile, i) => {
             let items = <></>
             if(jsonFile.ListItems !== undefined){
                 items = jsonFile.ListItems.map((listItem, i) => {
@@ -280,9 +290,9 @@ export const Answer = (props) => {
                     {items}
                 </div>
             )
-        }))
+        })
     }
-
+    
     const createTable = (respSection) => {
         return respSection.map((section,i) => {
             i = +1;
@@ -391,7 +401,7 @@ export const Answer = (props) => {
     };
 
     useEffect (() => {
-        setFile(Info)
+        setFirstFile(Info)
         setClassroomView(props.classroomState)
         if(response.Additional.length === 1  && response.Additional[0].Hdr.Name === '.'){
             setShowAdditionalDefault(true)
@@ -569,6 +579,7 @@ export const Answer = (props) => {
                     <StyledInfoBox>
                         <h2 className="infoSectionH2">Info section</h2>
                         {text}
+                        {firstText}
                     </StyledInfoBox>
                 </StyledInfoBoxWrapper>
          </StyledAnswerWrapper>
