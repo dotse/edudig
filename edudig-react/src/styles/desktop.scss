@@ -16,7 +16,8 @@ body {
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
-        max-width: 1200px;
+        width: 1200px;
+        margin: auto;
         flex-wrap: nowrap;
     }
     .labelDiv._inputText {
@@ -30,7 +31,7 @@ body {
     .labelDiv {
         margin-right: $padding*2;
     }
-    
+
     .submit {
         max-width: 20%;
     }

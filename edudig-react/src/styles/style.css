@@ -93,16 +93,6 @@ body {
   stroke: #FFCD8F;
 }
 
-.main .contentWrap {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin-bottom: 120px;
-}
-
 .main .footerWrap {
   width: 100%;
   max-width: 1200px;
@@ -435,7 +425,8 @@ section {
             align-items: center;
     -ms-flex-pack: distribute;
         justify-content: space-around;
-    max-width: 1200px;
+    width: 1200px;
+    margin: auto;
     -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
   }
