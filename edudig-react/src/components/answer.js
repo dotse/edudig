@@ -309,6 +309,8 @@ export const Answer = (props) => {
             let nextDomain = '';
             let typeBitMap = [];
             let renderTypeBitMap = '';
+            let mx = '';
+            let preference = '';
             if (section.Hdr){
                 type = mapFunction(queryTypeList, section.Hdr.Rrtype);
                 sectionClass = section.Hdr.Class;
@@ -340,7 +342,11 @@ export const Answer = (props) => {
                         typeBitMap.push(mapFunction(queryTypeList, section.TypeBitMap[i]))
                     }
                     renderTypeBitMap = typeBitMap.map((type) => <span key={uuidv4()}>{type} </span> )
-                }    
+                }
+                if( type === 'MX') {
+                    mx = section.Mx;
+                    preference = section.Preference
+                }
             }
             else if (respSection === response.Question){
                 type = mapFunction(queryTypeList, section.Qtype);
@@ -354,13 +360,13 @@ export const Answer = (props) => {
 
             return (<table key={uuidv4()}>
                 <tbody key={uuidv4()}>
-                    <tr key={uuidv4()}>
+                    {/* rrType files needs to be imported by the same name as they are here */}
+                    <tr key={uuidv4()} onClick={() => setFile(type)} className="tableRowHover">
                         <td key={uuidv4()} className="firstCell tableP">{name}</td>
                         <td key={uuidv4()} className="queryTypeClass">{ttl}</td>    
                         <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
-                        {/* rrType files needs to be imported by the same name as they are here */}
-                        <td key={uuidv4()} className="queryTypeClass rrType" tabIndex="0" onClick={() => setFile(type)}>{type}</td>
-                        <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {algorithm} {labels} {origTtl}</td>
+                        <td key={uuidv4()} className="queryTypeClass rrType" tabIndex="0">{type}</td>
+                        <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {algorithm} {labels} {origTtl} {preference} {mx}</td>
                     </tr>
                     <tr key={uuidv4()}>
                         <td className="secondRow" key={uuidv4()} colSpan={5}>
