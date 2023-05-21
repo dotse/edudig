@@ -31,39 +31,34 @@ body {
         }
     }
 
-    .contentWrap {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 120px;
-        .hiddentrue {
-            display: none;
-        }
-        .hiddenfalse {
-            display: block;
-            color: gray;
-        }
-        .showAdditionalDefaulttrue {
-            color: $grey;
-        }
-        .infoSectionH2 {
-            font-size: 1.5rem;
-            margin-top: $margin;       
-        }
-        .copyIcon {
-            align-self: center;
-            svg {
-                path {
-                    stroke: $primary-orange;
-                }
-            }
-            svg:hover {
-                cursor: pointer;
-                path {
-                    stroke: $secondary-orange;
-                }
-            }
-        } 
+    .hiddentrue {
+        display: none;
     }
+    .hiddenfalse {
+        display: block;
+        color: gray;
+    }
+    .showAdditionalDefaulttrue {
+        color: $grey;
+    }
+    .infoSectionH2 {
+        font-size: 1.5rem;
+        margin-top: $margin;       
+    }
+    .copyIcon {
+        align-self: center;
+        svg {
+            path {
+                stroke: $primary-orange;
+            }
+        }
+        svg:hover {
+            cursor: pointer;
+            path {
+                stroke: $secondary-orange;
+            }
+        }
+    } 
 
     .footerWrap {
         width: 100%;

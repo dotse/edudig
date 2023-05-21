@@ -57,6 +57,42 @@ body {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+.main .hiddentrue {
+  display: none;
+}
+
+.main .hiddenfalse {
+  display: block;
+  color: gray;
+}
+
+.main .showAdditionalDefaulttrue {
+  color: #949494;
+}
+
+.main .infoSectionH2 {
+  font-size: 1.5rem;
+  margin-top: 5px;
+}
+
+.main .copyIcon {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.main .copyIcon svg path {
+  stroke: #FF8C00;
+}
+
+.main .copyIcon svg:hover {
+  cursor: pointer;
+}
+
+.main .copyIcon svg:hover path {
+  stroke: #FFCD8F;
+}
+
 .main .contentWrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -65,42 +101,6 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   margin-bottom: 120px;
-}
-
-.main .contentWrap .hiddentrue {
-  display: none;
-}
-
-.main .contentWrap .hiddenfalse {
-  display: block;
-  color: gray;
-}
-
-.main .contentWrap .showAdditionalDefaulttrue {
-  color: #949494;
-}
-
-.main .contentWrap .infoSectionH2 {
-  font-size: 1.5rem;
-  margin-top: 5px;
-}
-
-.main .contentWrap .copyIcon {
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-}
-
-.main .contentWrap .copyIcon svg path {
-  stroke: #FF8C00;
-}
-
-.main .contentWrap .copyIcon svg:hover {
-  cursor: pointer;
-}
-
-.main .contentWrap .copyIcon svg:hover path {
-  stroke: #FFCD8F;
 }
 
 .main .footerWrap {
@@ -447,12 +447,6 @@ section {
   }
   .main .labelDiv {
     margin-right: 10px;
-  }
-  .main .contentWrap {
-    max-width: 1200px;
-  }
-  .main .contentWrap .answerSection {
-    width: 55vw;
   }
   .main .submit {
     max-width: 20%;

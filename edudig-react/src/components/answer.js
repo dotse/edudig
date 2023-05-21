@@ -38,7 +38,7 @@ const StyledAnswerWrapper = styled.div`
     @media screen and (min-width: 1200px){
         flex-direction: row;
         align-items: flex-start;
-        max-width: 1200px;
+        width: 1200px;
     }
 `
 const StyledTerminal = styled.div`

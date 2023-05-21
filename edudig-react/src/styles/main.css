@@ -57,49 +57,39 @@ body {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.main .contentWrap {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin-bottom: 120px;
-}
-
-.main .contentWrap .hiddentrue {
+.main .hiddentrue {
   display: none;
 }
 
-.main .contentWrap .hiddenfalse {
+.main .hiddenfalse {
   display: block;
   color: gray;
 }
 
-.main .contentWrap .showAdditionalDefaulttrue {
+.main .showAdditionalDefaulttrue {
   color: #949494;
 }
 
-.main .contentWrap .infoSectionH2 {
+.main .infoSectionH2 {
   font-size: 1.5rem;
   margin-top: 5px;
 }
 
-.main .contentWrap .copyIcon {
+.main .copyIcon {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
 }
 
-.main .contentWrap .copyIcon svg path {
+.main .copyIcon svg path {
   stroke: #FF8C00;
 }
 
-.main .contentWrap .copyIcon svg:hover {
+.main .copyIcon svg:hover {
   cursor: pointer;
 }
 
-.main .contentWrap .copyIcon svg:hover path {
+.main .copyIcon svg:hover path {
   stroke: #FFCD8F;
 }
 

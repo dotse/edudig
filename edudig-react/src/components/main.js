@@ -216,9 +216,7 @@ export const Main = () => {
                     <StyledSubmit className="submit" type="submit" value="digish" disabled={!zone}></StyledSubmit>
             </form>
             </header>
-        <div className="contentWrap">
             {content}
-        </div>
         <Footer viewState={handleViewState}/>
     </div>
     </>
