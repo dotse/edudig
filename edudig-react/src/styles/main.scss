@@ -85,12 +85,25 @@ body {
                 path, rect {
                     stroke: $white;
                 }
+                &:hover {
+                    cursor: pointer;
+                    path, rect {
+                        stroke: $black;
+                    }        
+                }
             }
-            svg:hover {
-                cursor: pointer;
+        }
+        .classroomIcon.active {
+            svg {
                 path, rect {
                     stroke: $black;
                 }
+                &:hover {
+                    cursor: pointer;
+                    path, rect {
+                        stroke: $white;
+                    }        
+                } 
             }
         }
     }
@@ -294,6 +307,10 @@ table{
     width: 100%;
     border-spacing: 0px;
     padding-left: $padding;
+    &:hover {
+        color: $primary-orange;
+        cursor: pointer;
+    }
     tr {
         .firstCell {
             width: 29%;

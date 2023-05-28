@@ -251,11 +251,6 @@ export const Answer = (props) => {
         return(`${key}`)
     })
 
-    const setFirstFile = (jsonFile) => {
-        const list = [jsonFile]
-        setFirstText(mapText(list))
-    }
-
     const setFile = (jsonFile) => {
         const list = [jsonFile]
         setText(mapText(list))
@@ -285,7 +280,7 @@ export const Answer = (props) => {
             };
             return(
                 <div key={uuidv4()}>
-                    <h4 key={uuidv4()}>{jsonFile.Title}</h4>
+                    <h3 key={uuidv4()}>{jsonFile.Title}</h3>
                     {paragraphs}
                     {items}
                 </div>
@@ -401,6 +396,10 @@ export const Answer = (props) => {
     };
 
     useEffect (() => {
+        const setFirstFile = (jsonFile) => {
+            const list = [jsonFile]
+            setFirstText(mapText(list))
+        }
         setFirstFile(Info)
         setClassroomView(props.classroomState)
         if(response.Additional.length === 1  && response.Additional[0].Hdr.Name === '.'){
@@ -564,6 +563,7 @@ export const Answer = (props) => {
                 </StyledTerminal>
                 
                 <StyledInfoBoxWrapper>
+                <h2 className="infoSectionH2">Info section</h2>
                     <StyledTipBox className="tipBox">
                         <div>
                             <h3>Tip!</h3>
@@ -577,7 +577,6 @@ export const Answer = (props) => {
                         </StyledTerminalLine>
                     </StyledTipBox>
                     <StyledInfoBox>
-                        <h2 className="infoSectionH2">Info section</h2>
                         {text}
                         {firstText}
                     </StyledInfoBox>

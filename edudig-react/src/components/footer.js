@@ -43,10 +43,8 @@ const StyledText = styled.p`
 export const Footer = (props) => {
     const [classroomView, setClassroomView] = useState(true);
     const handleViewStateClick = () => {
-        console.log('click classroom icon');
         setClassroomView(!classroomView)
         props.viewState(classroomView)
-        console.log('classroom ' + classroomView);
     }
     return <StyledFooter>
         <div className="footerWrap">
@@ -56,7 +54,7 @@ export const Footer = (props) => {
                 </StyledLink>
             </StyledColumn>
             <StyledColumn onClick={handleViewStateClick} className="classroomIconWrap">
-                <ClassroomIcon />
+                <ClassroomIcon state={classroomView ? 'active' : ''}/>
                 <StyledText>Use this to switch between classroom view and terminal view. Classroom view shows all unused flags and sections.</StyledText> 
             </StyledColumn>
         </div>
