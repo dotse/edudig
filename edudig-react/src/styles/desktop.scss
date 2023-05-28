@@ -12,6 +12,8 @@ body {
     header {
         width: 100%;
     }
+
+    //Form input styles
     .digInput{
         flex-direction: row;
         align-items: center;
@@ -19,23 +21,19 @@ body {
         width: 1200px;
         margin: auto;
         flex-wrap: nowrap;
-    }
-    .labelDiv._inputText {
-        width: 35%;
 
-    }
-    .labelDiv._inputSelect {
-        width: 15%;
-    }
-    
-    .labelDiv {
-        margin-right: $padding*2;
+        .labelDiv._inputText {
+            width: 35%;
+        }
+        .labelDiv._inputSelect {
+            width: 15%;
+        }
+        .labelDiv {
+            margin-right: $padding*2;
+        }
+        .submit {
+            max-width: 20%;
+        }
     }
 
-    .submit {
-        max-width: 20%;
-    }
-}
-.answerSection {
-    margin-bottom: 0px;
 }

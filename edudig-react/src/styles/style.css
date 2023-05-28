@@ -265,19 +265,16 @@
     margin: auto;
     flex-wrap: nowrap;
   }
-  .main .labelDiv._inputText {
+  .main .digInput .labelDiv._inputText {
     width: 35%;
   }
-  .main .labelDiv._inputSelect {
+  .main .digInput .labelDiv._inputSelect {
     width: 15%;
   }
-  .main .labelDiv {
+  .main .digInput .labelDiv {
     margin-right: 10px;
   }
-  .main .submit {
+  .main .digInput .submit {
     max-width: 20%;
-  }
-  .answerSection {
-    margin-bottom: 0px;
   }
 }/*# sourceMappingURL=style.css.map */

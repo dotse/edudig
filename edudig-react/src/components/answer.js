@@ -45,6 +45,7 @@ const StyledAnswerWrapper = styled.div`
         flex-direction: row;
         align-items: flex-start;
         width: 1200px;
+        margin-top: 10px;
     }
 `
 const StyledTerminal = styled.div`
