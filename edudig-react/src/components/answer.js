@@ -146,7 +146,6 @@ export const Answer = (props) => {
     const digishQuestion = props.data[0];
     const digishResp = props.data[1];
     let response = digishResp.Response;
-    console.log(response);
     let questionTransport = (digishQuestion.Transport !== "udp") ? "+tcp" : "";
     let dnssec = digishQuestion.DNSSEC ? "+dnssec" : "";
     
@@ -454,7 +453,7 @@ export const Answer = (props) => {
         if(response.Additional.length === 1  && response.Additional[0].Hdr.Name === '.'){
             setShowAdditionalDefault(true)
         } else { setShowAdditionalDefault(false) }
-    },[props.classroomState, response]);
+    },[props.classroomState, response, text]);
 
     const opCode = mapFunction(opCodeList,response.MsgHdr.Opcode, "opcode", "hover", OPCode);
     const rCode = mapFunction(rCodeList,response.MsgHdr.Rcode, "status", "hover", Status);
