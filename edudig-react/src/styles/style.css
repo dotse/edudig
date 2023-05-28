@@ -295,10 +295,6 @@ table {
   border-spacing: 0px;
   padding-left: 5px;
 }
-table:hover {
-  color: #FF8C00;
-  cursor: pointer;
-}
 table tr .firstCell {
   width: 29%;
 }
@@ -314,6 +310,10 @@ table tr .lastCell {
 table tr .secondRow {
   padding-top: 5px;
   word-break: break-all;
+}
+table .tableRowHover:hover {
+  color: #FF8C00;
+  cursor: pointer;
 }
 
 section {

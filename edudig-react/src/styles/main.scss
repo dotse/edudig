@@ -307,10 +307,6 @@ table{
     width: 100%;
     border-spacing: 0px;
     padding-left: $padding;
-    &:hover {
-        color: $primary-orange;
-        cursor: pointer;
-    }
     tr {
         .firstCell {
             width: 29%;
@@ -327,6 +323,12 @@ table{
         .secondRow {
             padding-top: $padding;
             word-break: break-all;
+        }
+    }
+    .tableRowHover {
+        &:hover {
+            color: $primary-orange;
+            cursor: pointer;
         }
     }
 }
