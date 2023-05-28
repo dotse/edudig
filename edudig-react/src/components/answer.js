@@ -34,7 +34,8 @@ const StyledAnswerWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 16px;
-    
+    margin-bottom: 100px;
+
     @media screen and (min-width: 1200px){
         flex-direction: row;
         align-items: flex-start;
