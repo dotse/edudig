@@ -30,6 +30,8 @@ import Status from "../textfiles/Status.json"
 import TCFlag from "../textfiles/TCFlag.json"
 import When from "../textfiles/When.json"
 import ZFlag from "../textfiles/ZFlag.json"
+import ARR from "../textfiles/ARR.json"
+import SOARR from "../textfiles/SOARR.json"
 
 //React styled components
 const StyledAnswerWrapper = styled.div`
@@ -257,8 +259,13 @@ export const Answer = (props) => {
 
     //Sets json file for infosection
     const setFile = (jsonFile) => {
-        const list = [jsonFile]
-        setText(mapText(list))
+        if (jsonFile) {
+            const list = [jsonFile]
+            setText(mapText(list))
+        } else {
+            setText(mapText([{"Title" : "Something went wrong", "Paragraphs" : ["The info seems to be missing"]}]))
+        }
+        setFirstText('')
     }
 
     //Maps out json and returns styled components for header and paragraph
@@ -294,6 +301,14 @@ export const Answer = (props) => {
         })
     }
     
+    const getRR = (rr) => {
+        if (rr === 'A') {
+            return ARR
+        } else if (rr === 'SOA') {
+            return SOARR
+        }
+    }
+
     //Creats table for terminal window
     const createTable = (respSection) => {
         return respSection.map((section,i) => {
@@ -373,7 +388,7 @@ export const Answer = (props) => {
             return (<table key={uuidv4()}>
                 <tbody key={uuidv4()}>
                     {/* rrType files needs to be imported by the same name as they are here */}
-                    <tr key={uuidv4()} onClick={() => setFile(type)} className="tableRowHover">
+                    <tr key={uuidv4()} onClick={() => setFile(getRR(type))} className="tableRowHover">
                         <td key={uuidv4()} className="firstCell tableP">{name}</td>
                         <td key={uuidv4()} className="queryTypeClass">{ttl}</td>    
                         <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
