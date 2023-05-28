@@ -472,25 +472,16 @@ export const Answer = (props) => {
     let digishAdditionalLen = response.Additional ? response.Additional.length : '0';
     let digishAdditional = '';
     let digishAdditionalOpt = '';
-    if(response.Additional){
-        let modifiedAdditonalResponse = [];
-        let optResponse = []
-        if(digishAdditionalLen > 1) {
-            for (let i = 0; i < digishAdditionalLen; i++) {
-                if(response.Additional[i].Hdr.Name !== '.') {
-                    modifiedAdditonalResponse.push(response.Additional[i])
-                } else {
-                    optResponse.push(response.Additional[i])
-                }
-            }
-            digishAdditional = createTable(modifiedAdditonalResponse)
-            digishAdditionalOpt = createTable(optResponse)
+    if (response.Additional) {
+        const modifiedAdditionalResponse = response.Additional.filter(item => item.Hdr.Name !== '.');
+        const optResponse = response.Additional.filter(item => item.Hdr.Name === '.');
 
-        } else {
-            digishAdditional = createTable(response.Additional)
-        }
-    };
-     
+        digishAdditional = createTable(modifiedAdditionalResponse);
+        digishAdditionalOpt = createTable(optResponse);
+    } else {
+        digishAdditional = createTable(response.Additional);
+    }
+
     return <StyledAnswerWrapper>
                 <StyledTerminal>
                     <StyledTerminalSection>
