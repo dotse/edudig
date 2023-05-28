@@ -501,42 +501,42 @@ export const Answer = (props) => {
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(QRFlag)} 
-                                className={`flag${response.MsgHdr.Response ? true : ''} ${response.MsgHdr.Response ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.Response ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     qr
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(AAFlag)}
-                                className={`flag${response.MsgHdr.Authoritative ? true : ''} ${response.MsgHdr.Authoritative ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.Authoritative ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     aa
                             </StyledTerminalPHover>
                             <StyledTerminalPHover
                                 onClick={() => setFile(TCFlag)}
-                                className={`flag${response.MsgHdr.Truncated ? true : ''} ${response.MsgHdr.Truncated ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.Truncated ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     tc
                                 </StyledTerminalPHover>
                             <StyledTerminalPHover
                                 onClick={() => setFile(RDFlag)}
-                                className={`flag${response.MsgHdr.RecursionDesired ? true : ''} ${response.MsgHdr.RecursionDesired ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.RecursionDesired ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     rd
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(RAFlag)}
-                                className={`flag${response.MsgHdr.RecursionAvailable ? true : ''} ${response.MsgHdr.RecursionAvailable ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.RecursionAvailable ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     ra
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(ZFlag)}
-                                className={`flag hidden${classroomView}`}>
+                                className={`terminalRowUnset${classroomView ? 'Hidden' : ''}`}>
                                     z
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(ADFlag)}
-                                className={`flag${response.MsgHdr.AuthenticatedData ? true : ''} ${response.MsgHdr.AuthenticatedData ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.AuthenticatedData ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     ad
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(CDFlag)}
-                                className={`flag${response.MsgHdr.CheckingDisabled ? true : ''} ${response.MsgHdr.CheckingDisabled ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.CheckingDisabled ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     cd
                             </StyledTerminalPHover>
                             <p className="noPadding">;</p>
@@ -561,17 +561,17 @@ export const Answer = (props) => {
                             <div className="tableMargin">{digishQuestions}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
-                    <StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} className={`state${response.Answer ? true : ''} ${response.Answer ? '' : `hidden${classroomView}`} `} >;; ANSWER SECTION:</StyledTerminalPHover>
+                    <StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} className={`terminalRow${response.Answer ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''} `} >;; ANSWER SECTION:</StyledTerminalPHover>
                         <div className="tableMargin">{digishAnswers}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
-                        <StyledTerminalPHover tabIndex="0" className={`state${response.Authority ? true : ''} ${response.Authority ? '' : `hidden${classroomView}`}`} onClick={() => setFile(AuthoritySection)}>;; AUTHORITY SECTION:</StyledTerminalPHover>
+                        <StyledTerminalPHover tabIndex="0" className={`terminalRow${response.Authority ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''} `} onClick={() => setFile(AuthoritySection)}>;; AUTHORITY SECTION:</StyledTerminalPHover>
                         <div className="tableMargin">{digishAuthority}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection className= {showAdditionalDefault ? `hidden${classroomView}` : ''}>
-                        <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''} ${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
-                        <div className={`tableMargin ${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`}>{digishAdditional}
-                            <div className= {digishAdditionalOpt ? `hidden${classroomView}` : ''} >{digishAdditionalOpt}</div>
+                        <StyledTerminalPHover tabIndex="0" className={`terminalRow${(response.Additional && !showAdditionalDefault) ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''} `} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
+                        <div className={`tableMargin terminalRow${(response.Additional && !showAdditionalDefault) ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>{digishAdditional}
+                            <div className= {`terminalRow${(digishAdditionalOpt && !classroomView) ? 'Unset' : 'UnsetHidden'}`} >{digishAdditionalOpt}</div>
                         </div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>

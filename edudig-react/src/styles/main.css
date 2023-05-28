@@ -1,9 +1,3 @@
-body {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-}
-
 .main {
   display: flex;
   flex-direction: column;
@@ -11,6 +5,34 @@ body {
   align-items: center;
   margin: 20px;
   min-height: 100%;
+}
+.main h1 {
+  color: #FF8C00;
+  font-family: "Monda", Courier, monospace;
+  font-size: 5rem;
+  margin-bottom: 10px;
+}
+.main h2 {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 2rem;
+  color: #070D0C;
+  margin-left: 15px;
+  margin-bottom: 0px;
+  margin-top: 30px;
+}
+.main h3 {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.2rem;
+  margin-bottom: 0px;
+  margin-left: 15px;
+}
+.main h4 {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-left: 15px;
+  margin-top: 12px;
+  margin-bottom: 0px;
 }
 .main .digInput {
   margin-top: 10px;
@@ -30,15 +52,142 @@ body {
   -webkit-transition: background-color 5000s ease-in-out 0s;
   transition: background-color 5000s ease-in-out 0s;
 }
-.main .hiddentrue {
+.main .digInput .labelDiv {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 5px;
+  height: 65px;
+  width: 45%;
+}
+.main .digInput .labelDiv:hover {
+  position: relative;
+}
+.main .digInput .labelDiv:hover .toolTip {
+  visibility: visible;
+}
+.main .digInput .labelDiv .label {
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  color: #949494;
+  font-size: 1rem;
+  margin-left: 10px;
+  margin-top: 35px;
+}
+.main .digInput .labelDiv .labelActive {
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  color: #949494;
+  margin-left: 0px;
+  margin-top: 0px;
+  font-size: 0.85rem;
+}
+.main .digInput .labelDiv .labelActive:hover {
+  color: #FF8C00;
+}
+.main .digInput .labelDiv label {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #949494;
+  font-size: 1.2rem;
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+}
+.main .digInput .labelDiv .toolTip {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  background-color: #FDFFFE;
+  color: #070D0C;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #FF8C00;
+  top: -50px;
+  width: -moz-max-content;
+  width: max-content;
+}
+.main .digInput .labelDiv .toolTip::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 1%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #FF8C00 transparent transparent transparent;
+}
+.main .digInput .labelDiv input::-webkit-outer-spin-button,
+.main .digInput .labelDiv input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.main .digInput .labelDiv input[type=number] {
+  -moz-appearance: textfield;
+}
+.main .digInput .labelDiv input:focus ~ label, .main .digInput .labelDiv select:focus ~ label {
+  margin-left: 0px;
+  margin-top: 0px;
+  font-size: 0.85rem;
+  color: #FF8C00;
+}
+.main .digInput .labelDiv input:hover ~ label {
+  color: #FF8C00;
+}
+.main .digInput .labelDiv .selectBorder:hover ~ label {
+  color: #FF8C00;
+}
+.main .digInput .labelDiv .selectBorder:focus ~ label {
+  color: #FF8C00;
+}
+.main a {
+  color: #FDFFFE;
+}
+.main .terminalRowUnset {
+  color: #949494;
+}
+.main .terminalRowSet {
+  color: #FDFFFE;
+  position: relative;
+}
+.main .terminalRowUnsetHidden {
   display: none;
 }
-.main .hiddenfalse {
-  display: block;
-  color: gray;
+.main .flexRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
-.main .showAdditionalDefaulttrue {
-  color: #949494;
+.main .noPadding {
+  padding-left: 0;
+  padding-top: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.main .tableMargin {
+  margin-top: 5px;
+}
+.main table {
+  width: 100%;
+  border-spacing: 0px;
+  padding-left: 5px;
+}
+.main table tr .firstCell {
+  width: 29%;
+}
+.main table tr .queryTypeClass {
+  width: 14%;
+}
+.main table tr td {
+  margin: 0px;
+}
+.main table tr .lastCell {
+  width: 29%;
+}
+.main table tr .secondRow {
+  padding-top: 5px;
+  word-break: break-all;
+}
+.main table .tableRowHover:hover {
+  color: #FF8C00;
+  cursor: pointer;
 }
 .main .infoSectionH2 {
   font-size: 1.5rem;
@@ -92,233 +241,4 @@ body {
 }
 .main .footerWrap .classroomIcon.active svg:hover path, .main .footerWrap .classroomIcon.active svg:hover rect {
   stroke: #FDFFFE;
-}
-
-.wrapInput {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: left;
-  text-align: left;
-  border-radius: 5px;
-  height: 55px;
-  margin-right: 20px;
-}
-
-.labelStyle {
-  color: #949494;
-  margin-top: -5px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-.labelDiv {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  border-radius: 5px;
-  height: 65px;
-  width: 45%;
-}
-.labelDiv:hover {
-  position: relative;
-}
-.labelDiv:hover .toolTip {
-  visibility: visible;
-}
-
-.is {
-  font-family: Arial, Helvetica, sans-serif;
-  position: absolute;
-  color: #949494;
-  font-size: 1rem;
-  margin-left: 10px;
-  margin-top: 35px;
-}
-
-.isactive {
-  font-family: Arial, Helvetica, sans-serif;
-  position: absolute;
-  color: #949494;
-  margin-left: 0px;
-  margin-top: 0px;
-  font-size: 0.85rem;
-}
-.isactive:hover {
-  color: #FF8C00;
-}
-
-label {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #949494;
-  font-size: 1.2rem;
-  font-size: 0.85rem;
-  margin-bottom: 5px;
-}
-
-.toolTip {
-  visibility: hidden;
-  position: absolute;
-  z-index: 1;
-  background-color: #FDFFFE;
-  color: #070D0C;
-  padding: 10px;
-  border-radius: 5px;
-  border: 2px solid #FF8C00;
-  top: -50px;
-  width: -moz-max-content;
-  width: max-content;
-}
-.toolTip::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 1%;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #FF8C00 transparent transparent transparent;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-input:focus ~ label, select:focus ~ label {
-  margin-left: 0px;
-  margin-top: 0px;
-  font-size: 0.85rem;
-  color: #FF8C00;
-}
-
-input:hover ~ label {
-  color: #FF8C00;
-}
-
-.selectBorder:hover ~ label {
-  color: #FF8C00;
-}
-
-.selectBorder:focus ~ label {
-  color: #FF8C00;
-}
-
-h1 {
-  color: #FF8C00;
-  font-family: "Monda", Courier, monospace;
-  font-size: 5rem;
-  margin-bottom: 10px;
-}
-
-h2 {
-  font-family: "Courier New", Courier, monospace;
-  font-size: 2rem;
-  color: #070D0C;
-  margin-left: 15px;
-  margin-bottom: 0px;
-  margin-top: 30px;
-}
-
-h3 {
-  font-family: "Courier New", Courier, monospace;
-  font-size: 1.2rem;
-  margin-bottom: 0px;
-  margin-left: 15px;
-}
-
-h4 {
-  font-family: "Courier New", Courier, monospace;
-  font-size: 0.9rem;
-  font-weight: 400;
-  margin-left: 15px;
-  margin-top: 12px;
-  margin-bottom: 0px;
-}
-
-.copyBtn {
-  background-image: url(../images/CopySymbol.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
-  width: 25px;
-}
-.copyBtn:hover {
-  background-image: url(../images/CopySymbolhover.png);
-}
-
-.flag {
-  color: #949494;
-}
-
-.flagtrue {
-  color: #FDFFFE;
-  position: relative;
-}
-
-a {
-  color: #FDFFFE;
-}
-
-.state {
-  color: #949494;
-}
-
-.statetrue {
-  color: #FDFFFE;
-}
-
-.flexRow {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.noPadding {
-  padding-left: 0;
-  padding-top: 5px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-.tableMargin {
-  margin-top: 5px;
-}
-
-table {
-  width: 100%;
-  border-spacing: 0px;
-  padding-left: 5px;
-}
-table tr .firstCell {
-  width: 29%;
-}
-table tr .queryTypeClass {
-  width: 14%;
-}
-table tr td {
-  margin: 0px;
-}
-table tr .lastCell {
-  width: 29%;
-}
-table tr .secondRow {
-  padding-top: 5px;
-  word-break: break-all;
-}
-table .tableRowHover:hover {
-  color: #FF8C00;
-  cursor: pointer;
-}
-
-section {
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 12px;
 }/*# sourceMappingURL=main.css.map */

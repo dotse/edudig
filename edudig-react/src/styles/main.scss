@@ -1,10 +1,5 @@
 @import '_variables';
 
-body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-}
 .main {
     display: flex;
     flex-direction: column;
@@ -12,7 +7,41 @@ body {
     align-items: center;
     margin: $margin*4;
     min-height: 100%;
+
+    //General header styling
+    h1 {
+        color: $primary-orange;
+        font-family: $h1;
+        font-size: 5rem;
+        margin-bottom: $padding*2;
+    }
+
+    h2 {
+        font-family: $h2;
+        font-size: 2rem;
+        color: $black;
+        margin-left: $margin*3;
+        margin-bottom: 0px;
+        margin-top: $margin*6;
+    }
+
+    h3{
+        font-family: $h3;
+        font-size: 1.2rem;
+        margin-bottom: 0px;
+        margin-left: $margin*3;
+    }
+
+    h4{
+        font-family: $h3;
+        font-size: 0.9rem;
+        font-weight: 400;
+        margin-left: $margin*3;
+        margin-top: 12px;
+        margin-bottom: 0px;
+    }
     
+    //Input form
     .digInput {
         margin-top: $padding*2;
         margin-bottom: $padding*2;
@@ -29,18 +58,167 @@ body {
         input:-webkit-autofill:active {
             transition: background-color 5000s ease-in-out 0s;
         }
+
+        .labelDiv {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            border-radius:$padding;
+            height: 65px;
+            width: 45%;
+            &:hover {
+                position: relative;
+                .toolTip {
+                    visibility: visible;
+                }
+            }
+
+            .label {
+                font-family: $label;
+                position: absolute;
+                color: $grey;
+                font-size: 1rem;
+                margin-left: $margin*2;
+                margin-top: $margin*7;
+            }
+            
+            .labelActive {
+                font-family: $label;
+                position: absolute;
+                color: $grey;
+                margin-left: 0px;
+                margin-top: 0px;
+                font-size: 0.85rem;
+                &:hover {
+                    color: $primary-orange;
+                }
+            }
+            
+            label {
+                font-family: $label;
+                color: $grey;
+                font-size: 1.2rem;
+                font-size: 0.85rem;
+                margin-bottom: $margin;
+            }
+
+            .toolTip {
+                visibility: hidden;
+                position: absolute;
+                z-index: 1;
+                background-color: $white;
+                color: $black;
+                padding: $padding*2;
+                border-radius: 5px;
+                border: 2px solid $primary-orange;
+                top: -50px;
+                width: max-content;
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -10px;
+                    left: 1%;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: $primary-orange transparent transparent transparent
+                }
+            }
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+
+            input:focus ~ label, select:focus ~ label {
+                margin-left: 0px;
+                margin-top: 0px;
+                font-size:0.85rem;
+                color:$primary-orange;
+            }
+
+            input:hover ~ label {
+                color: $primary-orange;
+            }
+
+            .selectBorder:hover ~ label {
+                color: $primary-orange;
+            }
+
+            .selectBorder:focus ~ label {
+                color: $primary-orange;
+            }
+        }
+
+
     }
 
-    .hiddentrue {
-        display: none;
+    //Terminal styles
+    a {
+        color: $white;
     }
-    .hiddenfalse {
-        display: block;
-        color: gray;
-    }
-    .showAdditionalDefaulttrue {
+    .terminalRowUnset {
         color: $grey;
     }
+    .terminalRowSet{
+        color: $white;
+        position: relative;
+    }
+    .terminalRowUnsetHidden {
+        display: none;
+    }
+    .flexRow {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .noPadding{
+        padding-left: 0;
+        padding-top: $padding;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    
+    .tableMargin {
+        margin-top: $margin;
+    }
+    
+    table{
+        width: 100%;
+        border-spacing: 0px;
+        padding-left: $padding;
+        tr {
+            .firstCell {
+                width: 29%;
+            }
+            .queryTypeClass {
+                width: 14%;
+            }
+            td{
+                margin: 0px;
+            }
+            .lastCell {
+                width: 29%;
+            }
+            .secondRow {
+                padding-top: $padding;
+                word-break: break-all;
+            }
+        }
+        .tableRowHover {
+            &:hover {
+                color: $primary-orange;
+                cursor: pointer;
+            }
+        }
+    }
+
+    //Info section
     .infoSectionH2 {
         font-size: 1.5rem;
         margin-top: $margin;       
@@ -58,8 +236,9 @@ body {
                 stroke: $secondary-orange;
             }
         }
-    } 
-
+    }
+    
+    //footer
     .footerWrap {
         width: 100%;
         max-width: 1200px;
@@ -107,235 +286,4 @@ body {
             }
         }
     }
-}
-
-.wrapInput {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    justify-content: left;
-    text-align: left;
-    border-radius:$padding;
-    height: 55px;
-    margin-right: $margin*4;
-}
-
-.labelStyle {
-    color: $grey;
-    margin-top: -$margin;
-    font-family: $label;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-.labelDiv {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    border-radius:$padding;
-    height: 65px;
-    width: 45%;
-    &:hover {
-        position: relative;
-        .toolTip {
-            visibility: visible;
-        }
-    }
-}
-
-.is {
-    font-family: $label;
-    position: absolute;
-    color: $grey;
-    font-size: 1rem;
-    margin-left: $margin*2;
-    margin-top: $margin*7;
-}
-
-.isactive {
-    font-family: $label;
-    position: absolute;
-    color: $grey;
-    margin-left: 0px;
-    margin-top: 0px;
-    font-size: 0.85rem;
-    &:hover {
-        color: $primary-orange;
-    }
-}
-
-label {
-    font-family: $label;
-    color: $grey;
-    font-size: 1.2rem;
-    font-size: 0.85rem;
-    margin-bottom: $margin;
-}
-
-.toolTip {
-    visibility: hidden;
-    position: absolute;
-    z-index: 1;
-    background-color: $white;
-    color: $black;
-    padding: $padding*2;
-    border-radius: 5px;
-    border: 2px solid $primary-orange;
-    top: -50px;
-    width: max-content;
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 1%;
-        border-width: 5px;
-        border-style: solid;
-        border-color: $primary-orange transparent transparent transparent
-    }
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type=number] {
-    -moz-appearance: textfield;
-  }
-
-input:focus ~ label, select:focus ~ label {
-    margin-left: 0px;
-    margin-top: 0px;
-    font-size:0.85rem;
-    color:$primary-orange;
-  }
-
-input:hover ~ label {
-    color: $primary-orange;
-}
-
-.selectBorder:hover ~ label {
-    color: $primary-orange;
-}
-
-.selectBorder:focus ~ label {
-    color: $primary-orange;
-}
-
-
-
-h1 {
-    color: $primary-orange;
-    font-family: $h1;
-    font-size: 5rem;
-    margin-bottom: $padding*2;
-}
-
-h2 {
-    font-family: $h2;
-    font-size: 2rem;
-    color: $black;
-    margin-left: $margin*3;
-    margin-bottom: 0px;
-    margin-top: $margin*6;
-}
-
-h3{
-    font-family: $h3;
-    font-size: 1.2rem;
-    margin-bottom: 0px;
-    margin-left: $margin*3;
-}
-
-h4{
-    font-family: $h3;
-    font-size: 0.9rem;
-    font-weight: 400;
-    margin-left: $margin*3;
-    margin-top: 12px;
-    margin-bottom: 0px;
-}
-
-.copyBtn {
-    background-image: url(../images/CopySymbol.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    cursor: pointer;
-    width: 25px;
-    &:hover {
-        background-image: url(../images/CopySymbolhover.png);
-    }
-}
-
-.flag {
-    color: $grey;
-}
-.flagtrue {
-    color: $white;
-    position: relative;
-}
-a {
-    color: $white;
-}
-
-.state {
-    color: $grey;
-}
-.statetrue {
-    color: $white;
-}
-
-.flexRow {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.noPadding{
-    padding-left: 0;
-    padding-top: $padding;
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-
-.tableMargin {
-    margin-top: $margin;
-}
-
-table{
-    width: 100%;
-    border-spacing: 0px;
-    padding-left: $padding;
-    tr {
-        .firstCell {
-            width: 29%;
-        }
-        .queryTypeClass {
-            width: 14%;
-        }
-        td{
-            margin: 0px;
-        }
-        .lastCell {
-            width: 29%;
-        }
-        .secondRow {
-            padding-top: $padding;
-            word-break: break-all;
-        }
-    }
-    .tableRowHover {
-        &:hover {
-            color: $primary-orange;
-            cursor: pointer;
-        }
-    }
-}
-
-section {
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    margin-bottom: $margin*2.4;
 }

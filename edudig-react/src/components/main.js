@@ -159,17 +159,17 @@ export const Main = () => {
                     <div className="labelDiv _inputText">
                         <StyledInput type="text" className="zone inputTooltip" onChange={(e) => setZone(e.target.value)} value={zone} ></StyledInput>
                         <span className="toolTip">Name</span>
-                        <label className={`is${zone ? 'active' : ''} `}>name</label>
+                        <label className={`label${zone ? 'Active' : ''} `}>name</label>
                     </div>
                     <div className="labelDiv _inputText">
                         <StyledInput value={server} id="server inputTooltip" onChange={(e) => setServer(e.target.value)}></StyledInput>
                         <span className="toolTip">Server</span>
-                        <label className={`is${server ? 'active' : ''} `}>server</label>
+                        <label className={`label${server ? 'Active' : ''} `}>server</label>
                     </div>
                     <div className="labelDiv _inputSelect">
                         <StyledInputNumber type="number" value={port} id="port inputTooltip" onChange={(e) => setPort(e.target.value)}></StyledInputNumber>
                         <span className="toolTip">Port</span>
-                        <label className={`is${port ? 'active' : ''} `}>port</label>
+                        <label className={`label${port ? 'Active' : ''} `}>port</label>
                     </div>
                     <div className="labelDiv _inputSelect">
                         <StyledSelectBorder className="selectBorder inputTooltip">
@@ -179,7 +179,7 @@ export const Main = () => {
                             </StyledSelect>
                         </StyledSelectBorder>
                         <span className="toolTip">Recursion</span>
-                        <label className={`is${recursion ? 'active' : ''} `}>recursion</label>
+                        <label className={`label${recursion ? 'Active' : ''} `}>recursion</label>
                     </div>
                     <div className="labelDiv _inputSelect">    
                         <StyledSelectBorder className="selectBorder inputTooltip">
@@ -192,7 +192,7 @@ export const Main = () => {
                             </StyledSelect>
                         </StyledSelectBorder>
                         <span className="toolTip">Query type</span>
-                        <label className={`is${queryType ? 'active' : ''} `}>query type</label>
+                        <label className={`label${queryType ? 'Active' : ''} `}>query type</label>
                     </div>
                     <div className="labelDiv _inputSelect">
                         <StyledSelectBorder className="selectBorder inputTooltip">
@@ -202,7 +202,7 @@ export const Main = () => {
                             </StyledSelect>
                         </StyledSelectBorder>
                         <span className="toolTip">Protocol</span>
-                        <label className={`is${protocol ? 'active' : ''} `}>protocol</label>
+                        <label className={`label${protocol ? 'Active' : ''} `}>protocol</label>
                     </div>
                     <div className="labelDiv _inputSelect">
                         <StyledSelectBorder className="selectBorder inputTooltip">
@@ -212,7 +212,7 @@ export const Main = () => {
                             </StyledSelect>
                         </StyledSelectBorder>
                         <span className="toolTip">DNSSEC</span>
-                        <label className={`is${protocol ? 'active' : ''} `}>dnssec</label>
+                        <label className={`label${protocol ? 'Active' : ''} `}>dnssec</label>
                     </div>
                     <StyledSubmit className="submit" type="submit" value="digish" disabled={!zone}></StyledSubmit>
             </form>
