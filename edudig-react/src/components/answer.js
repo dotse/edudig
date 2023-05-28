@@ -494,7 +494,7 @@ export const Answer = (props) => {
     return <StyledAnswerWrapper>
                 <StyledTerminal>
                     <StyledTerminalSection>
-                        <StyledTerminalP>; &#60;&#60;&#62;&#62; DiGiSH &#60;&#60;&#62;&#62; {digishResp.Zone}</StyledTerminalP>
+                        <StyledTerminalP>; &#60;&#60;&#62;&#62; DiGiSH &#60;&#60;&#62;&#62;  @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.Qtype} {digishQuestion.Zone} {questionTransport} {dnssec}</StyledTerminalP>
                         <StyledTerminalP>;; global options: +cmd</StyledTerminalP>
                         <StyledTerminalP>;; Got answer: </StyledTerminalP>
                         <div className="flexRow">
