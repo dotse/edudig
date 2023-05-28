@@ -313,17 +313,17 @@ export const Answer = (props) => {
     //Creats table for terminal window
     const createTable = (respSection) => {
         //Renders table row
-        const renderTableRow = (name, ttl, qClass, type, queryType, typeCovered,flags, protocol, algorithm, labels, origTtl, preference, mx) => (
+        const renderTableRow = (name, ttl, qClass, type, queryType, typeCovered,flags, protocol, algorithm, labels, origTtl, preference) => (
           <tr key={uuidv4()} onClick={() => setFile(getRR(type))} className="tableRowHover">
             <td key={uuidv4()} className="firstCell tableP">{name}</td>
             <td key={uuidv4()} className="queryTypeClass">{ttl}</td>
             <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
             <td key={uuidv4()} className="queryTypeClass rrType" tabIndex="0">{type}</td>
-            <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {flags} {protocol} {algorithm} {labels} {origTtl} {preference} {mx}</td>
+            <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {flags} {protocol} {algorithm} {labels} {origTtl} {preference}</td>
           </tr>
         );
         // Renders second table row
-        const renderSecondRow = (inception, expiration, keyTag, signerName, signature, mbox, serial, refresh, retry, expire, minttl, nextDomain, renderTypeBitMap, publicKey) => (
+        const renderSecondRow = (inception, expiration, keyTag, signerName, signature, mbox, serial, refresh, retry, expire, minttl, nextDomain, renderTypeBitMap, publicKey, mx) => (
           <tr key={uuidv4()}>
             <td className="secondRow" key={uuidv4()} colSpan={5}>
               <span className="inception">{inception} </span>
@@ -340,6 +340,7 @@ export const Answer = (props) => {
               <span className="nextDomain">{nextDomain} </span>
               <span className="renderTypeBitMap">{renderTypeBitMap} </span>
               <span className="renderTypeBitMap">{publicKey} </span>
+              <span className="renderTypeBitMap">{mx} </span>
             </td>
           </tr>
         );
@@ -430,8 +431,8 @@ export const Answer = (props) => {
           return (
             <table key={uuidv4()}>
               <tbody key={uuidv4()}>
-                {renderTableRow(name, ttl, qClass, type, queryType, typeCovered, flags, protocol, algorithm, labels, origTtl, preference, mx)}
-                {renderSecondRow(inception, expiration, keyTag, signerName, signature, mbox, serial, refresh, retry, expire, minttl, nextDomain, renderTypeBitMap, publicKey)}
+                {renderTableRow(name, ttl, qClass, type, queryType, typeCovered, flags, protocol, algorithm, labels, origTtl, preference)}
+                {renderSecondRow(inception, expiration, keyTag, signerName, signature, mbox, serial, refresh, retry, expire, minttl, nextDomain, renderTypeBitMap, publicKey, mx)}
               </tbody>
             </table>
           );
