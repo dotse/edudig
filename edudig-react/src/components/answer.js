@@ -145,6 +145,7 @@ export const Answer = (props) => {
     const digishQuestion = props.data[0];
     const digishResp = props.data[1];
     let response = digishResp.Response;
+    console.log(response);
     let questionTransport = (digishQuestion.Transport !== "udp") ? "+tcp" : "";
     let dnssec = digishQuestion.DNSSEC ? "+dnssec" : "";
     
@@ -311,111 +312,133 @@ export const Answer = (props) => {
 
     //Creats table for terminal window
     const createTable = (respSection) => {
-        return respSection.map((section,i) => {
-            i = +1;
-            let name = '';
-            let ttl = '';
-            let type = '';
-            let sectionClass = '';
-            let queryType = '';
-            let typeCovered = '';
-            let algorithm = '';
-            let labels = '';
-            let origTtl = '';
-            let inception = '';
-            let expiration = '';
-            let keyTag = '';
-            let signerName = '';
-            let signature = '';
-            let mbox = '';
-            let minttl = '';
-            let refresh = '';
-            let retry = '';
-            let serial = '';
-            let expire = '';
-            let nextDomain = '';
-            let typeBitMap = [];
-            let renderTypeBitMap = '';
-            let mx = '';
-            let preference = '';
-            if (section.Hdr){
-                type = mapFunction(queryTypeList, section.Hdr.Rrtype);
-                sectionClass = section.Hdr.Class;
-                queryType = section.A ? section.A : section.Ns;
-                name = section.Hdr.Name;
-                ttl = section.Hdr.Ttl;
-                if (type === "RRSIG") {
-                    typeCovered = mapFunction(queryTypeList, section.TypeCovered);
-                    algorithm = section.Algorithm;
-                    labels = section.Labels;
-                    origTtl = section.OrigTtl;
-                    inception = section.Inception;
-                    expiration = section.Expiration;
-                    keyTag = section.KeyTag;
-                    signerName = section.SignerName;
-                    signature = section.Signature;
-                }
-                if (type === "SOA") {
-                    mbox = section.Mbox;
-                    minttl = section.Minttl;
-                    refresh = section.Refresh;
-                    retry = section.Retry;
-                    serial = section.Serial;
-                    expire = section.Expire;
-                }
-                if (type === "NSEC") {
-                    nextDomain = section.NextDomain
-                    for (let i = 0; i < section.TypeBitMap.length; i++) {
-                        typeBitMap.push(mapFunction(queryTypeList, section.TypeBitMap[i]))
-                    }
-                    renderTypeBitMap = typeBitMap.map((type) => <span key={uuidv4()}>{type} </span> )
-                }
-                if( type === 'MX') {
-                    mx = section.Mx;
-                    preference = section.Preference
-                }
+        //Renders table row
+        const renderTableRow = (name, ttl, qClass, type, queryType, typeCovered,flags, protocol, algorithm, labels, origTtl, preference, mx) => (
+          <tr key={uuidv4()} onClick={() => setFile(getRR(type))} className="tableRowHover">
+            <td key={uuidv4()} className="firstCell tableP">{name}</td>
+            <td key={uuidv4()} className="queryTypeClass">{ttl}</td>
+            <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
+            <td key={uuidv4()} className="queryTypeClass rrType" tabIndex="0">{type}</td>
+            <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {flags} {protocol} {algorithm} {labels} {origTtl} {preference} {mx}</td>
+          </tr>
+        );
+        // Renders second table row
+        const renderSecondRow = (inception, expiration, keyTag, signerName, signature, mbox, serial, refresh, retry, expire, minttl, nextDomain, renderTypeBitMap, publicKey) => (
+          <tr key={uuidv4()}>
+            <td className="secondRow" key={uuidv4()} colSpan={5}>
+              <span className="inception">{inception} </span>
+              <span className="expiration">{expiration} </span>
+              <span className="keyTag">{keyTag} </span>
+              <span className="signerName">{signerName} </span>
+              <span className="signature">{signature} </span>
+              <span className="mbox">{mbox} </span>
+              <span className="serial">{serial} </span>
+              <span className="refresh">{refresh} </span>
+              <span className="retry">{retry} </span>
+              <span className="expire">{expire} </span>
+              <span className="minttl">{minttl} </span>
+              <span className="nextDomain">{nextDomain} </span>
+              <span className="renderTypeBitMap">{renderTypeBitMap} </span>
+              <span className="renderTypeBitMap">{publicKey} </span>
+            </td>
+          </tr>
+        );
+        //Process section type
+        const processSection = (section) => {
+          let name = '';
+          let ttl = '';
+          let qClass = '';
+          let type = '';
+          let queryType = '';
+          let typeCovered = '';
+          let algorithm = '';
+          let labels = '';
+          let origTtl = '';
+          let inception = '';
+          let expiration = '';
+          let keyTag = '';
+          let signerName = '';
+          let signature = '';
+          let mbox = '';
+          let serial = '';
+          let refresh = '';
+          let retry = '';
+          let expire = '';
+          let minttl = '';
+          let nextDomain = '';
+          let typeBitMap = [];
+          let renderTypeBitMap = '';
+          let mx = '';
+          let preference = '';
+          let flags = '';
+          let protocol = '';
+          let publicKey = '';
+      
+          if (section.Hdr) {
+            type = mapFunction(queryTypeList, section.Hdr.Rrtype);
+            qClass = section.Hdr.Class;
+            queryType = section.A ? section.A : section.Ns;
+            name = section.Hdr.Name;
+            ttl = section.Hdr.Ttl;
+      
+            if (type === "RRSIG") {
+              typeCovered = mapFunction(queryTypeList, section.TypeCovered);
+              algorithm = section.Algorithm;
+              labels = section.Labels;
+              origTtl = section.OrigTtl;
+              inception = section.Inception;
+              expiration = section.Expiration;
+              keyTag = section.KeyTag;
+              signerName = section.SignerName;
+              signature = section.Signature;
             }
-            else if (respSection === response.Question){
-                type = mapFunction(queryTypeList, section.Qtype);
-                sectionClass = section.Qclass;
-                name = section.Name;
+            if (type === "SOA") {
+              mbox = section.Mbox;
+              minttl = section.Minttl;
+              refresh = section.Refresh;
+              retry = section.Retry;
+              serial = section.Serial;
+              expire = section.Expire;
             }
-            let qClass = sectionClass;
-            if(sectionClass === 1 || sectionClass === 3 || sectionClass ===4){
-                qClass = mapFunction(queryClassList, sectionClass);
+            if (type === "NSEC") {
+              nextDomain = section.NextDomain;
+              for (let i = 0; i < section.TypeBitMap.length; i++) {
+                typeBitMap.push(mapFunction(queryTypeList, section.TypeBitMap[i]));
+              }
+              renderTypeBitMap = typeBitMap.map((type) => <span key={uuidv4()}>{type} </span>);
             }
-
-            return (<table key={uuidv4()}>
-                <tbody key={uuidv4()}>
-                    {/* rrType files needs to be imported by the same name as they are here */}
-                    <tr key={uuidv4()} onClick={() => setFile(getRR(type))} className="tableRowHover">
-                        <td key={uuidv4()} className="firstCell tableP">{name}</td>
-                        <td key={uuidv4()} className="queryTypeClass">{ttl}</td>    
-                        <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
-                        <td key={uuidv4()} className="queryTypeClass rrType" tabIndex="0">{type}</td>
-                        <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {algorithm} {labels} {origTtl} {preference} {mx}</td>
-                    </tr>
-                    <tr key={uuidv4()}>
-                        <td className="secondRow" key={uuidv4()} colSpan={5}>
-                            <span className="inception">{inception} </span>
-                            <span className="expiration">{expiration} </span>
-                            <span className="keyTag">{keyTag} </span>
-                            <span className="signerName">{signerName} </span>
-                            <span className="signature">{signature} </span>
-                            <span className="mbox">{mbox} </span>
-                            <span className="serial">{serial} </span>
-                            <span className="refresh">{refresh} </span>
-                            <span className="retry">{retry} </span>
-                            <span className="expire">{expire} </span>
-                            <span className="minttl">{minttl} </span>
-                            <span className="nextDomain">{nextDomain} </span>
-                            <span className="renderTypeBitMap">{renderTypeBitMap} </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>)
-        });
-    };
+            if (type === 'MX') {
+              mx = section.Mx;
+              preference = section.Preference;
+            }
+            if (type === 'DNSKEY') {
+                flags = section.Flags;
+                protocol = section.Protocol;
+                algorithm = section.Algorithm
+                publicKey = section.PublicKey;
+            }
+          } else if (respSection === response.Question) {
+            type = mapFunction(queryTypeList, section.Qtype);
+            qClass = section.Qclass;
+            name = section.Name;
+          }
+      
+          if (qClass === 1 || qClass === 3 || qClass === 4) {
+            qClass = mapFunction(queryClassList, qClass);
+          }
+      
+          return (
+            <table key={uuidv4()}>
+              <tbody key={uuidv4()}>
+                {renderTableRow(name, ttl, qClass, type, queryType, typeCovered, flags, protocol, algorithm, labels, origTtl, preference, mx)}
+                {renderSecondRow(inception, expiration, keyTag, signerName, signature, mbox, serial, refresh, retry, expire, minttl, nextDomain, renderTypeBitMap, publicKey)}
+              </tbody>
+            </table>
+          );
+        };
+      
+        return respSection.map((section) => processSection(section));
+      };
 
     useEffect (() => {
         const setFirstFile = (jsonFile) => {
