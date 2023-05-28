@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import '../styles/_variables.scss';
 import { v4 as uuidv4 } from 'uuid';
+import { CopyIcon } from "../icons/copyIcon";
+
+//Textfiles Imports
 import AAFlag from "../textfiles/AAFlag.json"
 import AdditionalSection from "../textfiles/AdditionalSection.json"
 import ADFlag from "../textfiles/ADFlag.json"
@@ -27,8 +30,8 @@ import Status from "../textfiles/Status.json"
 import TCFlag from "../textfiles/TCFlag.json"
 import When from "../textfiles/When.json"
 import ZFlag from "../textfiles/ZFlag.json"
-import { CopyIcon } from "../icons/copyIcon";
 
+//React styled components
 const StyledAnswerWrapper = styled.div`
     display:flex;
     flex-direction: column;
@@ -140,19 +143,10 @@ export const Answer = (props) => {
     const digishQuestion = props.data[0];
     const digishResp = props.data[1];
     let response = digishResp.Response;
-    // console.log(response);
-    const [firstText, setFirstText] = useState();
-    const [text, setText] = useState();
-    const [classroomView, setClassroomView] = useState(props.classroomState);
-    const [showAdditionalDefault, setShowAdditionalDefault] = useState(false);
-    let questionTransport = "";
-    if (digishQuestion.Transport !== "udp"){
-        questionTransport = "+tcp"
-    }
-    let dnssec ="";
-    if (digishQuestion.DNSSEC) {
-        dnssec = "+dnssec"
-    }
+    let questionTransport = (digishQuestion.Transport !== "udp") ? "+tcp" : "";
+    let dnssec = digishQuestion.DNSSEC ? "+dnssec" : "";
+    
+    //Lists for mapping
     const queryTypeList = [[0,"None"],
     [1,"A"],
     [2,"NS"],
@@ -242,7 +236,16 @@ export const Answer = (props) => {
     const opCodeList = [[0, "QUERY"],[1,"IQUERY"],[2,"STATUS"]];
     const queryTime = Math.round(digishResp['Round trip time']/100000)
     const when = digishResp.Timestamp;
+    
+    //Usestate variables 
+    const [firstText, setFirstText] = useState();
+    const [text, setText] = useState();
+    const [classroomView, setClassroomView] = useState(props.classroomState);
+    const [showAdditionalDefault, setShowAdditionalDefault] = useState(false);
 
+    //functions:
+
+    //Returns styled component with mapped content 
     const mapFunction = ((list,value,text,hover,file) => {
         const map = new Map(list);
         const key = map.get(value);
@@ -252,11 +255,13 @@ export const Answer = (props) => {
         return(`${key}`)
     })
 
+    //Sets json file for infosection
     const setFile = (jsonFile) => {
         const list = [jsonFile]
         setText(mapText(list))
     }
 
+    //Maps out json and returns styled components for header and paragraph
     const mapText = (list) => {
         return list.map((jsonFile, i) => {
             let items = <></>
@@ -289,6 +294,7 @@ export const Answer = (props) => {
         })
     }
     
+    //Creats table for terminal window
     const createTable = (respSection) => {
         return respSection.map((section,i) => {
             i = +1;
@@ -411,34 +417,25 @@ export const Answer = (props) => {
     const opCode = mapFunction(opCodeList,response.MsgHdr.Opcode, "opcode", "hover", OPCode);
     const rCode = mapFunction(rCodeList,response.MsgHdr.Rcode, "status", "hover", Status);
 
-    let digishQuestionLen = "0";
-    if (response.Question) {
-        digishQuestionLen = response.Question.length;
-    };
+    //Question section
+    let digishQuestionLen = response.Question ? response.Question.length : '0';
     let digishQuestions = createTable(response.Question);
 
-    let digishAnswerLen = "0";
-    let digishAnswers = "";
-    if (response.Answer){
-        digishAnswerLen = response.Answer.length;
-        digishAnswers = createTable(response.Answer)
-    };
+    //Answer section
+    let digishAnswerLen = response.Answer ? response.Answer.length : '';
+    let digishAnswers = response.Answer ? createTable(response.Answer) : '';
 
-    let digishAuthorityLen = "0";
-    let digishAuthority = '';
+    //Authority section
+    let digishAuthorityLen = response.Authority ? response.Authority.length : '';
+    let digishAuthority = response.Authority ? createTable(response.Authority) : '';
     
-    if(response.Authority) {
-        digishAuthorityLen = response.Authority.length;
-        digishAuthority = createTable(response.Authority)
-    };
-
-    let digishAdditionalLen = "0";
+    //Additional section
+    let digishAdditionalLen = response.Additional ? response.Additional.length : '0';
     let digishAdditional = '';
     let digishAdditionalOpt = '';
     if(response.Additional){
         let modifiedAdditonalResponse = [];
         let optResponse = []
-        digishAdditionalLen = response.Additional.length;
         if(digishAdditionalLen > 1) {
             for (let i = 0; i < digishAdditionalLen; i++) {
                 if(response.Additional[i].Hdr.Name !== '.') {

@@ -7,6 +7,7 @@ import { Answer } from "./answer";
 import { Footer } from "./footer"
 import styled from "styled-components";
 
+//React styled components
 const StyledInput = styled.input`
     height: 40px;
     padding-top: 3px;
@@ -88,7 +89,6 @@ const StyledSelectBorder = styled.div`
 `
 
 const StyledSubmit = styled.input`
-
     padding: 8px;
     background-color: #FF8C00;
     border-radius: 10px;
@@ -131,6 +131,7 @@ export const Main = () => {
         }
     },[responseData, state]);
 
+    //Handles form submit and makes request to server, sets response from server
     const handelSubmit = (e) => {
         e.preventDefault();
         const reqData = {"Zone":`${zone}`, "Nameserver":`${server}`,"Transport":`${protocol}`, "Qtype":`${queryType}`, "Port":`${port}`,"Recursion": `${recursion}`, "DNSSEC":`${dnssec}`}
@@ -143,13 +144,12 @@ export const Main = () => {
         })
         .catch(error => {
             console.error(error)
-            //setErrorResponse(error)
         })
     }
 
+    //Handles classroomview state
     const handleViewState = (state) => {
         setState(state)
-        console.log('handleViewState ' + state);
     }
 
     return <><div className="main">
