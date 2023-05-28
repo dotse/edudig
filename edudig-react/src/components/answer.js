@@ -447,7 +447,9 @@ export const Answer = (props) => {
             const list = [jsonFile]
             setFirstText(mapText(list))
         }
-        setFirstFile(Info)
+        if(!text) {
+            setFirstFile(Info)
+        }
         setClassroomView(props.classroomState)
         if(response.Additional.length === 1  && response.Additional[0].Hdr.Name === '.'){
             setShowAdditionalDefault(true)
