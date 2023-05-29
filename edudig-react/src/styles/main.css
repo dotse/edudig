@@ -137,6 +137,9 @@
 .main .digInput .labelDiv .selectBorder:focus ~ label {
   color: #FF8C00;
 }
+.main .wrapper {
+  max-width: 1200px;
+}
 .main a {
   color: #FDFFFE;
 }
