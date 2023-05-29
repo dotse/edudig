@@ -147,7 +147,7 @@ export const Answer = (props) => {
     const digishResp = props.data[1];
     let response = digishResp.Response;
     let questionTransport = (digishQuestion.Transport !== "udp") ? "+tcp" : "";
-    let dnssec = digishQuestion.DNSSEC ? "+dnssec" : "";
+    let dnssec = (digishQuestion.DNSSEC === 'true') ? "+dnssec" : "";
     
     //Lists for mapping
     const queryTypeList = [[0,"None"],
