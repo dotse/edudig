@@ -10,7 +10,6 @@ const StyledFooter = styled.footer`
     background-color: #49A671;
     position: fixed;
     bottom: 0;
-    margin-top: 120px;
     text-align: left;
     display: flex;
     justify-content: center;
@@ -21,7 +20,6 @@ const StyledColumn = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-
 `
 
 const StyledLink = styled.a`
@@ -35,14 +33,14 @@ const StyledLink = styled.a`
     }
 `
 const StyledText = styled.p`
-    width: 300px;
+    max-width: 300px;
     font-size: 0.85rem;
     color: white;
     margin: 0px;
 `
 
 export const Footer = (props) => {
-    const [classroomView, setClassroomView] = useState('');
+    const [classroomView, setClassroomView] = useState(true);
     const handleViewStateClick = () => {
         setClassroomView(!classroomView)
         props.viewState(classroomView)
@@ -55,7 +53,7 @@ export const Footer = (props) => {
                 </StyledLink>
             </StyledColumn>
             <StyledColumn onClick={handleViewStateClick} className="classroomIconWrap">
-                <ClassroomIcon />
+                <ClassroomIcon state={classroomView ? 'active' : ''}/>
                 <StyledText>Use this to switch between classroom view and terminal view. Classroom view shows all unused flags and sections.</StyledText> 
             </StyledColumn>
         </div>

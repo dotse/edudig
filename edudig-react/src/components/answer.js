@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import '../styles/_variables.scss';
 import { v4 as uuidv4 } from 'uuid';
+import { CopyIcon } from "../icons/copyIcon";
+
+//Textfiles Imports
 import AAFlag from "../textfiles/AAFlag.json"
 import AdditionalSection from "../textfiles/AdditionalSection.json"
 import ADFlag from "../textfiles/ADFlag.json"
@@ -27,17 +30,22 @@ import Status from "../textfiles/Status.json"
 import TCFlag from "../textfiles/TCFlag.json"
 import When from "../textfiles/When.json"
 import ZFlag from "../textfiles/ZFlag.json"
-import { CopyIcon } from "../icons/copyIcon";
+import ARR from "../textfiles/ARR.json"
+import SOARR from "../textfiles/SOARR.json"
 
+//React styled components
 const StyledAnswerWrapper = styled.div`
     display:flex;
     flex-direction: column;
     justify-content: center;
-    
+    gap: 16px;
+    margin-bottom: 110px;
+
     @media screen and (min-width: 1200px){
         flex-direction: row;
         align-items: flex-start;
-        max-width: 1200px;
+        width: 1200px;
+        margin-top: 10px;
     }
 `
 const StyledTerminal = styled.div`
@@ -48,9 +56,10 @@ const StyledTerminal = styled.div`
     font-size: 0.80rem;
     margin-top:: 0px;
     padding: 10px;
-    text-align: left;
+    text-align: left; 
     @media screen and (min-width: 1200px){
         margin-right: 16px;
+        width: 100%;
     }
 `
 const StyledTerminalSection = styled.div`
@@ -78,7 +87,6 @@ const StyledTerminalPHover = styled.a`
 `
 const StyledInfoBoxWrapper = styled.div`
     background-color: #49A671;
-    width: 90vw;
     margin-top: 16px;
     padding-top: 12px;
     padding-bottom: 12px;
@@ -87,9 +95,11 @@ const StyledInfoBoxWrapper = styled.div`
     border-radius: 10px;
     display: flex;
     @media screen and (min-width: 1200px){
-        width: 38vw;
-        margin-top: 36px;
-        margin-right: 10px;
+        margin-top: 0;
+        flex-direction: column;
+        width: 70%;
+    }
+    @media screen and (max-width: 768px){
         flex-direction: column;
     }
 `
@@ -136,13 +146,10 @@ export const Answer = (props) => {
     const digishQuestion = props.data[0];
     const digishResp = props.data[1];
     let response = digishResp.Response;
-    const [text, setText] = useState();
-    const [classroomView, setClassroomView] = useState('');
-    const [showAdditionalDefault, setShowAdditionalDefault] = useState(false);
-    let questionTransport = "";
-    if (digishQuestion.Transport !== "udp"){
-        questionTransport = "+tcp"
-    }
+    let questionTransport = (digishQuestion.Transport !== "udp") ? "+tcp" : "";
+    let dnssec = digishQuestion.DNSSEC ? "+dnssec" : "";
+    
+    //Lists for mapping
     const queryTypeList = [[0,"None"],
     [1,"A"],
     [2,"NS"],
@@ -230,40 +237,18 @@ export const Answer = (props) => {
     const queryClassList = [[1, "IN"],[3,"CH"],[4,"HS"]];
     const rCodeList = [[0, "NOERROR"], [1, "FORMATERROR"],[2, "SERVERFAILURE"],[3,"NAMEERROR"],[4,"NOTIMPLEMENTED"],[5,"REFUSED"]];
     const opCodeList = [[0, "QUERY"],[1,"IQUERY"],[2,"STATUS"]];
-    const days = [
-        'Sun',
-        'Mon',
-        'Tue',
-        'Wed',
-        'Thu',
-        'Fri',
-        'Sat'
-      ]
-      const months = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-      ]
-      const queryTime = Math.round(digishResp['Round trip time']/100000)
-      const d = new Date();
-      const day = days[d.getDay()];
-      const month = months[d.getMonth()];
-      const date = d.getDate();
-      const hour = d.getHours();
-      const minute = d.getMinutes();
-      const second = d.getSeconds();
-      const year = d.getFullYear()
-      const time =`${day} ${month} ${date} ${hour}:${minute}:${second} CET ${year}`
+    const queryTime = Math.round(digishResp['Round trip time']/100000)
+    const when = digishResp.Timestamp;
+    
+    //Usestate variables 
+    const [firstText, setFirstText] = useState();
+    const [text, setText] = useState();
+    const [classroomView, setClassroomView] = useState(props.classroomState);
+    const [showAdditionalDefault, setShowAdditionalDefault] = useState(false);
 
+    //functions:
+
+    //Returns styled component with mapped content 
     const mapFunction = ((list,value,text,hover,file) => {
         const map = new Map(list);
         const key = map.get(value);
@@ -273,9 +258,20 @@ export const Answer = (props) => {
         return(`${key}`)
     })
 
+    //Sets json file for infosection
     const setFile = (jsonFile) => {
-        const list = [jsonFile]
-        setText(list.map((jsonFile, i) => {
+        if (jsonFile) {
+            const list = [jsonFile]
+            setText(mapText(list))
+        } else {
+            setText(mapText([{"Title" : "Something went wrong", "Paragraphs" : ["The info seems to be missing"]}]))
+        }
+        setFirstText('')
+    }
+
+    //Maps out json and returns styled components for header and paragraph
+    const mapText = (list) => {
+        return list.map((jsonFile, i) => {
             let items = <></>
             if(jsonFile.ListItems !== undefined){
                 items = jsonFile.ListItems.map((listItem, i) => {
@@ -298,150 +294,200 @@ export const Answer = (props) => {
             };
             return(
                 <div key={uuidv4()}>
-                    <h4 key={uuidv4()}>{jsonFile.Title}</h4>
+                    <h3 key={uuidv4()}>{jsonFile.Title}</h3>
                     {paragraphs}
                     {items}
                 </div>
             )
-        }))
+        })
+    }
+    
+    const getRR = (rr) => {
+        if (rr === 'A') {
+            return ARR
+        } else if (rr === 'SOA') {
+            return SOARR
+        }
     }
 
+    //Creats table for terminal window
     const createTable = (respSection) => {
-        return respSection.map((section,i) => {
-            i = +1;
-            let name = '';
-            let ttl = '';
-            let type = '';
-            let sectionClass = '';
-            let queryType = '';
-            let typeCovered = '';
-            let algorithm = '';
-            let labels = '';
-            let origTtl = '';
-            let inception = '';
-            let expiration = '';
-            let keyTag = '';
-            let signerName = '';
-            let signature = '';
-            let mbox = '';
-            let minttl = '';
-            let refresh = '';
-            let retry = '';
-            let serial = '';
-            let expire = '';
-            if (section.Hdr){
-                type = mapFunction(queryTypeList, section.Hdr.Rrtype);
-                sectionClass = section.Hdr.Class;
-                queryType = section.A ? section.A : section.Ns;
-                name = section.Hdr.Name;
-                ttl = section.Hdr.Ttl;
-                if (type === "RRSIG") {
-                    typeCovered = mapFunction(queryTypeList, section.TypeCovered);
-                    algorithm = section.Algorithm;
-                    labels = section.Labels;
-                    origTtl = section.OrigTtl;
-                    inception = section.Inception;
-                    expiration = section.Expiration;
-                    keyTag = section.KeyTag;
-                    signerName = section.SignerName;
-                    signature = section.Signature;
-                }
-                if (type === "SOA") {
-                    mbox = section.Mbox;
-                    minttl = section.Minttl;
-                    refresh = section.Refresh;
-                    retry = section.Retry;
-                    serial = section.Serial;
-                    expire = section.Expire;
-                }
+        //Renders table row
+        const renderTableRow = (name, ttl, qClass, type, queryType, typeCovered,flags, protocol, algorithm, labels, origTtl, preference) => (
+          <tr key={uuidv4()} onClick={() => setFile(getRR(type))} className="tableRowHover">
+            <td key={uuidv4()} className="firstCell tableP">{name}</td>
+            <td key={uuidv4()} className="queryTypeClass">{ttl}</td>
+            <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
+            <td key={uuidv4()} className="queryTypeClass rrType" tabIndex="0">{type}</td>
+            <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {flags} {protocol} {algorithm} {labels} {origTtl} {preference}</td>
+          </tr>
+        );
+        // Renders second table row
+        const renderSecondRow = (inception, expiration, keyTag, signerName, signature, mbox, serial, refresh, retry, expire, minttl, nextDomain, renderTypeBitMap, publicKey, mx) => (
+          <tr key={uuidv4()}>
+            <td className="secondRow" key={uuidv4()} colSpan={5}>
+              <span className="inception">{inception} </span>
+              <span className="expiration">{expiration} </span>
+              <span className="keyTag">{keyTag} </span>
+              <span className="signerName">{signerName} </span>
+              <span className="signature">{signature} </span>
+              <span className="mbox">{mbox} </span>
+              <span className="serial">{serial} </span>
+              <span className="refresh">{refresh} </span>
+              <span className="retry">{retry} </span>
+              <span className="expire">{expire} </span>
+              <span className="minttl">{minttl} </span>
+              <span className="nextDomain">{nextDomain} </span>
+              <span className="renderTypeBitMap">{renderTypeBitMap} </span>
+              <span className="renderTypeBitMap">{publicKey} </span>
+              <span className="renderTypeBitMap">{mx} </span>
+            </td>
+          </tr>
+        );
+        //Process section type
+        const processSection = (section) => {
+          let name = '';
+          let ttl = '';
+          let qClass = '';
+          let type = '';
+          let queryType = '';
+          let typeCovered = '';
+          let algorithm = '';
+          let labels = '';
+          let origTtl = '';
+          let inception = '';
+          let expiration = '';
+          let keyTag = '';
+          let signerName = '';
+          let signature = '';
+          let mbox = '';
+          let serial = '';
+          let refresh = '';
+          let retry = '';
+          let expire = '';
+          let minttl = '';
+          let nextDomain = '';
+          let typeBitMap = [];
+          let renderTypeBitMap = '';
+          let mx = '';
+          let preference = '';
+          let flags = '';
+          let protocol = '';
+          let publicKey = '';
+      
+          if (section.Hdr) {
+            type = mapFunction(queryTypeList, section.Hdr.Rrtype);
+            qClass = section.Hdr.Class;
+            queryType = section.A ? section.A : section.Ns;
+            name = section.Hdr.Name;
+            ttl = section.Hdr.Ttl;
+      
+            if (type === "RRSIG") {
+              typeCovered = mapFunction(queryTypeList, section.TypeCovered);
+              algorithm = section.Algorithm;
+              labels = section.Labels;
+              origTtl = section.OrigTtl;
+              inception = section.Inception;
+              expiration = section.Expiration;
+              keyTag = section.KeyTag;
+              signerName = section.SignerName;
+              signature = section.Signature;
             }
-            else if (respSection === response.Question){
-                type = mapFunction(queryTypeList, section.Qtype);
-                sectionClass = section.Qclass;
-                name = section.Name;
+            if (type === "SOA") {
+              mbox = section.Mbox;
+              minttl = section.Minttl;
+              refresh = section.Refresh;
+              retry = section.Retry;
+              serial = section.Serial;
+              expire = section.Expire;
             }
-            let qClass = sectionClass;
-            if(sectionClass === 1 || sectionClass === 3 || sectionClass ===4){
-                qClass = mapFunction(queryClassList, sectionClass);
+            if (type === "NSEC") {
+              nextDomain = section.NextDomain;
+              for (let i = 0; i < section.TypeBitMap.length; i++) {
+                typeBitMap.push(mapFunction(queryTypeList, section.TypeBitMap[i]));
+              }
+              renderTypeBitMap = typeBitMap.map((type) => <span key={uuidv4()}>{type} </span>);
             }
-
-            return (<table key={uuidv4()}>
-                <tbody key={uuidv4()}>
-                    <tr key={uuidv4()}>
-                        <td key={uuidv4()} className="firstCell tableP">{name}</td>
-                        <td key={uuidv4()} className="queryTypeClass">{ttl}</td>
-                        <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
-                        <td key={uuidv4()} className="queryTypeClass" >{type}</td>
-                        <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {algorithm} {labels} {origTtl}</td>
-                    </tr>
-                    <tr key={uuidv4()}>
-                        <td className="secondRow" key={uuidv4()} colSpan={5}>
-                            {inception} {expiration} {keyTag} {signerName} {signature}
-                            {mbox} {serial} {refresh} {retry} {expire} {minttl}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>)
-        });
-    };
+            if (type === 'MX') {
+              mx = section.Mx;
+              preference = section.Preference;
+            }
+            if (type === 'DNSKEY') {
+                flags = section.Flags;
+                protocol = section.Protocol;
+                algorithm = section.Algorithm
+                publicKey = section.PublicKey;
+            }
+          } else if (respSection === response.Question) {
+            type = mapFunction(queryTypeList, section.Qtype);
+            qClass = section.Qclass;
+            name = section.Name;
+          }
+      
+          if (qClass === 1 || qClass === 3 || qClass === 4) {
+            qClass = mapFunction(queryClassList, qClass);
+          }
+      
+          return (
+            <table key={uuidv4()}>
+              <tbody key={uuidv4()}>
+                {renderTableRow(name, ttl, qClass, type, queryType, typeCovered, flags, protocol, algorithm, labels, origTtl, preference)}
+                {renderSecondRow(inception, expiration, keyTag, signerName, signature, mbox, serial, refresh, retry, expire, minttl, nextDomain, renderTypeBitMap, publicKey, mx)}
+              </tbody>
+            </table>
+          );
+        };
+      
+        return respSection.map((section) => processSection(section));
+      };
 
     useEffect (() => {
-        setFile(Info)
+        const setFirstFile = (jsonFile) => {
+            const list = [jsonFile]
+            setFirstText(mapText(list))
+        }
+        if(!text) {
+            setFirstFile(Info)
+        }
         setClassroomView(props.classroomState)
         if(response.Additional.length === 1  && response.Additional[0].Hdr.Name === '.'){
             setShowAdditionalDefault(true)
         } else { setShowAdditionalDefault(false) }
-    },[props.classroomState, response]);
+    },[props.classroomState, response, text]);
 
     const opCode = mapFunction(opCodeList,response.MsgHdr.Opcode, "opcode", "hover", OPCode);
     const rCode = mapFunction(rCodeList,response.MsgHdr.Rcode, "status", "hover", Status);
 
-    let digishQuestionLen = "0";
-    if (response.Question) {
-        digishQuestionLen = response.Question.length;
-    };
+    //Question section
+    let digishQuestionLen = response.Question ? response.Question.length : '0';
     let digishQuestions = createTable(response.Question);
 
-    let digishAnswerLen = "0";
-    let digishAnswers = "";
-    if (response.Answer){
-        digishAnswerLen = response.Answer.length;
-        digishAnswers = createTable(response.Answer)
-    };
+    //Answer section
+    let digishAnswerLen = response.Answer ? response.Answer.length : '';
+    let digishAnswers = response.Answer ? createTable(response.Answer) : '';
 
-    let digishAuthorityLen = "0";
-    let digishAuthority = '';
+    //Authority section
+    let digishAuthorityLen = response.Authority ? response.Authority.length : '';
+    let digishAuthority = response.Authority ? createTable(response.Authority) : '';
     
-    if(response.Authority) {
-        digishAuthorityLen = response.Authority.length;
-        digishAuthority = createTable(response.Authority)
-    };
-
-    let digishAdditionalLen = "0";
+    //Additional section
+    let digishAdditionalLen = response.Additional ? response.Additional.length : '0';
     let digishAdditional = '';
-    if(response.Additional){
-        let modifiedAdditonalResponse = [];
-        digishAdditionalLen = response.Additional.length;
-        if(digishAdditionalLen > 1) {
-            for (let i = 0; i < digishAdditionalLen; i++) {
-                if(response.Additional[i].Hdr.Name !== '.') {
-                    modifiedAdditonalResponse.push(response.Additional[i])
-                }
-            }
-            digishAdditional = createTable(modifiedAdditonalResponse)
-        } else {
-            digishAdditional = createTable(response.Additional)
-        }
-    };
-     
+    let digishAdditionalOpt = '';
+    if (response.Additional) {
+        const modifiedAdditionalResponse = response.Additional.filter(item => item.Hdr.Name !== '.');
+        const optResponse = response.Additional.filter(item => item.Hdr.Name === '.');
+
+        digishAdditional = createTable(modifiedAdditionalResponse);
+        digishAdditionalOpt = createTable(optResponse);
+    } else {
+        digishAdditional = createTable(response.Additional);
+    }
+
     return <StyledAnswerWrapper>
-                <div className="answerSection">
-                    <div className="answerHeader">
-                        <h2 className="answerH2">Answer</h2>
-                    </div>
                 <StyledTerminal>
                     <StyledTerminalSection>
-                        <StyledTerminalP>; &#60;&#60;&#62;&#62; DiGiSH &#60;&#60;&#62;&#62; {digishResp.Zone}</StyledTerminalP>
+                        <StyledTerminalP>; &#60;&#60;&#62;&#62; DiGiSH &#60;&#60;&#62;&#62;  @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.Qtype} {digishQuestion.Zone} {questionTransport} {dnssec}</StyledTerminalP>
                         <StyledTerminalP>;; global options: +cmd</StyledTerminalP>
                         <StyledTerminalP>;; Got answer: </StyledTerminalP>
                         <div className="flexRow">
@@ -457,42 +503,42 @@ export const Answer = (props) => {
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(QRFlag)} 
-                                className={`flag${response.MsgHdr.Response ? true : ''} ${response.MsgHdr.Response ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.Response ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     qr
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(AAFlag)}
-                                className={`flag${response.MsgHdr.Authoritative ? true : ''} ${response.MsgHdr.Authoritative ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.Authoritative ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     aa
                             </StyledTerminalPHover>
                             <StyledTerminalPHover
                                 onClick={() => setFile(TCFlag)}
-                                className={`flag${response.MsgHdr.Truncated ? true : ''} ${response.MsgHdr.Truncated ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.Truncated ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     tc
                                 </StyledTerminalPHover>
                             <StyledTerminalPHover
                                 onClick={() => setFile(RDFlag)}
-                                className={`flag${response.MsgHdr.RecursionDesired ? true : ''} ${response.MsgHdr.RecursionDesired ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.RecursionDesired ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     rd
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(RAFlag)}
-                                className={`flag${response.MsgHdr.RecursionAvailable ? true : ''} ${response.MsgHdr.RecursionAvailable ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.RecursionAvailable ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     ra
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(ZFlag)}
-                                className={`flag hidden${classroomView}`}>
+                                className={`terminalRowUnset${classroomView ? 'Hidden' : ''}`}>
                                     z
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(ADFlag)}
-                                className={`flag${response.MsgHdr.AuthenticatedData ? true : ''} ${response.MsgHdr.AuthenticatedData ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.AuthenticatedData ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     ad
                             </StyledTerminalPHover>
                             <StyledTerminalPHover tabIndex="0"
                                 onClick={() => setFile(CDFlag)}
-                                className={`flag${response.MsgHdr.CheckingDisabled ? true : ''} ${response.MsgHdr.CheckingDisabled ? '' : `hidden${classroomView}`}`}>
+                                className={`terminalRow${response.MsgHdr.CheckingDisabled ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>
                                     cd
                             </StyledTerminalPHover>
                             <p className="noPadding">;</p>
@@ -517,16 +563,18 @@ export const Answer = (props) => {
                             <div className="tableMargin">{digishQuestions}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
-                    <StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} className={`state${response.Answer ? true : ''} ${response.Answer ? '' : `hidden${classroomView}`} `} >;; ANSWER SECTION:</StyledTerminalPHover>
+                    <StyledTerminalPHover tabIndex="0" onClick={() => setFile(AnswerSection)} className={`terminalRow${response.Answer ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''} `} >;; ANSWER SECTION:</StyledTerminalPHover>
                         <div className="tableMargin">{digishAnswers}</div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
-                        <StyledTerminalPHover tabIndex="0" className={`state${response.Authority ? true : ''} ${response.Authority ? '' : `hidden${classroomView}`}`} onClick={() => setFile(AuthoritySection)}>;; AUTHORITY SECTION:</StyledTerminalPHover>
+                        <StyledTerminalPHover tabIndex="0" className={`terminalRow${response.Authority ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''} `} onClick={() => setFile(AuthoritySection)}>;; AUTHORITY SECTION:</StyledTerminalPHover>
                         <div className="tableMargin">{digishAuthority}</div>
                     </StyledTerminalSection>
-                    <StyledTerminalSection>
-                        <StyledTerminalPHover tabIndex="0" className={`state${response.Additional ? true : ''} ${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
-                        <div className={`tableMargin ${showAdditionalDefault ? `hidden${classroomView}` : ''} showAdditionalDefault${showAdditionalDefault}`}>{digishAdditional}</div>
+                    <StyledTerminalSection className= {showAdditionalDefault ? `hidden${classroomView}` : ''}>
+                        <StyledTerminalPHover tabIndex="0" className={`terminalRow${(response.Additional && !showAdditionalDefault) ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''} `} onClick={() => setFile(AdditionalSection)}>;; ADDITIONAL SECTION:</StyledTerminalPHover>
+                        <div className={`tableMargin terminalRow${(response.Additional && !showAdditionalDefault) ? 'Set' : 'Unset'}${classroomView ? 'Hidden' : ''}`}>{digishAdditional}
+                            <div className= {`terminalRow${(digishAdditionalOpt && !classroomView) ? 'Unset' : 'UnsetHidden'}`} >{digishAdditionalOpt}</div>
+                        </div>
                     </StyledTerminalSection>
                     <StyledTerminalSection>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(QueryTime)}>
@@ -536,30 +584,31 @@ export const Answer = (props) => {
                             ;; SERVER: {digishResp.Nameserver}#{digishQuestion.Port}({digishResp.Nameserver}) ({digishQuestion.Transport.toUpperCase()})
                         </StyledTerminalPHover>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(When)} >
-                            ;; WHEN: {time}
+                            ;; WHEN: {when}
                         </StyledTerminalPHover>
                         <StyledTerminalPHover tabIndex="0" onClick={() => setFile(MSGSize)} >
                             ;; MSG SIZE rcvd: {digishResp['Message Size']}
                         </StyledTerminalPHover>
                     </StyledTerminalSection>
                 </StyledTerminal>
-                </div>
+                
                 <StyledInfoBoxWrapper>
+                <h2 className="infoSectionH2">Info section</h2>
                     <StyledTipBox className="tipBox">
                         <div>
                             <h3>Tip!</h3>
                             <h4>Copy and paste this line into your terminal</h4>
                         </div>
                         <StyledTerminalLine className="terminal">
-                            <p>dig @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.Qtype} {digishQuestion.Zone} {questionTransport}</p>
+                            <p>dig @{digishQuestion.Nameserver} -p {digishQuestion.Port} {digishQuestion.Qtype} {digishQuestion.Zone} {questionTransport} {dnssec}</p>
                             <CopyIcon onClick={() =>
-                                {navigator.clipboard.writeText(`dig @${digishQuestion.Nameserver} -p ${digishQuestion.Port} ${digishQuestion.Qtype} ${digishQuestion.Zone} ${questionTransport}`)}
+                                {navigator.clipboard.writeText(`dig @${digishQuestion.Nameserver} -p ${digishQuestion.Port} ${digishQuestion.Qtype} ${digishQuestion.Zone} ${questionTransport} ${dnssec}`)}
                                 }></CopyIcon>
                         </StyledTerminalLine>
                     </StyledTipBox>
                     <StyledInfoBox>
-                        <h2 className="infoSectionH2">Info section</h2>
                         {text}
+                        {firstText}
                     </StyledInfoBox>
                 </StyledInfoBoxWrapper>
          </StyledAnswerWrapper>

@@ -1,3 +1,5 @@
+@import '_variables';
+
 body {
     justify-content: center;
     align-items: center;
@@ -10,29 +12,28 @@ body {
     header {
         width: 100%;
     }
+
+    //Form input styles
     .digInput{
         flex-direction: row;
         align-items: center;
-        justify-content: space-between;
-        max-width: 1200px;
-    }
-    .labelDiv._inputText {
-        width: 20%;
-    }
-    
-    .labelDiv._inputSelet {
-        width: 10%;
-    }
-    .contentWrap {
-        max-width: 1200px;
-        .answerSection {
-            width: 55vw;
+        justify-content: space-around;
+        width: 1200px;
+        margin: auto;
+        flex-wrap: nowrap;
+
+        .labelDiv._inputText {
+            width: 35%;
+        }
+        .labelDiv._inputSelect {
+            width: 15%;
+        }
+        .labelDiv {
+            margin-right: $padding*2;
+        }
+        .submit {
+            max-width: 20%;
         }
     }
-    .submit {
-        max-width: 20%;
-    }
-}
-.answerSection {
-    margin-bottom: 0px;
+
 }

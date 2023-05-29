@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+//React styled components
 const StyledWrapper = styled.div`
     padding: 10px;
     margin: 10px;

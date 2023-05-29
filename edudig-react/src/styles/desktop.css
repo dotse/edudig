@@ -1,62 +1,34 @@
 body {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .main {
   margin: 0;
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
-
 .main header {
   width: 100%;
 }
-
 .main .digInput {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  max-width: 1200px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 1200px;
+  margin: auto;
+  flex-wrap: nowrap;
 }
-
-.main .labelDiv._inputText {
-  width: 20%;
+.main .digInput .labelDiv._inputText {
+  width: 35%;
 }
-
-.main .labelDiv._inputSelet {
-  width: 10%;
+.main .digInput .labelDiv._inputSelect {
+  width: 15%;
 }
-
-.main .contentWrap {
-  max-width: 1200px;
+.main .digInput .labelDiv {
+  margin-right: 10px;
 }
-
-.main .contentWrap .answerSection {
-  width: 55vw;
-}
-
-.main .submit {
+.main .digInput .submit {
   max-width: 20%;
-}
-
-.answerSection {
-  margin-bottom: 0px;
-}
-/*# sourceMappingURL=desktop.css.map */
+}/*# sourceMappingURL=desktop.css.map */
