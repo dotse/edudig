@@ -313,17 +313,17 @@ export const Answer = (props) => {
     //Creats table for terminal window
     const createTable = (respSection) => {
         //Renders table row
-        const renderTableRow = (name, ttl, qClass, type, queryType, typeCovered,flags, protocol, algorithm, labels, origTtl, preference) => (
+        const renderTableRow = (name, ttl, qClass, type, queryType, typeCovered,flags, protocol, keyTagDS, algorithm, labels, origTtl, preference, digestType) => (
           <tr key={uuidv4()} onClick={() => setFile(getRR(type))} className="tableRowHover">
             <td key={uuidv4()} className="firstCell tableP">{name}</td>
             <td key={uuidv4()} className="queryTypeClass">{ttl}</td>
             <td key={uuidv4()} className="queryTypeClass">{qClass}</td>
             <td key={uuidv4()} className="queryTypeClass rrType" tabIndex="0">{type}</td>
-            <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {flags} {protocol} {algorithm} {labels} {origTtl} {preference}</td>
+            <td key={uuidv4()} className="lastCell">{queryType}{typeCovered} {flags} {protocol} {keyTagDS} {algorithm} {digestType} {labels} {origTtl} {preference}</td>
           </tr>
         );
         // Renders second table row
-        const renderSecondRow = (inception, expiration, keyTag, signerName, signature, mbox, serial, refresh, retry, expire, minttl, nextDomain, renderTypeBitMap, publicKey, mx) => (
+        const renderSecondRow = (inception, expiration, keyTag, signerName, signature, mbox, serial, refresh, retry, expire, minttl, nextDomain, renderTypeBitMap, publicKey, mx, digest) => (
           <tr key={uuidv4()}>
             <td className="secondRow" key={uuidv4()} colSpan={5}>
               <span className="inception">{inception} </span>
@@ -341,6 +341,7 @@ export const Answer = (props) => {
               <span className="renderTypeBitMap">{renderTypeBitMap} </span>
               <span className="renderTypeBitMap">{publicKey} </span>
               <span className="renderTypeBitMap">{mx} </span>
+              <span className="renderTypeBitMap">{digest} </span>
             </td>
           </tr>
         );
@@ -374,6 +375,9 @@ export const Answer = (props) => {
           let flags = '';
           let protocol = '';
           let publicKey = '';
+          let digestType = '';
+          let digest = '';
+          let keyTagDS = '';
       
           if (section.Hdr) {
             type = mapFunction(queryTypeList, section.Hdr.Rrtype);
@@ -415,9 +419,16 @@ export const Answer = (props) => {
             if (type === 'DNSKEY') {
                 flags = section.Flags;
                 protocol = section.Protocol;
-                algorithm = section.Algorithm
+                algorithm = section.Algorithm;
                 publicKey = section.PublicKey;
             }
+            if (type === "DS") {
+                keyTagDS = section.KeyTag;
+                algorithm = section.Algorithm;
+                digestType = section.DigestType;
+                digest = section.Digest;
+            }
+
           } else if (respSection === response.Question) {
             type = mapFunction(queryTypeList, section.Qtype);
             qClass = section.Qclass;
@@ -431,8 +442,8 @@ export const Answer = (props) => {
           return (
             <table key={uuidv4()}>
               <tbody key={uuidv4()}>
-                {renderTableRow(name, ttl, qClass, type, queryType, typeCovered, flags, protocol, algorithm, labels, origTtl, preference)}
-                {renderSecondRow(inception, expiration, keyTag, signerName, signature, mbox, serial, refresh, retry, expire, minttl, nextDomain, renderTypeBitMap, publicKey, mx)}
+                {renderTableRow(name, ttl, qClass, type, queryType, typeCovered, flags, protocol, keyTagDS, algorithm, labels, origTtl, preference, digestType)}
+                {renderSecondRow(inception, expiration, keyTag, signerName, signature, mbox, serial, refresh, retry, expire, minttl, nextDomain, renderTypeBitMap, publicKey, mx, digest)}
               </tbody>
             </table>
           );
