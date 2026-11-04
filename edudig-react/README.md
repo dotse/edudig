@@ -7,7 +7,9 @@ To get started replace 'zone' with the domain/zone you want to inspect
 
 In the project directory, you can run:
 
-### `npm install`
+### `npm ci`
 then
-### `npm start`
-the project will run locally on http://localhost:3000/
+### `npm run dev`
+The project will run locally on http://localhost:3000/.
+
+Run `npm test` for the frontend test and `npm run build` to create the production assets in `dist/`.
