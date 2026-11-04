@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.4
 
 # 1. For build React app
-FROM node:lts AS development
+FROM node:26.13.0-alpine AS development
 
 # Set working directory
 WORKDIR /app
@@ -27,16 +27,9 @@ RUN npm run build
 
 
 FROM development as dev-envs
-RUN <<EOF
-apt-get update
-apt-get install -y --no-install-recommends git
-EOF
+RUN apk add --no-cache git
 
-RUN <<EOF
-useradd -s /bin/bash -m vscode
-groupadd docker
-usermod -aG docker vscode
-EOF
+RUN addgroup -S docker && adduser -S -G docker vscode
 # install Docker tools (cli, buildx, compose)
 COPY --from=gloursdocker/docker / /
 CMD [ "npm", "start" ]
@@ -53,7 +46,7 @@ WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 
 # Copy static assets from builder stage
-COPY --from=build /app/build .
+COPY --from=build /app/dist .
 
 # Configurable baseURL
 # Copy .env file and shell script to container

@@ -1,3 +1,1 @@
-window._env_ = {
-  REACT_APP_baseURL: "http://localhost:8053",
-}
+window._env_ = { REACT_APP_baseURL: "http://localhost:8053/" };
